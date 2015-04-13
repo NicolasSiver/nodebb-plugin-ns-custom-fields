@@ -1,0 +1,27 @@
+{
+  "name": "nodebb-plugin-ns-custom-fields",
+  "version": "1.0.0",
+  "description": "Adds custom fields to the profile",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields.git"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "profile",
+    "user",
+    "extend"
+  ],
+  "author": "Nicolas Siver",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields/issues"
+  },
+  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
+  "readmeFilename": "README.md"
+}

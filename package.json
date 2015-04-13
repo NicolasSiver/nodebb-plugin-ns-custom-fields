@@ -23,5 +23,8 @@
     "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields/issues"
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
 }

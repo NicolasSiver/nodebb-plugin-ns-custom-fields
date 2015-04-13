@@ -1,0 +1,26 @@
+{
+  "id": "nodebb-plugin-ns-custom-fields",
+  "name": "NodeBB Custom Fields",
+  "description": "Adds custom fields to the user's profile",
+  "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
+  "library": "./library.js",
+  "hooks": [
+    {
+      "hook": "filter:admin.header.build",
+      "method": "hooks.filters.menu"
+    },
+    {
+      "hook": "static:app.load",
+      "method": "hooks.statics.load"
+    }
+  ],
+  "scripts": [
+    "public/lib/main.js"
+  ],
+  "staticDirs": {
+    "templates": "./public/templates",
+    "css": "./public/css",
+    "lib": "./public/lib"
+  },
+  "templates": "./public/templates"
+}

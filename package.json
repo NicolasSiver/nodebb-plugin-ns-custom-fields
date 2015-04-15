@@ -26,5 +26,8 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "underscore": "^1.8.3"
+  },
+  "nbbpm": {
+    "compatibility": "^0.6.0"
   }
 }

@@ -4,6 +4,7 @@ var _         = require('underscore'),
     path      = require('path'),
     winston   = module.parent.require('winston'),
     meta      = module.parent.require('./meta'),
+    routes    = require('./app/routes'),
 
     settings  = null,
     namespace = 'ns:custom_fields';
@@ -22,34 +23,10 @@ var _         = require('underscore'),
         },
         statics: {
             load: function (params, callback) {
-                var router      = params.router,
-                    middleware  = params.middleware,
-                    controllers = params.controllers;
-
-                meta.settings.get(namespace, function (err, config) {
-                    if (err) {
-                        winston.warn('[' + namespace + '] Error has been occurred! There is no configuration.');
-                        return callback(err);
-                    }
-
-                    settings = config;
-
-                    router.get('/admin/plugins/custom-fields', middleware.applyCSRF, middleware.admin.buildHeader, Plugin.renderAdmin);
-                    router.get('/api/admin/plugins/custom-fields', middleware.applyCSRF, Plugin.renderAdmin);
-
-                    callback();
-                });
+                routes.setup(params, callback);
             }
         }
     };
 
-    Plugin.renderAdmin = function (req, res, next) {
-        res.render(
-            'admin/plugins/custom-fields',
-            {
-                settings: settings || {}
-            }
-        );
-    };
 
 })(module.exports);

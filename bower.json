@@ -1,0 +1,27 @@
+{
+  "name": "nodebb-plugin-ns-custom-fields",
+  "version": "0.0.0",
+  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
+  "authors": [
+    "Nicolas Siver <nicolas@siver.im>"
+  ],
+  "description": "Client libraries",
+  "main": "index.js",
+  "keywords": [
+    "nodebb",
+    "client",
+    "admin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.1"
+  }
+}

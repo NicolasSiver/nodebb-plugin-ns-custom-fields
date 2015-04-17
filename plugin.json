@@ -15,12 +15,13 @@
     }
   ],
   "scripts": [
-    "public/lib/main.js"
   ],
   "staticDirs": {
     "templates": "./public/templates",
-    "css": "./public/css",
-    "lib": "./public/lib"
+    "css": "./public/css"
   },
-  "templates": "./public/templates"
+  "templates": "./public/templates",
+  "nbbpm": {
+    "compatibility": "^0.7.0"
+  }
 }

@@ -1,0 +1,12 @@
+.custom-fields-item {
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.custom-fields-list-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    color: #757575;
+}

@@ -8,9 +8,11 @@ var FieldItem = React.createClass({
     },
     render   : function () {
         return (
-            <li><i class="fa fa-bars"></i>{this.props.field.name}
-                <button class="btn btn-danger" type="button">Delete</button>
-            </li>
+            <div className="row custom-fields-item">
+                <div className="col-lg-1"><i className="fa fa-bars"></i></div>
+                <div className="col-lg-5">{this.props.field.key}</div>
+                <div className="col-lg-6">{this.props.field.name} <button className="btn btn-danger" type="button">Delete</button></div>
+            </div>
         );
     }
 });

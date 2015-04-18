@@ -6,7 +6,8 @@ var FieldsList = React.createClass({
     propTypes: {
         fields: ReactPropTypes.array.isRequired
     },
-    render   : function () {
+
+    render: function () {
         if (this.props.fields.length < 1) {
             return null;
         }
@@ -15,7 +16,14 @@ var FieldsList = React.createClass({
         }
 
         return (
-            <ul>{this.props.fields.map(renderItem)}</ul>
+            <div id="fieldsList">
+                <div className="row custom-fields-list-header">
+                    <div className="col-lg-1">#</div>
+                    <div className="col-lg-5">Key</div>
+                    <div className="col-lg-6">Name</div>
+                </div>
+                {this.props.fields.map(renderItem)}
+            </div>
         );
     }
 });

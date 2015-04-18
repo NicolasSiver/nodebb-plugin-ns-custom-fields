@@ -10,6 +10,7 @@ var _         = require('underscore'),
     namespace = 'ns:custom_fields';
 
 (function (Plugin) {
+    //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
     Plugin.hooks = {
         filters: {
             menu: function (custom_header, callback) {

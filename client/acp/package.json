@@ -1,0 +1,31 @@
+{
+  "name": "custom-fields-admin-panel",
+  "version": "1.0.0",
+  "description": "Client code for admin panel controls",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify . -o ../../public/js/acp.js",
+    "watch": "watchify index.js -o ../../public/js/acp.js --debug --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "acp",
+    "nodebb"
+  ],
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  },
+  "author": "Nicolas Siver",
+  "license": "MIT",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "envify": "^3.4.0",
+    "reactify": "^1.1.0"
+  }
+}

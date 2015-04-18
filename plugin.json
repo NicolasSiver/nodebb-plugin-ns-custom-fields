@@ -18,7 +18,8 @@
   ],
   "staticDirs": {
     "templates": "./public/templates",
-    "css": "./public/css"
+    "css": "./public/css",
+    "js": "./public/js"
   },
   "templates": "./public/templates",
   "nbbpm": {

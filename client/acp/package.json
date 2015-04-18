@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify . -o ../../public/js/acp.js",
-    "watch": "watchify index.js -o ../../public/js/acp.js --debug --verbose",
+    "watch": "watchify index.js -o ../../public/js/acp.js --verbose",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

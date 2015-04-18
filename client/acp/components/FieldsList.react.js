@@ -11,8 +11,12 @@ var FieldsList = React.createClass({
         if (this.props.fields.length < 1) {
             return null;
         }
-        function renderItem(field) {
-            return <FieldItem key={field.id} field={field}/>
+        function renderItem(field, index, list) {
+            return <FieldItem
+                key={field.id}
+                field={field}
+                previous={index > 0}
+                next={index < (list.length - 1)}/>
         }
 
         return (

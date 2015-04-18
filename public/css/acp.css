@@ -10,3 +10,12 @@
     align-items: center;
     color: #757575;
 }
+
+.custom-fields-item-controls {
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+.custom-fields-color-danger {
+    color: #F44336;
+}

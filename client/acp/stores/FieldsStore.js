@@ -25,12 +25,20 @@ var FieldsStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case Constants.EVENT_CREATE_FIELD:
-            console.log(action.key, action.name);
             _fields.push({
                 id  : ++count,
                 key : action.key,
                 name: action.name
             });
+            break;
+        case Constants.EVENT_REMOVE_FIELD:
+            var len = _fields.length;
+            for(var i = 0; i < len; ++i){
+                if(_fields[i].id === action.id){
+                    _fields.splice(i, 1);
+                    break;
+                }
+            }
             break;
         default:
             return true;

@@ -15,16 +15,22 @@
   "browserify": {
     "transform": [
       "reactify",
-      "envify"
+      "envify",
+      "browserify-global-shim"
     ]
+  },
+  "browserify-global-shim": {
+    "jQuery": "$"
   },
   "author": "Nicolas Siver",
   "license": "MIT",
   "dependencies": {
+    "browser-request": "^0.3.3",
     "flux": "^2.0.1",
     "react": "^0.13.1"
   },
   "devDependencies": {
+    "browserify-global-shim": "^1.0.0",
     "envify": "^3.4.0",
     "reactify": "^1.1.0"
   }

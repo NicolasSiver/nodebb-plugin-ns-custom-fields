@@ -44,6 +44,22 @@
         });
     };
 
+    Database.deleteField = function (id, done) {
+        //TODO Security check for field existence
+        async.parallel([
+            function (next) {
+                db.sortedSetRemove(namespace, id, next);
+            }, function (next) {
+                db.delete(namespace + ':' + id, next);
+            }
+        ], function (error, results) {
+            if (error) {
+                return done(error);
+            }
+            done(null);
+        });
+    };
+
     Database.getFields = function (done) {
         async.waterfall([
             function (next) {

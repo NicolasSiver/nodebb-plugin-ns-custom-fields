@@ -17,6 +17,7 @@
         router.post(apiUri + '/fields', Module.createField);
         router.put(apiUri + '/fields', Module.updateField);
         router.put(apiUri + '/fields/:fieldId/swap', Module.swapFields);
+        router.delete(apiUri + '/fields/:fieldId', Module.deleteField);
 
         callback();
     };
@@ -41,6 +42,15 @@
         });
     };
 
+    Module.deleteField = function (req, res, next) {
+        database.deleteField(req.params.fieldId, function (error) {
+            if (error) {
+                return handleCriticalError(req, res, error);
+            }
+            res.json({status: 'OK'});
+        });
+    };
+
     Module.getFields = function (req, res, next) {
         database.getFields(function (error, fields) {
             if (error) {
@@ -52,7 +62,7 @@
 
     Module.swapFields = function (req, res, next) {
         //Returns same result as 'getFields'
-        database.swapFields(req.query.fieldId, req.body.id, function (error, fields) {
+        database.swapFields(req.params.fieldId, req.body.id, function (error, fields) {
             if (error) {
                 return handleCriticalError(req, res, error);
             }

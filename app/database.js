@@ -5,6 +5,14 @@
         db        = require('./nodebb').db,
         namespace = 'ns:custom_fields';
 
+    var createField = function (id, key, name) {
+        return {
+            fid : id,
+            key : key,
+            name: name
+        };
+    };
+
     Database.createField = function (key, name, done) {
         async.waterfall([
             function (next) {
@@ -24,11 +32,7 @@
                     next(null, id);
                 });
             }, function (id, next) {
-                var fieldModel = {
-                    fid : id,
-                    key : key,
-                    name: name
-                };
+                var fieldModel = createField(id, key, name);
                 db.setObject(namespace + ':' + id, fieldModel, function (error) {
                     if (error) {
                         return next(error);
@@ -54,14 +58,11 @@
     };
 
     Database.updateField = function (id, key, name, done) {
+        //TODO Security check for field existence
         var _key = namespace + ':' + id;
         async.waterfall([
             function (next) {
-                var fieldModel = {
-                    fid : id,
-                    key : key,
-                    name: name
-                };
+                var fieldModel = createField(id, key, name);
                 db.setObject(_key, fieldModel, function (error) {
                     if (error) {
                         return next(error);

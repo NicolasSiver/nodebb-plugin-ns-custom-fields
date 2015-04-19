@@ -1,38 +1,47 @@
 (function (Database) {
     'use strict';
 
-    var db        = require('./nodebb').db,
+    var async     = require('async'),
+        db        = require('./nodebb').db,
         namespace = 'ns:custom_fields';
 
-    //TODO Use async waterfall
     Database.createField = function (key, name, done) {
-        db.incrObjectField('global', 'nextNsCustomFieldId', function (error, id) {
-            if (error) {
-                return done(error);
-            }
-
-            //Any incremental integer will suffice
-            var sortPosition = id;
-
-            db.sortedSetAdd(namespace, sortPosition, id, function (error) {
-                if (error) {
-                    return done(error);
-                }
-
+        async.waterfall([
+            function (next) {
+                db.incrObjectField('global', 'nextNsCustomFieldId', function (error, id) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null, id);
+                });
+            }, function (id, next) {
+                //Any incremental integer will suffice
+                var sortPosition = id;
+                db.sortedSetAdd(namespace, sortPosition, id, function (error) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null, id);
+                });
+            }, function (id, next) {
                 var fieldModel = {
                     fid : id,
                     key : key,
                     name: name
                 };
-
                 db.setObject(namespace + ':' + id, fieldModel, function (error) {
                     if (error) {
-                        return done(error);
+                        return next(error);
                     }
 
-                    done(null, fieldModel);
+                    next(null, fieldModel);
                 });
-            });
+            }
+        ], function (error, field) {
+            if (error) {
+                return done(error);
+            }
+            done(null, field);
         });
     };
 

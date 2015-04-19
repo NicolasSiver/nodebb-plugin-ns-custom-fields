@@ -36,11 +36,11 @@ var FieldItem = React.createClass({
 
     _changeOrder: function (offset) {
         console.log(arguments);
-        Actions.changeFieldOrder(this.props.field.id, offset);
+        Actions.changeFieldOrder(this.props.field.fid, offset);
     },
 
     _deleteItem: function () {
-        Actions.deleteField(this.props.field.id);
+        Actions.deleteField(this.props.field.fid);
     }
 });
 

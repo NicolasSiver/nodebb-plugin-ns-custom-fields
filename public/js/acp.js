@@ -208,11 +208,11 @@ var FieldItem = React.createClass({displayName: "FieldItem",
 
     _changeOrder: function (offset) {
         console.log(arguments);
-        Actions.changeFieldOrder(this.props.field.id, offset);
+        Actions.changeFieldOrder(this.props.field.fid, offset);
     },
 
     _deleteItem: function () {
-        Actions.deleteField(this.props.field.id);
+        Actions.deleteField(this.props.field.fid);
     }
 });
 
@@ -20519,10 +20519,10 @@ AppDispatcher.register(function (action) {
         case Constants.EVENT_CREATE_FIELD:
             jQuery
                 .ajax({
-                    url: apiUri + '/fields',
+                    url   : apiUri + '/fields',
                     method: 'POST',
-                    data: {
-                        fieldKey: action.key,
+                    data  : {
+                        fieldKey : action.key,
                         fieldName: action.name
                     }
                 })
@@ -20532,13 +20532,25 @@ AppDispatcher.register(function (action) {
                 });
             break;
         case Constants.EVENT_REMOVE_FIELD:
-            //var len = _fields.length;
-            //for (var i = 0; i < len; ++i) {
-            //    if (_fields[i].id === action.id) {
-            //        _fields.splice(i, 1);
-            //        break;
-            //    }
-            //}
+            jQuery
+                .ajax({
+                    url       : apiUri + '/fields/' + action.id,
+                    method    : 'DELETE',
+                    beforeSend: function () {
+                        //Optimistic delete
+                        var len = _fields.length, i = 0;
+                        for (i; i < len; ++i) {
+                            if (_fields[i].fid === action.id) {
+                                _fields.splice(i, 1);
+                                FieldsStore.emitChange();
+                                break;
+                            }
+                        }
+                    }
+                })
+                .done(function (response) {
+                    //noop
+                });
             break;
         default:
             return true;

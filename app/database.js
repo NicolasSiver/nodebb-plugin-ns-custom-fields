@@ -16,12 +16,7 @@
     Database.createField = function (key, name, done) {
         async.waterfall([
             function (next) {
-                db.incrObjectField('global', 'nextNsCustomFieldId', function (error, id) {
-                    if (error) {
-                        return next(error);
-                    }
-                    next(null, id);
-                });
+                db.incrObjectField('global', 'nextNsCustomFieldId', next);
             }, function (id, next) {
                 //Any incremental integer will suffice
                 var sortPosition = id;
@@ -53,12 +48,7 @@
         async.waterfall([
             function (next) {
                 //key, start, stop, callback
-                db.getSortedSetRange(namespace, 0, 1000, function (error, ids) {
-                    if (error) {
-                        return next(error);
-                    }
-                    next(null, ids);
-                });
+                db.getSortedSetRange(namespace, 0, 1000, next);
             },
             function (ids, next) {
                 if (!ids.length) {
@@ -80,12 +70,7 @@
         async.waterfall([
             function (next) {
                 //key, start, stop, callback
-                db.getSortedSetRangeWithScores(namespace, 0, 1000, function (error, sortedFields) {
-                    if (error) {
-                        return next(error);
-                    }
-                    next(null, sortedFields);
-                });
+                db.getSortedSetRangeWithScores(namespace, 0, 1000, next);
             }, function (sortedFields, next) {
                 var fromScore = -1, toScore = -1, i = 0, len = sortedFields.length, field;
                 for (i; i < len; ++i) {

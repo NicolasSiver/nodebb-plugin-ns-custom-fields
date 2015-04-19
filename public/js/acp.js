@@ -234,7 +234,7 @@ var FieldsList = React.createClass({displayName: "FieldsList",
         }
         function renderItem(field, index, list) {
             return React.createElement(FieldItem, {
-                key: field.id, 
+                key: field.fid, 
                 field: field, 
                 previous: index > 0, 
                 next: index < (list.length - 1)})
@@ -20499,7 +20499,6 @@ AppDispatcher.register(function (action) {
                     url: apiUri + '/fields'
                 })
                 .done(function (response) {
-                    console.log(response);
                     _fields = response;
                     FieldsStore.emitChange();
                 });
@@ -20518,11 +20517,19 @@ AppDispatcher.register(function (action) {
             //_fields[index + action.offset] = element;
             break;
         case Constants.EVENT_CREATE_FIELD:
-            //_fields.push({
-            //    id  : ++count,
-            //    key : action.key,
-            //    name: action.name
-            //});
+            jQuery
+                .ajax({
+                    url: apiUri + '/fields',
+                    method: 'POST',
+                    data: {
+                        fieldKey: action.key,
+                        fieldName: action.name
+                    }
+                })
+                .done(function (response) {
+                    _fields.push(response);
+                    FieldsStore.emitChange();
+                });
             break;
         case Constants.EVENT_REMOVE_FIELD:
             //var len = _fields.length;

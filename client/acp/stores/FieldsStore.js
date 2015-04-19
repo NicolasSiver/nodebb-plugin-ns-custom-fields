@@ -32,7 +32,6 @@ AppDispatcher.register(function (action) {
                     url: apiUri + '/fields'
                 })
                 .done(function (response) {
-                    console.log(response);
                     _fields = response;
                     FieldsStore.emitChange();
                 });
@@ -51,11 +50,19 @@ AppDispatcher.register(function (action) {
             //_fields[index + action.offset] = element;
             break;
         case Constants.EVENT_CREATE_FIELD:
-            //_fields.push({
-            //    id  : ++count,
-            //    key : action.key,
-            //    name: action.name
-            //});
+            jQuery
+                .ajax({
+                    url: apiUri + '/fields',
+                    method: 'POST',
+                    data: {
+                        fieldKey: action.key,
+                        fieldName: action.name
+                    }
+                })
+                .done(function (response) {
+                    _fields.push(response);
+                    FieldsStore.emitChange();
+                });
             break;
         case Constants.EVENT_REMOVE_FIELD:
             //var len = _fields.length;

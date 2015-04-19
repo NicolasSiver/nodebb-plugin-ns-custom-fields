@@ -54,7 +54,35 @@
     };
 
     Database.updateField = function (id, key, name, done) {
-
+        var _key = namespace + ':' + id;
+        async.waterfall([
+            function (next) {
+                var fieldModel = {
+                    fid : id,
+                    key : key,
+                    name: name
+                };
+                db.setObject(_key, fieldModel, function (error) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null);
+                });
+            },
+            function (next) {
+                db.getObject(_key, function (error, field) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null, field);
+                });
+            }
+        ], function (error, field) {
+            if (error) {
+                return done(error);
+            }
+            done(null, field);
+        });
     };
 
 })(module.exports);

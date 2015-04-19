@@ -37,7 +37,6 @@
             if (error) {
                 return handleCriticalError(req, res, error);
             }
-
             res.json(field);
         });
     };
@@ -47,7 +46,6 @@
             if (error) {
                 return handleCriticalError(req, res, error);
             }
-
             res.json(fields);
         });
     };
@@ -58,7 +56,6 @@
             if (error) {
                 return handleCriticalError(req, res, error);
             }
-
             res.json(fields);
         });
     };
@@ -68,7 +65,6 @@
             if (error) {
                 return handleCriticalError(req, res, error);
             }
-
             res.json(field);
         });
     };

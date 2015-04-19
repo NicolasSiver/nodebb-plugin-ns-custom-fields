@@ -77,7 +77,64 @@
     };
 
     Database.swapFields = function (fromId, toId, done) {
+        async.waterfall([
+            function (next) {
+                //key, start, stop, sort, withScores, callback
+                db.getSortedSetRange(namespace, 0, 1000, 1, true, function (error, sortedFields) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null, sortedFields);
+                });
+            }, function (sortedFields, next) {
+                var fromScore = -1, toScore = -1, i = 0, len = sortedFields.length, field;
+                for (i; i < len; ++i) {
+                    field = sortedFields[i];
+                    if (fromId == field.value) {
+                        fromScore = field.score;
+                    } else if (toId == field.value) {
+                        toScore = field.score;
+                    } else if (fromScore >= 0 && toScore >= 0) {
+                        break;
+                    }
+                }
 
+                if (fromScore == -1 || toScore == -1) {
+                    return next(new Error('Something went wrong, provided field Ids can not be found'));
+                }
+
+                next(null, fromScore, toScore);
+            }, function (fromScore, toScore, next) {
+                async.parallel({
+                    updateFrom: function (callback) {
+                        db.sortedSetAdd(namespace, toScore, fromId, function (error) {
+                            if (error) {
+                                return callback(error);
+                            }
+                            callback(null);
+                        });
+                    },
+                    updateTo  : function (callback) {
+                        db.sortedSetAdd(namespace, fromScore, toId, function (error) {
+                            if (error) {
+                                return callback(error);
+                            }
+                            callback(null);
+                        });
+                    }
+                }, function (error, results) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null);
+                });
+            }, Database.getFields
+        ], function (error, fields) {
+            if (error) {
+                return done(error);
+            }
+            done(null, fields);
+        });
     };
 
     Database.updateField = function (id, key, name, done) {

@@ -50,7 +50,30 @@
     };
 
     Database.getFields = function (done) {
-
+        async.waterfall([
+            function (next) {
+                //key, start, stop, sort, withScores, callback
+                db.getSortedSetRange(namespace, 0, 1000, 1, false, function (error, ids) {
+                    if (error) {
+                        return next(error);
+                    }
+                    next(null, ids);
+                });
+            },
+            function (ids, next) {
+                if (!ids.length) {
+                    return next(null, ids);
+                }
+                db.getObjects(ids.map(function (id) {
+                    return namespace + ':' + id;
+                }), next);
+            }
+        ], function (error, fields) {
+            if (error) {
+                return done(error);
+            }
+            done(null, fields);
+        });
     };
 
     Database.swapFields = function (fromId, toId, done) {

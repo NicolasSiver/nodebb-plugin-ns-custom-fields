@@ -23,5 +23,11 @@ module.exports = {
             actionType: Constants.EVENT_REMOVE_FIELD,
             id        : id
         });
+    },
+
+    getFields: function () {
+        AppDispatcher.dispatch({
+           actionType: Constants.EVENT_GET_ALL_FIELDS
+        });
     }
 };

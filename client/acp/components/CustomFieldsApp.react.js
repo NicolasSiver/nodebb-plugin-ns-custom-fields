@@ -1,7 +1,8 @@
 var React       = require('react'),
     FieldsList  = require('./FieldsList.react'),
     FieldInput  = require('./FieldInput.react'),
-    FieldsStore = require('../stores/FieldsStore');
+    FieldsStore = require('../stores/FieldsStore'),
+    Actions     = require('../actions/Actions');
 
 function getAppState() {
     return {
@@ -12,6 +13,7 @@ function getAppState() {
 var CustomFieldsApp = React.createClass({
     componentDidMount   : function () {
         FieldsStore.addChangeListener(this.fieldsDidChange);
+        Actions.getFields();
     },
     componentWillUnmount: function () {
         FieldsStore.removeChangeListener(this.fieldsDidChange);

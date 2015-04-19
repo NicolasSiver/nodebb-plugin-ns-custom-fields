@@ -1,6 +1,8 @@
 (function (Module) {
     'use strict';
 
+    var database = require('./database');
+
     Module.setup = function (params, callback) {
         var router      = params.router,
             middleware  = params.middleware,
@@ -25,21 +27,50 @@
         );
     };
 
+    var handleCriticalError = function (req, res, error) {
+        return res.status(500).json(error);
+    };
+
     //Public API
     Module.createField = function (req, res, next) {
+        database.createField(req.body.fieldKey, req.body.fieldName, function (error, field) {
+            if (error) {
+                return handleCriticalError(req, res, error);
+            }
 
+            res.json(field);
+        });
     };
 
     Module.getFields = function (req, res, next) {
+        database.getFields(function (error, fields) {
+            if (error) {
+                return handleCriticalError(req, res, error);
+            }
 
+            res.json(fields);
+        });
     };
 
     Module.swapFields = function (req, res, next) {
+        //Returns same result as 'getFields'
+        database.swapFields(req.query.fieldId, req.body.id, function (error, fields) {
+            if (error) {
+                return handleCriticalError(req, res, error);
+            }
 
+            res.json(fields);
+        });
     };
 
     Module.updateField = function (req, res, next) {
+        database.updateField(req.body.id, req.body.fieldKey, req.body.fieldName, function (error, field) {
+            if (error) {
+                return handleCriticalError(req, res, error);
+            }
 
+            res.json(field);
+        });
     };
 
 })(module.exports);

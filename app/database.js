@@ -52,8 +52,8 @@
     Database.getFields = function (done) {
         async.waterfall([
             function (next) {
-                //key, start, stop, sort, withScores, callback
-                db.getSortedSetRange(namespace, 0, 1000, 1, false, function (error, ids) {
+                //key, start, stop, callback
+                db.getSortedSetRange(namespace, 0, 1000, function (error, ids) {
                     if (error) {
                         return next(error);
                     }
@@ -79,8 +79,8 @@
     Database.swapFields = function (fromId, toId, done) {
         async.waterfall([
             function (next) {
-                //key, start, stop, sort, withScores, callback
-                db.getSortedSetRange(namespace, 0, 1000, 1, true, function (error, sortedFields) {
+                //key, start, stop, callback
+                db.getSortedSetRangeWithScores(namespace, 0, 1000, function (error, sortedFields) {
                     if (error) {
                         return next(error);
                     }

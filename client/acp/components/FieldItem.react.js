@@ -35,7 +35,6 @@ var FieldItem = React.createClass({
     },
 
     _changeOrder: function (offset) {
-        console.log(arguments);
         Actions.changeFieldOrder(this.props.field.fid, offset);
     },
 

@@ -38,16 +38,32 @@ AppDispatcher.register(function (action) {
 
             break;
         case Constants.EVENT_CHANGE_FIELD_ORDER:
-            //var len = _fields.length, index;
-            //for (var i = 0; i < len; ++i) {
-            //    if (_fields[i].id === action.id) {
-            //        index = i;
-            //        break;
-            //    }
-            //}
-            //var element = _fields[index];
-            //_fields[index] = _fields[index + action.offset];
-            //_fields[index + action.offset] = element;
+            var len = _fields.length, fromIndex, toIndex, i = 0, fromId = action.id, tmpField;
+            for (i; i < len; ++i) {
+                if (_fields[i].fid === fromId) {
+                    fromIndex = i;
+                    toIndex = i + action.offset;
+                    break;
+                }
+            }
+            jQuery
+                .ajax({
+                    url       : apiUri + '/fields/' + fromId + '/swap',
+                    method    : 'PUT',
+                    data      : {
+                        id: _fields[toIndex].fid
+                    },
+                    beforeSend: function () {
+                        //Optimistic swap
+                        tmpField = _fields[fromIndex];
+                        _fields[fromIndex] = _fields[toIndex];
+                        _fields[toIndex] = tmpField;
+                        FieldsStore.emitChange();
+                    }
+                })
+                .done(function (response) {
+                    //noop
+                });
             break;
         case Constants.EVENT_CREATE_FIELD:
             jQuery

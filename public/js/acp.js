@@ -84,7 +84,9 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
                 ), 
                 React.createElement("div", {className: "col-lg-6"}, 
                     React.createElement("div", {className: "panel panel-default"}, 
-                        React.createElement("div", {className: "panel-body"})
+                        React.createElement("div", {className: "panel-body"}, 
+                            "Additional features will be added."
+                        )
                     )
                 )
             )
@@ -119,6 +121,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     },
 
     render: function () {
+        var del;
         return (
             React.createElement("div", {className: "row"}, 
                 React.createElement("div", {className: "col-lg-5 col-lg-offset-1"}, 
@@ -141,6 +144,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                         React.createElement("span", {className: "input-group-btn"}, 
                             React.createElement("button", {
                                 className: "btn btn-success", 
+                                disabled: this._isValid() ? '' : 'disabled', 
                                 onClick: this._save, 
                                 type: "button"}, "Add"
                             )
@@ -149,6 +153,10 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                 )
             )
         );
+    },
+
+    _isValid: function () {
+        return !!this.state.fieldKey && !!this.state.fieldName;
     },
 
     _save: function () {
@@ -163,7 +171,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
      * @param  {object} event
      */
     _onKeyDown: function (event) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE && this._isValid()) {
             this._save();
         }
     },

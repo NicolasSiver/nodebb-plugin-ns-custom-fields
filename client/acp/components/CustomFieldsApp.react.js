@@ -38,7 +38,9 @@ var CustomFieldsApp = React.createClass({
                 </div>
                 <div className="col-lg-6">
                     <div className="panel panel-default">
-                        <div className="panel-body"/>
+                        <div className="panel-body">
+                            Additional features will be added.
+                        </div>
                     </div>
                 </div>
             </div>

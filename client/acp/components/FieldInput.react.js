@@ -22,6 +22,7 @@ var FieldInput = React.createClass({
     },
 
     render: function () {
+        var del;
         return (
             <div className="row">
                 <div className="col-lg-5 col-lg-offset-1">
@@ -44,6 +45,7 @@ var FieldInput = React.createClass({
                         <span className="input-group-btn">
                             <button
                                 className="btn btn-success"
+                                disabled={this._isValid() ? '' : 'disabled'}
                                 onClick={this._save}
                                 type="button">Add
                             </button>
@@ -52,6 +54,10 @@ var FieldInput = React.createClass({
                 </div>
             </div>
         );
+    },
+
+    _isValid: function () {
+        return !!this.state.fieldKey && !!this.state.fieldName;
     },
 
     _save: function () {
@@ -66,7 +72,7 @@ var FieldInput = React.createClass({
      * @param  {object} event
      */
     _onKeyDown: function (event) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE && this._isValid()) {
             this._save();
         }
     },

@@ -19,3 +19,11 @@
 .custom-fields-color-danger {
     color: #F44336;
 }
+
+.field-lower{
+    text-transform: lowercase;
+}
+
+.admin .panel.panel-default .panel-heading {
+    font-size: 1.5em;
+}

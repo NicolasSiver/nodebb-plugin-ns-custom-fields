@@ -75,7 +75,7 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
             React.createElement("div", {className: "row"}, 
                 React.createElement("div", {className: "col-lg-6"}, 
                     React.createElement("div", {className: "panel panel-default"}, 
-                        React.createElement("div", {className: "panel-heading"}, React.createElement("i", {className: "fa fa-plus-square"}), " Custom Fields"), 
+                        React.createElement("div", {className: "panel-heading panel-extra-header"}, React.createElement("i", {className: "fa fa-plus-square"}), " Custom Fields"), 
                         React.createElement("div", {className: "panel-body"}, 
                             React.createElement(FieldInput, null), 
                             React.createElement(FieldsList, {fields: this.state.fields})
@@ -95,12 +95,13 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
 module.exports = CustomFieldsApp;
 
 },{"../actions/Actions":2,"../stores/FieldsStore":170,"./FieldInput.react":4,"./FieldsList.react":6,"react":169}],4:[function(require,module,exports){
-var React            = require('react'),
-    ReactPropTypes   = React.PropTypes,
-    Actions          = require('../actions/Actions'),
-    LinkedStateMixin = require('react/lib/LinkedStateMixin'),
+var React                 = require('react'),
+    ReactPropTypes        = React.PropTypes,
+    Actions               = require('../actions/Actions'),
+    LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    ENTER_KEY_CODE   = 13;
+    ENTER_KEY_CODE        = 13,
+    noSpecialCharsPattern = /[^\w]/gi;
 
 var FieldInput = React.createClass({displayName: "FieldInput",
     mixins: [LinkedStateMixin],
@@ -123,7 +124,8 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                 React.createElement("div", {className: "col-lg-5 col-lg-offset-1"}, 
                     React.createElement("input", {
                         type: "text", 
-                        className: "form-control", 
+                        className: "form-control field-lower", 
+                        onBlur: this._validateSpecialChars, 
                         valueLink: this.linkState('fieldKey'), 
                         placeholder: "Field Key (Ex: gender)"})
                 ), 
@@ -164,6 +166,13 @@ var FieldInput = React.createClass({displayName: "FieldInput",
         if (event.keyCode === ENTER_KEY_CODE) {
             this._save();
         }
+    },
+
+    _validateSpecialChars: function (event) {
+        var keyValue = event.target.value || '';
+        this.setState({
+            fieldKey: keyValue.replace(noSpecialCharsPattern, '')
+        });
     }
 });
 

@@ -1,9 +1,10 @@
-var React            = require('react'),
-    ReactPropTypes   = React.PropTypes,
-    Actions          = require('../actions/Actions'),
-    LinkedStateMixin = require('react/lib/LinkedStateMixin'),
+var React                 = require('react'),
+    ReactPropTypes        = React.PropTypes,
+    Actions               = require('../actions/Actions'),
+    LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    ENTER_KEY_CODE   = 13;
+    ENTER_KEY_CODE        = 13,
+    noSpecialCharsPattern = /[^\w]/gi;
 
 var FieldInput = React.createClass({
     mixins: [LinkedStateMixin],
@@ -26,7 +27,8 @@ var FieldInput = React.createClass({
                 <div className="col-lg-5 col-lg-offset-1">
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control field-lower"
+                        onBlur={this._validateSpecialChars}
                         valueLink={this.linkState('fieldKey')}
                         placeholder="Field Key (Ex: gender)"/>
                 </div>
@@ -67,6 +69,13 @@ var FieldInput = React.createClass({
         if (event.keyCode === ENTER_KEY_CODE) {
             this._save();
         }
+    },
+
+    _validateSpecialChars: function (event) {
+        var keyValue = event.target.value || '';
+        this.setState({
+            fieldKey: keyValue.replace(noSpecialCharsPattern, '')
+        });
     }
 });
 

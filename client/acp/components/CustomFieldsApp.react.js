@@ -29,7 +29,7 @@ var CustomFieldsApp = React.createClass({
             <div className="row">
                 <div className="col-lg-6">
                     <div className="panel panel-default">
-                        <div className="panel-heading"><i className="fa fa-plus-square"/> Custom Fields</div>
+                        <div className="panel-heading panel-extra-header"><i className="fa fa-plus-square"/> Custom Fields</div>
                         <div className="panel-body">
                             <FieldInput />
                             <FieldsList fields={this.state.fields}/>

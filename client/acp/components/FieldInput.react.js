@@ -61,7 +61,7 @@ var FieldInput = React.createClass({
     },
 
     _save: function () {
-        Actions.createField(this.state.fieldKey, this.state.fieldName);
+        Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
         this.setState({
             fieldKey : '',
             fieldName: ''

@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div>
 				<form class='form-horizontal'>
 
@@ -91,13 +91,7 @@
 			<hr class="visible-xs visible-sm"/>
 		</div>
 
-		<div class="col-md-3">
-			<div>
-
-			</div>
-		</div>
-
-		<div class="col-md-3">
+		<div class="col-md-5">
 			<div style="vertical-align:top;">
 				<form class='form-horizontal'>
 					<!-- IF isSelf -->
@@ -148,4 +142,4 @@
 <input type="hidden" template-variable="gravatarpicture" value="{gravatarpicture}" />
 <input type="hidden" template-variable="uploadedpicture" value="{uploadedpicture}" />
 
-<script src="../../../plugins/nodebb-plugin-ns-custom-fields/js/edit.js"></script>
+<script src="../../../plugins/nodebb-plugin-ns-custom-fields/js/fields-edit.js"></script>

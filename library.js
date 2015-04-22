@@ -5,6 +5,7 @@ var _         = require('underscore'),
     winston   = module.parent.require('winston'),
     meta      = module.parent.require('./meta'),
     routes    = require('./app/routes'),
+    sockets   = require('./app/sockets'),
 
     emitter   = module.parent.require('./emitter'),
 
@@ -37,7 +38,9 @@ var _         = require('underscore'),
         },
         statics: {
             load: function (params, callback) {
-                routes.setup(params, callback);
+                routes.setup(params, function () {
+                    sockets.setup(callback);
+                });
                 //emitter.on('templates:compiled', changeTemplates);
             }
         }

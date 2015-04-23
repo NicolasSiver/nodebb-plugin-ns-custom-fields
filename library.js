@@ -1,18 +1,18 @@
-'use strict';
-
-var _         = require('underscore'),
-    path      = require('path'),
-    winston   = module.parent.require('winston'),
-    meta      = module.parent.require('./meta'),
-    routes    = require('./app/routes'),
-    sockets   = require('./app/sockets'),
-
-    emitter   = module.parent.require('./emitter'),
-
-    settings  = null,
-    namespace = 'ns:custom_fields';
-
 (function (Plugin) {
+    'use strict';
+
+    var _         = require('underscore'),
+        path      = require('path'),
+        winston   = module.parent.require('winston'),
+        meta      = module.parent.require('./meta'),
+        routes    = require('./app/routes'),
+        sockets   = require('./app/sockets'),
+
+        emitter   = module.parent.require('./emitter'),
+
+        settings  = null,
+        namespace = 'ns:custom_fields';
+
     function changeTemplates() {
         var fs       = require('fs-extra'),
             path     = require('path'),

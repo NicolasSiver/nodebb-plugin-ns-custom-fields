@@ -10,6 +10,7 @@
         sockets[namespace] = {};
         //Acknowledgements
         sockets[namespace].getFields = Module.getFields;
+        sockets[namespace].saveFields = Module.saveFields;
 
         callback();
     };
@@ -20,6 +21,10 @@
                 fields: fields
             });
         });
+    };
+
+    Module.saveFields = function (socket, data, callback) {
+
     };
 
 })(module.exports);

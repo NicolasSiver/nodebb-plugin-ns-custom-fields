@@ -20,6 +20,14 @@
     };
 
     Database.createField = function (key, name, done) {
+        //Secure key
+        var notSecureFields = ['_key', '_id'];
+        var index = notSecureFields.indexOf(key);
+        if (index != -1) {
+            logger.log('warn', '%s fields is not allowed, please use another', key);
+            return done(new Error(key + ' field is not allowed'));
+        }
+
         async.waterfall([
             function (next) {
                 db.incrObjectField('global', 'nextNsCustomFieldId', next);
@@ -93,21 +101,11 @@
     };
 
     Database.saveClientFields = function (uid, fields, done) {
-        var data = {}, i = 0, len = fields.length, fieldMeta, notSecureFields = ['_id', '_key'], fieldKey;
+        var data = {}, i = 0, len = fields.length, fieldMeta;
 
         for (i; i < len; ++i) {
             fieldMeta = fields[i];
             data[fieldMeta.name] = fieldMeta.value;
-        }
-
-        //Secure payload
-        len = notSecureFields.length;
-        for (i = 0; i < len; ++i) {
-            fieldKey = notSecureFields[i];
-            if (fieldKey in data) {
-                logger.log('warn', '%s fields is not allowed, please use another', fieldKey);
-                delete data[fieldKey];
-            }
         }
 
         db.setObject(createObjectKey(uid), data, function (error) {

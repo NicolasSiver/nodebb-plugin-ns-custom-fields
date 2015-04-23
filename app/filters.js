@@ -33,7 +33,7 @@
                     });
                 }
             }
-            params.customFields = customFields;
+            params.userData.customFields = customFields;
             callback(null, params);
         });
     };

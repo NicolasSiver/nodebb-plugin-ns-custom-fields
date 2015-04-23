@@ -13,7 +13,11 @@ require([], function () {
     init();
 
     function init() {
-        socket.emit(api.get, function (payload) {
+        socket.emit(api.get, function (error, payload) {
+            if (error) {
+                return app.alertError(error.message);
+            }
+
             fieldsMeta = payload;
 
             if (fieldsMeta.fields.length > 0) {
@@ -37,7 +41,7 @@ require([], function () {
         form.append(actions);
     }
 
-    function appendFields(form, fields) {
+    function appendFields(form, fields, content) {
         var i = 0, len = fields.length, fieldKey, fieldEntity;
 
         for (i; i < len; ++i) {
@@ -47,7 +51,12 @@ require([], function () {
             var group = $('<div></div>').addClass('control-group');
             var label = $('<label></label>').addClass('control-label').text(fieldEntity.name).attr('for', fieldKey);
             var inputWrapper = $('<div></div>').addClass('controls');
-            var input = $('<input>').addClass('form-control').attr('id', fieldKey).attr('placeholder', fieldEntity.name).attr('name', fieldKey);
+            var input = $('<input>')
+                .addClass('form-control')
+                .attr('id', fieldKey)
+                .attr('placeholder', fieldEntity.name)
+                .attr('name', fieldKey)
+                .val(content[fieldEntity.key]);
 
             group.append(label);
             group.append(inputWrapper);
@@ -69,7 +78,7 @@ require([], function () {
         profile.after(customFields);
         customFields.append(form);
 
-        appendFields(form, fieldsMeta.fields);
+        appendFields(form, fieldsMeta.fields, fieldsMeta.data);
         appendControl(form);
     }
 

@@ -1,7 +1,9 @@
 (function (Module) {
     'use strict';
 
-    var sockets   = require('./nodebb').pluginSockets,
+    var async     = require('async'),
+
+        sockets   = require('./nodebb').pluginSockets,
         database  = require('./database'),
         constants = require('./constants'),
         logger    = require('winston').loggers.get(constants.LOGGER),
@@ -18,10 +20,19 @@
     };
 
     Module.getFields = function (socket, callback) {
-        database.getFields(function (error, fields) {
-            callback({
-                fields: fields
-            });
+        async.parallel({
+            fields: function (done) {
+                database.getFields(done);
+            },
+            data  : function (done) {
+                database.getClientFields(socket.uid, done);
+            }
+        }, function (error, result) {
+            if (error) {
+                callback(error);
+            } else {
+                callback(null, result);
+            }
         });
     };
 

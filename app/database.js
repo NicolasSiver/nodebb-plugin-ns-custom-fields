@@ -15,6 +15,10 @@
         };
     };
 
+    var createObjectKey = function (uid) {
+        return 'user:' + uid + ':' + namespace;
+    };
+
     Database.createField = function (key, name, done) {
         async.waterfall([
             function (next) {
@@ -62,6 +66,10 @@
         });
     };
 
+    Database.getClientFields = function (uid, done) {
+        db.getObject(createObjectKey(uid), done);
+    };
+
     Database.getFields = function (done) {
         async.waterfall([
             function (next) {
@@ -102,7 +110,7 @@
             }
         }
 
-        db.setObject('user:' + uid + ':' + namespace, data, function (error) {
+        db.setObject(createObjectKey(uid), data, function (error) {
             if (error) {
                 return done(error);
             }

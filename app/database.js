@@ -24,7 +24,7 @@
         var notSecureFields = ['_key', '_id'];
         var index = notSecureFields.indexOf(key);
         if (index != -1) {
-            logger.log('warn', '%s fields is not allowed, please use another', key);
+            logger.log('warn', '%s field is not allowed, please use another', key);
             return done(new Error(key + ' field is not allowed'));
         }
 

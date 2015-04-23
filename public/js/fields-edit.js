@@ -7,7 +7,7 @@ require([], function () {
         idPrefix = 'field_',
         api      = {
             get : 'plugins.ns-custom-fields.getFields',
-            save: 'plugins:ns-custom-fields.saveFields'
+            save: 'plugins.ns-custom-fields.saveFields'
         };
 
     init();
@@ -81,7 +81,10 @@ require([], function () {
             }
         });
         socket.emit(api.save, data, function (error) {
-
+            if (error) {
+                return app.alertError(error.message);
+            }
+            app.alertSuccess('Custom Fields are saved');
         });
     }
 });

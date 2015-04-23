@@ -3,6 +3,8 @@
 
     var sockets   = require('./nodebb').pluginSockets,
         database  = require('./database'),
+        constants = require('./constants'),
+        logger    = require('winston').loggers.get(constants.LOGGER),
 
         namespace = 'ns-custom-fields';
 
@@ -24,7 +26,8 @@
     };
 
     Module.saveFields = function (socket, data, callback) {
-
+        logger.log('verbose', socket, data);
+        callback(new Error('just working on'));
     };
 
 })(module.exports);

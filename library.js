@@ -3,23 +3,35 @@
 
     var _         = require('underscore'),
         path      = require('path'),
-        winston   = module.parent.require('winston'),
-        meta      = module.parent.require('./meta'),
+        winston   = require('winston'),
+        nconf     = require('./app/nodebb').nconf,
+
         routes    = require('./app/routes'),
         sockets   = require('./app/sockets'),
 
-        emitter   = module.parent.require('./emitter'),
+        constants = require('./app/constants'),
 
         settings  = null,
-        namespace = 'ns:custom_fields';
+        namespace = 'ns:custom_fields',
+        logger    = null;
+
+    winston.loggers.add(constants.LOGGER, {
+        console: {
+            colorize : true,
+            timestamp: function () {
+                var date = new Date();
+                return date.getDate() + '/' + (date.getMonth() + 1) + ' ' + date.toTimeString().substr(0, 5) + ' [' + global.process.pid + ']';
+            },
+            level    : global.env === 'production' ? 'info' : 'verbose',
+            label    : 'plugins/custom-fields'
+        }
+    });
+
+    logger = winston.loggers.get(constants.LOGGER);
 
     function changeTemplates() {
         var fs       = require('fs-extra'),
-            path     = require('path'),
-            nconf    = module.parent.require('nconf'),
             editPath = path.join(nconf.get('base_dir'), 'public/templates/account/edit.tpl');
-
-        winston.log('debug', 'Template %s will be replaces with a template for custom fields');
 
         fs.copySync(path.join(__dirname, './public/templates/account/edit.tpl'), editPath);
     }
@@ -38,6 +50,8 @@
         },
         statics: {
             load: function (params, callback) {
+                logger.log('verbose', 'Register API endpoints');
+
                 routes.setup(params, function () {
                     sockets.setup(callback);
                 });

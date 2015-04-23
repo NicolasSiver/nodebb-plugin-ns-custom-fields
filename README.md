@@ -16,5 +16,6 @@ Pull Requests are welcome ;)
 - Add Parser handler to create additional formatting (Ex: by having Steam Id, create full url to the profile)
 - Add Tests (Mocha/Tape)
 - Just append client script to edit template without swapping whole template file - account/edit.tpl
+- Use template engine to build edit page
 - Add utility method: clear unused fields
 - Add prompt message for custom fields in user's profile

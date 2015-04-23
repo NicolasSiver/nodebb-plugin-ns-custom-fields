@@ -10,6 +10,10 @@
       "method": "hooks.filters.menu"
     },
     {
+      "hook": "filter:user.account",
+      "method": "hooks.filters.account"
+    },
+    {
       "hook": "static:app.load",
       "method": "hooks.statics.load"
     }

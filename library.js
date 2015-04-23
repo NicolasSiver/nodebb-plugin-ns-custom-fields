@@ -4,15 +4,13 @@
     var _         = require('underscore'),
         path      = require('path'),
         winston   = require('winston'),
-        nconf     = require('./app/nodebb').nconf,
 
+        nconf     = require('./app/nodebb').nconf,
         routes    = require('./app/routes'),
         sockets   = require('./app/sockets'),
-
         constants = require('./app/constants'),
+        filters   = require('./app/filters'),
 
-        settings  = null,
-        namespace = 'ns:custom_fields',
         logger    = null;
 
     winston.loggers.add(constants.LOGGER, {
@@ -39,14 +37,8 @@
     //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
     Plugin.hooks = {
         filters: {
-            menu: function (custom_header, callback) {
-                custom_header.plugins.push({
-                    route: '/plugins/custom-fields',
-                    icon : 'fa-plus-square',
-                    name : 'Custom Fields'
-                });
-                callback(null, custom_header);
-            }
+            account: filters.account,
+            menu   : filters.menu
         },
         statics: {
             load: function (params, callback) {

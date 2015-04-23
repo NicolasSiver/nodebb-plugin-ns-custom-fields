@@ -26,8 +26,8 @@
     };
 
     Module.saveFields = function (socket, data, callback) {
-        logger.log('verbose', socket, data);
-        callback(new Error('just working on'));
+        logger.log('verbose', 'Storing fields for user: %d', socket.uid);
+        database.saveClientFields(socket.uid, data, callback);
     };
 
 })(module.exports);

@@ -6,3 +6,4 @@ function define(name, value) {
 }
 
 define('LOGGER', 'CUSTOM_FIELDS');
+define('NAMESPACE', 'ns:custom_fields');

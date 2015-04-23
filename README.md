@@ -14,3 +14,4 @@ Pull Requests are welcome ;)
 - Add Icons for custom field
 - Add Parser handler to create additional formatting (Ex: by having Steam Id, create full url to the profile)
 - Add Tests (Mocha/Tape)
+- Just append client script to edit template without swapping whole template file - account/edit.tpl

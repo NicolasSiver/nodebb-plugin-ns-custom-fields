@@ -3,7 +3,9 @@
 
     var async     = require('async'),
         db        = require('./nodebb').db,
-        namespace = 'ns:custom_fields';
+        constants = require('./constants'),
+        namespace = constants.NAMESPACE,
+        logger    = require('winston').loggers.get(constants.LOGGER);
 
     var createField = function (id, key, name) {
         return {
@@ -79,6 +81,32 @@
                 return done(error);
             }
             done(null, fields);
+        });
+    };
+
+    Database.saveClientFields = function (uid, fields, done) {
+        var data = {}, i = 0, len = fields.length, fieldMeta, notSecureFields = ['_id', '_key'], fieldKey;
+
+        for (i; i < len; ++i) {
+            fieldMeta = fields[i];
+            data[fieldMeta.name] = fieldMeta.value;
+        }
+
+        //Secure payload
+        len = notSecureFields.length;
+        for (i = 0; i < len; ++i) {
+            fieldKey = notSecureFields[i];
+            if (fieldKey in data) {
+                logger.log('warn', '%s fields is not allowed, please use another', fieldKey);
+                delete data[fieldKey];
+            }
+        }
+
+        db.setObject('user:' + uid + ':' + namespace, data, function (error) {
+            if (error) {
+                return done(error);
+            }
+            done(null);
         });
     };
 

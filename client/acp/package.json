@@ -16,11 +16,12 @@
     "transform": [
       "reactify",
       "envify",
-      "browserify-global-shim"
+      "browserify-shim"
     ]
   },
-  "browserify-global-shim": {
-    "jQuery": "$"
+  "browserify-shim": {
+    "jquery": "global:$",
+    "socket": "global:socket"
   },
   "author": "Nicolas Siver",
   "license": "MIT",
@@ -30,7 +31,8 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
-    "browserify-global-shim": "^1.0.0",
+    "browserify": "^9.0.8",
+    "browserify-shim": "^3.8.5",
     "envify": "^3.4.0",
     "reactify": "^1.1.0"
   }

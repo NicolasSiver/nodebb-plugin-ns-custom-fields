@@ -1,8 +1,18 @@
 # NodeBB: Custom Fields
 
-Adds additional fields to the user's account
+Adds additional fields to the user's profile
 
-## TODO
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+ 
+
+- [TODO](#todo)
+- [Changelog](#changelog)
+  - [1.0.0 - 24.04.2015](#100---24042015)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# TODO
 
 Pull Requests are welcome ;)
 
@@ -19,3 +29,9 @@ Pull Requests are welcome ;)
 - Use template engine to build edit page
 - Add utility method: clear unused fields
 - Add prompt message for custom fields in user's profile
+
+# Changelog
+
+## 1.0.0 - 24.04.2015
+
+- Very first release

@@ -1,19 +1,22 @@
 (function (Module) {
     'use strict';
 
-    var async     = require('async'),
+    var async        = require('async'),
+        objectAssign = require('object-assign'),
 
-        sockets   = require('./nodebb').pluginSockets,
-        database  = require('./database'),
-        constants = require('./constants'),
-        logger    = require('winston').loggers.get(constants.LOGGER),
+        sockets      = require('./nodebb').pluginSockets,
+        meta         = require('./nodebb').meta,
+        database     = require('./database'),
+        constants    = require('./constants'),
+        logger       = require('winston').loggers.get(constants.LOGGER),
 
-        namespace = 'ns-custom-fields';
+        namespace    = 'ns-custom-fields';
 
     Module.setup = function (callback) {
         sockets[namespace] = {};
         //Acknowledgements
         sockets[namespace].getFields = Module.getFields;
+        sockets[namespace].getSettings = Module.getSettings;
         sockets[namespace].saveFields = Module.saveFields;
 
         callback();
@@ -29,6 +32,15 @@
             } else {
                 callback(null, result);
             }
+        });
+    };
+
+    Module.getSettings = function (socket, callback) {
+        var defaultSettings = {
+            filterTopics: false
+        };
+        meta.settings.get(constants.NAMESPACE, function (error, settings) {
+            callback(error, objectAssign(defaultSettings, settings));
         });
     };
 

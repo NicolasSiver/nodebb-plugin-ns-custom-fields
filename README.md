@@ -31,49 +31,49 @@ Here is a small example of integration to *Vanilla* theme.
             <!-- IF customFields.length --><div class="col-md-6"><!-- ENDIF customFields.length -->
             <!-- IF !customFields.length --><div class="col-md-12"><!-- ENDIF !customFields.length -->
                 <!-- IF email -->
-                <span class="account-bio-label">Email</span>
-                <span class="account-bio-value"><i class="fa fa-eye-slash " title="Email Hidden"></i> </span>
+                <span class="account-bio-label">[[user:email]]</span>
+                <span class="account-bio-value"><i class="fa fa-eye-slash {emailClass}" title="[[user:email_hidden]]"></i> {email}</span>
                 <!-- ENDIF email -->
 
                 <!-- IF fullname -->
-                <span class="account-bio-label">Full Name</span>
-                <span class="account-bio-value"></span>
+                <span class="account-bio-label">[[user:fullname]]</span>
+                <span class="account-bio-value">{fullname}</span>
                 <!-- ENDIF fullname -->
 
                 <!-- IF websiteName -->
-                <span class="account-bio-label">Website</span>
-                <span class="account-bio-value"><a href=""></a></span>
+                <span class="account-bio-label">[[user:website]]</span>
+                <span class="account-bio-value"><a href="{website}">{websiteName}</a></span>
                 <!-- ENDIF websiteName -->
 
                 <!-- IF location -->
-                <span class="account-bio-label">Location</span>
-                <span class="account-bio-value"></span>
+                <span class="account-bio-label">[[user:location]]</span>
+                <span class="account-bio-value">{location}</span>
                 <!-- ENDIF location -->
 
                 <!-- IF age -->
-                <span class="account-bio-label">Age</span>
-                <span class="account-bio-value"></span>
+                <span class="account-bio-label">[[user:age]]</span>
+                <span class="account-bio-value">{age}</span>
                 <!-- ENDIF age -->
 
 
-                <span class="account-bio-label">Followers</span>
-                <span class="human-readable-number account-bio-value" title=""></span>
+                <span class="account-bio-label">[[user:followers]]</span>
+                <span class="human-readable-number account-bio-value" title="{followerCount}">{followerCount}</span>
 
-                <span class="account-bio-label">Following</span>
-                <span class="human-readable-number account-bio-value"  title=""></span>
+                <span class="account-bio-label">[[user:following]]</span>
+                <span class="human-readable-number account-bio-value"  title="{followingCount}">{followingCount}</span>
 
-                <span class="account-bio-label">Joined</span>
-                <span class="timeago account-bio-value" title=""></span>
+                <span class="account-bio-label">[[user:joined]]</span>
+                <span class="timeago account-bio-value" title="{joindate}"></span>
 
-                <span class="account-bio-label">Last Online</span>
-                <span class="timeago account-bio-value" title=""></span>
+                <span class="account-bio-label">[[user:lastonline]]</span>
+                <span class="timeago account-bio-value" title="{lastonline}"></span>
 
                 <!-- IF !disableSignatures -->
                 <!-- IF signature -->
                 <hr/>
-                <span class="account-bio-label">Signature</span>
+                <span class="account-bio-label">[[user:signature]]</span>
                 <div class="post-signature">
-                    <span id='signature'></span>
+                    <span id='signature'>{signature}</span>
                 </div>
                 <!-- ENDIF signature -->
                 <!-- ENDIF !disableSignatures -->
@@ -81,8 +81,8 @@ Here is a small example of integration to *Vanilla* theme.
             <!-- IF customFields.length -->
             <div class="col-md-6">
                 <!-- BEGIN customFields -->
-                    <span class="account-bio-label"></span>
-                    <span class="account-bio-value"></span>
+                    <span class="account-bio-label">{customFields.name}</span>
+                    <span class="account-bio-value">{customFields.value}</span>
                 <!-- END customFields -->
             </div>
             <!-- ENDIF customFields.length -->
@@ -97,7 +97,7 @@ Result will look like panel with 2 columns.
 
 Currently there is no theme with support for Custom Fields.
 
-| Theme | Install | Comments |
+| Theme | Package | Comments |
 | ------------- | ----------- | ----------- |
 | No themes | - | :( |
 

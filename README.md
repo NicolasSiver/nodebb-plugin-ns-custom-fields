@@ -103,10 +103,9 @@ Currently there is no theme with support for Custom Fields.
 
 # TODO
 
-Pull Requests are welcome ;)
-
 - Edit Custom Field (key, name)
 - Use Custom Fields in extended Tooltip for @mentions
+- Add Custom Fields to Topic view
 - Use Theme agnostic solution
 - Use Sockets in ACP
 - Add Sections to group custom fields
@@ -118,6 +117,8 @@ Pull Requests are welcome ;)
 - Use template engine to build edit page
 - Add utility method: clear unused fields
 - Add prompt message for custom fields in user's profile
+
+> Pull Requests are welcome ;)
 
 # Changelog
 

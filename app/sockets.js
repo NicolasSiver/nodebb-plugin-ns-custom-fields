@@ -21,12 +21,8 @@
 
     Module.getFields = function (socket, callback) {
         async.parallel({
-            fields: function (done) {
-                database.getFields(done);
-            },
-            data  : function (done) {
-                database.getClientFields(socket.uid, done);
-            }
+            fields: async.apply(database.getFields),
+            data  : async.apply(database.getClientFields, socket.uid)
         }, function (error, result) {
             if (error) {
                 callback(error);

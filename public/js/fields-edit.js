@@ -41,8 +41,8 @@ require([], function () {
         form.append(actions);
     }
 
-    function appendFields(form, fields, content) {
-        var i = 0, len = fields.length, fieldKey, fieldEntity;
+    function appendFields(form, fields, data) {
+        var i = 0, len = fields.length, fieldKey, fieldEntity, content = data || {};
 
         for (i; i < len; ++i) {
             fieldEntity = fields[i];

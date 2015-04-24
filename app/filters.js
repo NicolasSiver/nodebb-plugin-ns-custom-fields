@@ -21,19 +21,22 @@
                 return callback(error);
             }
 
-            //Reduce to only populated fields
-            var i = 0, len = result.fields.length, fieldMeta, customFields = [];
-            for (i; i < len; ++i) {
-                fieldMeta = result.fields[i];
-                var value = result.data[fieldMeta.key];
-                if (value) {
-                    customFields.push({
-                        name : fieldMeta.name,
-                        value: value
-                    });
+            if (result.data) {
+                //Reduce to only populated fields
+                var i = 0, len = result.fields.length, fieldMeta, customFields = [];
+                for (i; i < len; ++i) {
+                    fieldMeta = result.fields[i];
+                    var value = result.data[fieldMeta.key];
+                    if (value) {
+                        customFields.push({
+                            name : fieldMeta.name,
+                            value: value
+                        });
+                    }
                 }
+                params.userData.customFields = customFields;
             }
-            params.userData.customFields = customFields;
+
             callback(null, params);
         });
     };

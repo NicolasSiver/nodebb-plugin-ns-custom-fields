@@ -32,6 +32,10 @@ Pull Requests are welcome ;)
 
 # Changelog
 
+## 1.0.1 - 24.04.2015
+
+- Fix for empty user objects
+
 ## 1.0.0 - 24.04.2015
 
 - Very first release

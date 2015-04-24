@@ -6,24 +6,20 @@
         constants = require('./constants'),
         logger    = require('winston').loggers.get(constants.LOGGER);
 
-    /**
-     * Hook to render user profile.
-     * 'userData' will be used as payload in hook handler.
-     * @param params {object} Payload :{userData: userData, uid: callerUID}
-     * @param callback {function}
-     */
-    Filter.account = function (params, callback) {
+    var getCustomFields = function (uid, callback) {
         async.parallel({
             fields: async.apply(database.getFields),
-            data  : async.apply(database.getClientFields, params.userData.uid)
+            data  : async.apply(database.getClientFields, uid)
         }, function (error, result) {
             if (error) {
                 return callback(error);
             }
 
+            var customFields = [];
+
             if (result.data) {
                 //Reduce to only populated fields
-                var i = 0, len = result.fields.length, fieldMeta, customFields = [];
+                var i = 0, len = result.fields.length, fieldMeta;
                 for (i; i < len; ++i) {
                     fieldMeta = result.fields[i];
                     var value = result.data[fieldMeta.key];
@@ -34,9 +30,24 @@
                         });
                     }
                 }
-                params.userData.customFields = customFields;
             }
 
+            callback(null, customFields);
+        });
+    };
+
+    /**
+     * Hook to render user profile.
+     * 'userData' will be used as payload in hook handler.
+     * @param params {object} Payload :{userData: userData, uid: callerUID}
+     * @param callback {function}
+     */
+    Filter.account = function (params, callback) {
+        getCustomFields(params.userData.uid, function (error, customFields) {
+            if (error) {
+                return callback(error);
+            }
+            params.userData.customFields = customFields;
             callback(null, params);
         });
     };
@@ -48,6 +59,31 @@
             name : 'Custom Fields'
         });
         callback(null, custom_header);
+    };
+
+    /**
+     * Hook to render topic thread.
+     * 'topicData' will be used as payload in hook handler.
+     * @param topicData {object} Payload :{posts: [{user:{uid:postOwnerId}}], uid: topicOwnerId}
+     * @param callback {function}
+     */
+    Filter.topic = function (topicData, callback) {
+        async.map(topicData.posts, function (post, next) {
+            getCustomFields(post.user.uid, function (error, customFields) {
+                if (error) {
+                    return next(error);
+                }
+                post.customFields = customFields;
+                next(null, post);
+            });
+        }, function (error, results) {
+            if (error) {
+                return callback(error);
+            }
+            topicData.posts = results;
+            console.log(require('util').inspect(topicData, {colors: true, depth: 4}));
+            callback(null, topicData);
+        });
     };
 
 })(module.exports);

@@ -36,10 +36,7 @@
 
     //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
     Plugin.hooks = {
-        filters: {
-            account: filters.account,
-            menu   : filters.menu
-        },
+        filters: filters,
         statics: {
             load: function (params, callback) {
                 logger.log('verbose', 'Register API endpoints');

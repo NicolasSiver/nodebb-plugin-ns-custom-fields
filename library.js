@@ -50,6 +50,7 @@
                         return callback(error);
                     }
                     logger.log('verbose', 'Plugin is initiated successfully');
+                    callback(null);
                 });
                 //emitter.on('templates:compiled', changeTemplates);
             }

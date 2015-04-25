@@ -18,6 +18,7 @@
         sockets[namespace].getFields = Module.getFields;
         sockets[namespace].getSettings = Module.getSettings;
         sockets[namespace].saveFields = Module.saveFields;
+        sockets[namespace].setSettings = Module.setSettings;
 
         callback();
     };
@@ -47,6 +48,12 @@
     Module.saveFields = function (socket, data, callback) {
         logger.log('verbose', 'Storing fields for user: %d', socket.uid);
         database.saveClientFields(socket.uid, data, callback);
+    };
+
+    Module.setSettings = function (socket, settings, callback) {
+        meta.settings.set(constants.NAMESPACE, settings, function (error) {
+            callback(error, settings);
+        });
     };
 
 })(module.exports);

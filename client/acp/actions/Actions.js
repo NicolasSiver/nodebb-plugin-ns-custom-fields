@@ -27,7 +27,20 @@ module.exports = {
 
     getFields: function () {
         AppDispatcher.dispatch({
-           actionType: Constants.EVENT_GET_ALL_FIELDS
+            actionType: Constants.EVENT_GET_ALL_FIELDS
+        });
+    },
+
+    getSettings: function () {
+        AppDispatcher.dispatch({
+            actionType: Constants.EVENT_GET_SETTINGS
+        });
+    },
+
+    saveSettings: function (settings) {
+        AppDispatcher.dispatch({
+            actionType: Constants.EVENT_SAVE_SETTINGS,
+            settings  : settings
         });
     }
 };

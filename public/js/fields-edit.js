@@ -13,7 +13,7 @@ require([], function () {
     init();
 
     function init() {
-        socket.emit(api.get, function (error, payload) {
+        socket.emit(api.get, {uid: ajaxify.variables.get('theirid')}, function (error, payload) {
             if (error) {
                 return app.alertError(error.message);
             }
@@ -89,7 +89,7 @@ require([], function () {
                 value: item.value
             }
         });
-        socket.emit(api.save, data, function (error) {
+        socket.emit(api.save, {uid: ajaxify.variables.get('theirid'), data: data}, function (error) {
             if (error) {
                 return app.alertError(error.message);
             }

@@ -22,10 +22,10 @@
         callback();
     };
 
-    Module.getFields = function (socket, callback) {
+    Module.getFields = function (socket, payload, callback) {
         async.parallel({
             fields: async.apply(database.getFields),
-            data  : async.apply(database.getClientFields, socket.uid)
+            data  : async.apply(database.getClientFields, payload.uid)
         }, function (error, result) {
             if (error) {
                 callback(error);
@@ -39,9 +39,9 @@
         callback(null, settings.get());
     };
 
-    Module.saveFields = function (socket, data, callback) {
-        logger.log('verbose', 'Storing fields for user: %d', socket.uid);
-        database.saveClientFields(socket.uid, data, callback);
+    Module.saveFields = function (socket, payload, callback) {
+        logger.log('verbose', 'Storing fields for user: %d', payload.uid);
+        database.saveClientFields(payload.uid, payload.data, callback);
     };
 
     Module.setSettings = function (socket, values, callback) {

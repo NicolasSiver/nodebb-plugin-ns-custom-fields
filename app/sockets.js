@@ -1,16 +1,15 @@
 (function (Module) {
     'use strict';
 
-    var async        = require('async'),
-        objectAssign = require('object-assign'),
+    var async     = require('async'),
 
-        sockets      = require('./nodebb').pluginSockets,
-        meta         = require('./nodebb').meta,
-        database     = require('./database'),
-        constants    = require('./constants'),
-        logger       = require('winston').loggers.get(constants.LOGGER),
+        sockets   = require('./nodebb').pluginSockets,
+        settings  = require('./settings'),
+        database  = require('./database'),
+        constants = require('./constants'),
+        logger    = require('winston').loggers.get(constants.LOGGER),
 
-        namespace    = 'ns-custom-fields';
+        namespace = 'ns-custom-fields';
 
     Module.setup = function (callback) {
         sockets[namespace] = {};
@@ -37,12 +36,7 @@
     };
 
     Module.getSettings = function (socket, callback) {
-        var defaultSettings = {
-            filterTopics: false
-        };
-        meta.settings.get(constants.NAMESPACE, function (error, settings) {
-            callback(error, objectAssign(defaultSettings, settings));
-        });
+        callback(null, settings.get());
     };
 
     Module.saveFields = function (socket, data, callback) {
@@ -50,10 +44,8 @@
         database.saveClientFields(socket.uid, data, callback);
     };
 
-    Module.setSettings = function (socket, settings, callback) {
-        meta.settings.set(constants.NAMESPACE, settings, function (error) {
-            callback(error, settings);
-        });
+    Module.setSettings = function (socket, values, callback) {
+        settings.save(values, callback);
     };
 
 })(module.exports);

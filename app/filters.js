@@ -3,6 +3,7 @@
 
     var async     = require('async'),
         database  = require('./database'),
+        settings  = require('./settings'),
         constants = require('./constants'),
         logger    = require('winston').loggers.get(constants.LOGGER);
 
@@ -68,6 +69,10 @@
      * @param callback {function}
      */
     Filter.topic = function (topicData, callback) {
+        if (!settings.isFilterTopics()) {
+            return callback(null, topicData);
+        }
+
         async.map(topicData.posts, function (post, next) {
             getCustomFields(post.user.uid, function (error, customFields) {
                 if (error) {

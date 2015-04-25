@@ -1,7 +1,8 @@
 (function (Plugin) {
     'use strict';
 
-    var _         = require('underscore'),
+    var async     = require('async'),
+        _         = require('underscore'),
         path      = require('path'),
         winston   = require('winston'),
 
@@ -10,6 +11,7 @@
         sockets   = require('./app/sockets'),
         constants = require('./app/constants'),
         filters   = require('./app/filters'),
+        settings  = require('./app/settings'),
 
         logger    = null;
 
@@ -36,16 +38,18 @@
 
     //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
     Plugin.hooks = {
-        filters: {
-            account: filters.account,
-            menu   : filters.menu
-        },
+        filters: filters,
         statics: {
             load: function (params, callback) {
-                logger.log('verbose', 'Register API endpoints');
-
-                routes.setup(params, function () {
-                    sockets.setup(callback);
+                async.series([
+                    settings.init,
+                    async.apply(routes.setup, params),
+                    sockets.setup
+                ], function (error) {
+                    if (error) {
+                        return callback(error);
+                    }
+                    logger.log('verbose', 'Plugin is initiated successfully');
                 });
                 //emitter.on('templates:compiled', changeTemplates);
             }

@@ -1,46 +1,20 @@
-var React       = require('react'),
-    FieldsList  = require('./FieldsList.react'),
-    FieldInput  = require('./FieldInput.react'),
-    FieldsStore = require('../stores/FieldsStore'),
-    Actions     = require('../actions/Actions');
-
-function getAppState() {
-    return {
-        fields: FieldsStore.getAll()
-    };
-}
+var React        = require('react'),
+    FieldsEditor = require('./FieldsEditor.react'),
+    Settings     = require('./Settings.react');
 
 var CustomFieldsApp = React.createClass({
-    componentDidMount   : function () {
-        FieldsStore.addChangeListener(this.fieldsDidChange);
-        Actions.getFields();
-    },
-    componentWillUnmount: function () {
-        FieldsStore.removeChangeListener(this.fieldsDidChange);
-    },
-    fieldsDidChange     : function () {
-        this.setState(getAppState());
-    },
-    getInitialState     : function () {
-        return getAppState();
-    },
-    render              : function () {
+    render: function () {
+        //TODO Use New version notifier - http://registry.npmjs.org/nodebb-plugin-ns-custom-fields/latest
         return (
             <div className="row">
                 <div className="col-lg-6">
-                    <div className="panel panel-default">
-                        <div className="panel-heading panel-extra-header"><i className="fa fa-plus-square"/> Custom Fields</div>
-                        <div className="panel-body">
-                            <FieldInput />
-                            <FieldsList fields={this.state.fields}/>
-                        </div>
-                    </div>
+                    <FieldsEditor />
                 </div>
                 <div className="col-lg-6">
-                    <div className="panel panel-default">
-                        <div className="panel-body">
-                            Additional features will be added.
-                        </div>
+                    <Settings />
+
+                    <div className="alert alert-info" role="alert">Plugin is under development. Don't hesitate to <a
+                        href="https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields#todo" target="_blank">contribute</a>.
                     </div>
                 </div>
             </div>

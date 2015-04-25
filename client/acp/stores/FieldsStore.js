@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     EventEmitter  = require('events').EventEmitter,
     assign        = require('react/lib/Object.assign'),
     Constants     = require('../Constants'),
-    jQuery        = require('jQuery'),
+    jQuery        = require('jquery'),
 
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',

@@ -122,6 +122,11 @@ Currently there is no theme with support for Custom Fields.
 
 # Changelog
 
+## v1.1.0 - 25.04.2015
+
+- New Feature: Settings
+- New Feature: custom fields in topic view
+
 ## v1.0.1 - 24.04.2015
 
 - Fix for empty user objects

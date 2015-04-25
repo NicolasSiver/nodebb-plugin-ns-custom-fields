@@ -4,6 +4,7 @@
     var async     = require('async'),
 
         sockets   = require('./nodebb').pluginSockets,
+        settings  = require('./settings'),
         database  = require('./database'),
         constants = require('./constants'),
         logger    = require('winston').loggers.get(constants.LOGGER),
@@ -14,7 +15,9 @@
         sockets[namespace] = {};
         //Acknowledgements
         sockets[namespace].getFields = Module.getFields;
+        sockets[namespace].getSettings = Module.getSettings;
         sockets[namespace].saveFields = Module.saveFields;
+        sockets[namespace].setSettings = Module.setSettings;
 
         callback();
     };
@@ -32,9 +35,17 @@
         });
     };
 
+    Module.getSettings = function (socket, callback) {
+        callback(null, settings.get());
+    };
+
     Module.saveFields = function (socket, data, callback) {
         logger.log('verbose', 'Storing fields for user: %d', socket.uid);
         database.saveClientFields(socket.uid, data, callback);
+    };
+
+    Module.setSettings = function (socket, values, callback) {
+        settings.save(values, callback);
     };
 
 })(module.exports);

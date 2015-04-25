@@ -11,6 +11,8 @@ Adds additional fields to the user's profile
   - [Supported Themes](#supported-themes)
 - [TODO](#todo)
 - [Changelog](#changelog)
+  - [v1.1.1 - 26.04.2015](#v111---26042015)
+  - [v1.1.0 - 25.04.2015](#v110---25042015)
   - [v1.0.1 - 24.04.2015](#v101---24042015)
   - [v1.0.0 - 24.04.2015](#v100---24042015)
 
@@ -120,6 +122,11 @@ Currently there is no theme with support for Custom Fields.
 > Pull Requests are welcome ;)
 
 # Changelog
+
+## v1.1.1 - 26.04.2015
+
+- Fix user profile reference 
+- Fix initialisation of the plugin
 
 ## v1.1.0 - 25.04.2015
 

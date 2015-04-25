@@ -86,7 +86,6 @@
                 return callback(error);
             }
             topicData.posts = results;
-            console.log(require('util').inspect(topicData, {colors: true, depth: 4}));
             callback(null, topicData);
         });
     };

@@ -1,28 +1,45 @@
 var React                 = require('react'),
     ReactPropTypes        = React.PropTypes,
     Actions               = require('../actions/Actions'),
+    Input                 = require('./fields/Input.react'),
+    Select                = require('./fields/Select.react'),
     LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
     ENTER_KEY_CODE        = 13,
-    noSpecialCharsPattern = /[^\w]/gi;
+    noSpecialCharsPattern = /[^\w]/gi,
+
+    fields                = [
+        {name: 'Input', type: 'input'},
+        {name: 'Select', type: 'select'}
+    ];
 
 var FieldInput = React.createClass({
     mixins: [LinkedStateMixin],
 
-    propTypes: {
-        fieldKey : ReactPropTypes.string,
-        fieldName: ReactPropTypes.string
-    },
-
     getInitialState: function () {
         return {
             fieldKey : this.props.fieldKey || '',
-            fieldName: this.props.fieldName || ''
+            fieldName: this.props.fieldName || '',
+            fieldType: fields[0].type
         };
     },
 
     render: function () {
         var del;
+
+        function getFieldComponentByType(type) {
+            switch (type) {
+                case 'input':
+                    return <Input />;
+                case 'select':
+                    return <Select />;
+            }
+        }
+
+        function renderFieldTypes(option, index) {
+            return <option value={option.type} key={index} label={option.name}>{option.name}</option>;
+        }
+
         return (
             <div className="panel panel-default">
                 <div className="panel-heading"><i className="fa fa-plus-square"/> Create Field</div>
@@ -56,6 +73,16 @@ var FieldInput = React.createClass({
                         </div>
                     </div>
 
+                    <div className="form-group">
+                        <label htmlFor="labelType">Field Type</label>
+                        <select className="form-control" value={this.state.fieldType} id="labelType"
+                                onChange={this._fieldTypeDidChange}>
+                            {fields.map(renderFieldTypes)}
+                        </select>
+                    </div>
+
+                    {getFieldComponentByType(this.state.fieldType)}
+
                     <button
                         className="btn btn-success"
                         disabled={this._isValid() ? '' : 'disabled'}
@@ -65,6 +92,12 @@ var FieldInput = React.createClass({
                 </div>
             </div>
         );
+    },
+
+    _fieldTypeDidChange: function (e) {
+        this.setState({
+            fieldType: e.currentTarget.value
+        });
     },
 
     _isValid: function () {

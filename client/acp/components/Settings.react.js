@@ -32,7 +32,7 @@ var Settings = React.createClass({
             <div className="panel panel-default">
                 <div className="panel-heading">Settings</div>
                 <div className="panel-body">
-                    < div className="checkbox">
+                    <div className="checkbox">
                         <label>
                             <input
                                 type="checkbox"
@@ -40,6 +40,10 @@ var Settings = React.createClass({
                                 onChange={this._filterDidChange.bind(this, 'filterTopics')}/> Topic View: add custom
                             fields
                         </label>
+                    </div>
+
+                    <div className="alert alert-info" role="alert">Plugin is under development. Don't hesitate to <a
+                        href="https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields#todo" target="_blank">contribute</a>.
                     </div>
                 </div>
             </div>

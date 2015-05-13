@@ -1,14 +1,35 @@
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
-    FieldItem      = require('./FieldItem.react');
+    FieldsStore    = require('../stores/FieldsStore'),
+    FieldItem      = require('./FieldItem.react'),
+    Actions        = require('../actions/Actions');
+
+function getFieldsState() {
+    return {
+        fields: FieldsStore.getAll()
+    };
+}
 
 var FieldsList = React.createClass({
-    propTypes: {
-        fields: ReactPropTypes.array.isRequired
+    componentDidMount: function () {
+        FieldsStore.addChangeListener(this.fieldsDidChange);
+        Actions.getFields();
+    },
+
+    componentWillUnmount: function () {
+        FieldsStore.removeChangeListener(this.fieldsDidChange);
+    },
+
+    fieldsDidChange: function () {
+        this.setState(getFieldsState());
+    },
+
+    getInitialState: function () {
+        return getFieldsState();
     },
 
     render: function () {
-        if (this.props.fields.length < 1) {
+        if (this.state.fields.length < 1) {
             return null;
         }
         function renderItem(field, index, list) {
@@ -20,13 +41,18 @@ var FieldsList = React.createClass({
         }
 
         return (
-            <div className="custom-fields-list">
-                <div className="row custom-fields-list-header">
-                    <div className="col-lg-1">#</div>
-                    <div className="col-lg-5">Key</div>
-                    <div className="col-lg-6">Name</div>
+            <div className="panel panel-default">
+                <div className="panel-heading">Custom Fields</div>
+                <div className="panel-body">
+                    <div className="custom-fields-list">
+                        <div className="row custom-fields-list-header">
+                            <div className="col-lg-1">#</div>
+                            <div className="col-lg-5">Key</div>
+                            <div className="col-lg-6">Name</div>
+                        </div>
+                        {this.state.fields.map(renderItem)}
+                    </div>
                 </div>
-                {this.props.fields.map(renderItem)}
             </div>
         );
     }

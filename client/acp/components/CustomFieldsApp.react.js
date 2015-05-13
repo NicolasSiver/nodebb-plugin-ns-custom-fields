@@ -1,5 +1,7 @@
 var React        = require('react'),
     FieldsEditor = require('./FieldsEditor.react'),
+    FieldsList     = require('./FieldsList.react'),
+    FieldInput     = require('./FieldInput.react'),
     Settings     = require('./Settings.react');
 
 var CustomFieldsApp = React.createClass({
@@ -8,10 +10,10 @@ var CustomFieldsApp = React.createClass({
         return (
             <div className="row">
                 <div className="col-md-5">
-                    <FieldsEditor />
+                    <FieldsList />
                 </div>
                 <div className="col-md-4">
-                    <FieldsEditor />
+                    <FieldInput />
                 </div>
                 <div className="col-md-3">
                     <Settings />

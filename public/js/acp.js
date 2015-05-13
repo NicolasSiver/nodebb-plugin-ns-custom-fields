@@ -61,6 +61,8 @@ module.exports = {
 },{"../Constants":1,"../dispatcher/AppDispatcher":9}],3:[function(require,module,exports){
 var React        = require('react'),
     FieldsEditor = require('./FieldsEditor.react'),
+    FieldsList     = require('./FieldsList.react'),
+    FieldInput     = require('./FieldInput.react'),
     Settings     = require('./Settings.react');
 
 var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
@@ -69,10 +71,10 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
         return (
             React.createElement("div", {className: "row"}, 
                 React.createElement("div", {className: "col-md-5"}, 
-                    React.createElement(FieldsEditor, null)
+                    React.createElement(FieldsList, null)
                 ), 
                 React.createElement("div", {className: "col-md-4"}, 
-                    React.createElement(FieldsEditor, null)
+                    React.createElement(FieldInput, null)
                 ), 
                 React.createElement("div", {className: "col-md-3"}, 
                     React.createElement(Settings, null), 
@@ -88,7 +90,7 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
 
 module.exports = CustomFieldsApp;
 
-},{"./FieldsEditor.react":6,"./Settings.react":8,"react":171}],4:[function(require,module,exports){
+},{"./FieldInput.react":4,"./FieldsEditor.react":6,"./FieldsList.react":7,"./Settings.react":8,"react":171}],4:[function(require,module,exports){
 var React                 = require('react'),
     ReactPropTypes        = React.PropTypes,
     Actions               = require('../actions/Actions'),
@@ -115,30 +117,35 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     render: function () {
         var del;
         return (
-            React.createElement("div", {className: "row bg-success"}, 
-                React.createElement("div", {className: "col-lg-5 col-lg-offset-1"}, 
-                    React.createElement("input", {
-                        type: "text", 
-                        className: "form-control field-lower", 
-                        onBlur: this._validateSpecialChars, 
-                        valueLink: this.linkState('fieldKey'), 
-                        placeholder: "Field Key (Ex: gender)"})
-                ), 
-                React.createElement("div", {className: "col-lg-6"}, 
-                    React.createElement("div", {className: "input-group"}, 
-                        React.createElement("input", {
-                            type: "text", 
-                            className: "form-control", 
-                            valueLink: this.linkState('fieldName'), 
-                            placeholder: "Field Name (Ex: Gender)", 
-                            onKeyDown: this._onKeyDown, 
-                            value: this.state.value}), 
+            React.createElement("div", {className: "panel panel-default"}, 
+                React.createElement("div", {className: "panel-heading"}, React.createElement("i", {className: "fa fa-plus-square"}), " Create Field"), 
+                React.createElement("div", {className: "panel-body"}, 
+                    React.createElement("div", {className: "row"}, 
+                        React.createElement("div", {className: "col-lg-6"}, 
+                            React.createElement("input", {
+                                type: "text", 
+                                className: "form-control field-lower", 
+                                onBlur: this._validateSpecialChars, 
+                                valueLink: this.linkState('fieldKey'), 
+                                placeholder: "Field Key (Ex: gender)"})
+                        ), 
+                        React.createElement("div", {className: "col-lg-6"}, 
+                            React.createElement("div", {className: "input-group"}, 
+                                React.createElement("input", {
+                                    type: "text", 
+                                    className: "form-control", 
+                                    valueLink: this.linkState('fieldName'), 
+                                    placeholder: "Field Name (Ex: Gender)", 
+                                    onKeyDown: this._onKeyDown, 
+                                    value: this.state.value}), 
                         React.createElement("span", {className: "input-group-btn"}, 
                             React.createElement("button", {
                                 className: "btn btn-success", 
                                 disabled: this._isValid() ? '' : 'disabled', 
                                 onClick: this._save, 
                                 type: "button"}, "Add"
+                            )
+                        )
                             )
                         )
                     )
@@ -276,15 +283,36 @@ module.exports = FieldsEditor;
 },{"../actions/Actions":2,"../stores/FieldsStore":172,"./FieldInput.react":4,"./FieldsList.react":7,"react":171}],7:[function(require,module,exports){
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
-    FieldItem      = require('./FieldItem.react');
+    FieldsStore    = require('../stores/FieldsStore'),
+    FieldItem      = require('./FieldItem.react'),
+    Actions        = require('../actions/Actions');
+
+function getFieldsState() {
+    return {
+        fields: FieldsStore.getAll()
+    };
+}
 
 var FieldsList = React.createClass({displayName: "FieldsList",
-    propTypes: {
-        fields: ReactPropTypes.array.isRequired
+    componentDidMount: function () {
+        FieldsStore.addChangeListener(this.fieldsDidChange);
+        Actions.getFields();
+    },
+
+    componentWillUnmount: function () {
+        FieldsStore.removeChangeListener(this.fieldsDidChange);
+    },
+
+    fieldsDidChange: function () {
+        this.setState(getFieldsState());
+    },
+
+    getInitialState: function () {
+        return getFieldsState();
     },
 
     render: function () {
-        if (this.props.fields.length < 1) {
+        if (this.state.fields.length < 1) {
             return null;
         }
         function renderItem(field, index, list) {
@@ -296,13 +324,18 @@ var FieldsList = React.createClass({displayName: "FieldsList",
         }
 
         return (
-            React.createElement("div", {className: "custom-fields-list"}, 
-                React.createElement("div", {className: "row custom-fields-list-header"}, 
-                    React.createElement("div", {className: "col-lg-1"}, "#"), 
-                    React.createElement("div", {className: "col-lg-5"}, "Key"), 
-                    React.createElement("div", {className: "col-lg-6"}, "Name")
-                ), 
-                this.props.fields.map(renderItem)
+            React.createElement("div", {className: "panel panel-default"}, 
+                React.createElement("div", {className: "panel-heading"}, "Custom Fields"), 
+                React.createElement("div", {className: "panel-body"}, 
+                    React.createElement("div", {className: "custom-fields-list"}, 
+                        React.createElement("div", {className: "row custom-fields-list-header"}, 
+                            React.createElement("div", {className: "col-lg-1"}, "#"), 
+                            React.createElement("div", {className: "col-lg-5"}, "Key"), 
+                            React.createElement("div", {className: "col-lg-6"}, "Name")
+                        ), 
+                        this.state.fields.map(renderItem)
+                    )
+                )
             )
         );
     }
@@ -310,7 +343,7 @@ var FieldsList = React.createClass({displayName: "FieldsList",
 
 module.exports = FieldsList;
 
-},{"./FieldItem.react":5,"react":171}],8:[function(require,module,exports){
+},{"../actions/Actions":2,"../stores/FieldsStore":172,"./FieldItem.react":5,"react":171}],8:[function(require,module,exports){
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
     SettingsStore  = require('../stores/SettingsStore'),

@@ -24,24 +24,27 @@ var FieldInput = React.createClass({
     render: function () {
         var del;
         return (
-            <div className="row bg-success">
-                <div className="col-lg-5 col-lg-offset-1">
-                    <input
-                        type="text"
-                        className="form-control field-lower"
-                        onBlur={this._validateSpecialChars}
-                        valueLink={this.linkState('fieldKey')}
-                        placeholder="Field Key (Ex: gender)"/>
-                </div>
-                <div className="col-lg-6">
-                    <div className="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            valueLink={this.linkState('fieldName')}
-                            placeholder="Field Name (Ex: Gender)"
-                            onKeyDown={this._onKeyDown}
-                            value={this.state.value}/>
+            <div className="panel panel-default">
+                <div className="panel-heading"><i className="fa fa-plus-square"/> Create Field</div>
+                <div className="panel-body">
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <input
+                                type="text"
+                                className="form-control field-lower"
+                                onBlur={this._validateSpecialChars}
+                                valueLink={this.linkState('fieldKey')}
+                                placeholder="Field Key (Ex: gender)"/>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    valueLink={this.linkState('fieldName')}
+                                    placeholder="Field Name (Ex: Gender)"
+                                    onKeyDown={this._onKeyDown}
+                                    value={this.state.value}/>
                         <span className="input-group-btn">
                             <button
                                 className="btn btn-success"
@@ -50,6 +53,8 @@ var FieldInput = React.createClass({
                                 type="button">Add
                             </button>
                         </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

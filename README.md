@@ -118,6 +118,7 @@ Result will look like panel with 2 columns.
 ## v1.2.0 - x.x.2015
 
 - Use RequireJS for Admin Panel
+- Use Less in plugin
 
 ## v1.1.1 - 26.04.2015
 

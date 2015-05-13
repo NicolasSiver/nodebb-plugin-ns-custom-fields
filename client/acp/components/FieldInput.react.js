@@ -24,7 +24,7 @@ var FieldInput = React.createClass({
     render: function () {
         var del;
         return (
-            <div className="row">
+            <div className="row bg-success">
                 <div className="col-lg-5 col-lg-offset-1">
                     <input
                         type="text"

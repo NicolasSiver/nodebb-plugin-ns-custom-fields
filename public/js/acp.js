@@ -68,10 +68,13 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
         //TODO Use New version notifier - http://registry.npmjs.org/nodebb-plugin-ns-custom-fields/latest
         return (
             React.createElement("div", {className: "row"}, 
-                React.createElement("div", {className: "col-lg-9"}, 
+                React.createElement("div", {className: "col-md-5"}, 
                     React.createElement(FieldsEditor, null)
                 ), 
-                React.createElement("div", {className: "col-lg-3"}, 
+                React.createElement("div", {className: "col-md-4"}, 
+                    React.createElement(FieldsEditor, null)
+                ), 
+                React.createElement("div", {className: "col-md-3"}, 
                     React.createElement(Settings, null), 
 
                     React.createElement("div", {className: "alert alert-info", role: "alert"}, "Plugin is under development. Don't hesitate to ", React.createElement("a", {
@@ -112,7 +115,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     render: function () {
         var del;
         return (
-            React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "row bg-success"}, 
                 React.createElement("div", {className: "col-lg-5 col-lg-offset-1"}, 
                     React.createElement("input", {
                         type: "text", 

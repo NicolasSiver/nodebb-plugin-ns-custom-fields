@@ -23,74 +23,16 @@ Adds additional fields to the user's profile
 ## Profile View
 
 Plugin provides additional Array under `customFields` field in user data for Account/Profile page.
-Here is a small example of integration to *Vanilla* theme.
+Use import of template, here is a small example:
 
 ```html
-<div class="panel panel-default">
-    <div class="panel-body text-center">
+<!-- IMPORT partials/account/custom_fields_panel.tpl -->
+```
 
-        <div class="row">
-            <!-- IF customFields.length --><div class="col-md-6"><!-- ENDIF customFields.length -->
-            <!-- IF !customFields.length --><div class="col-md-12"><!-- ENDIF !customFields.length -->
-                <!-- IF email -->
-                <span class="account-bio-label">[[user:email]]</span>
-                <span class="account-bio-value"><i class="fa fa-eye-slash {emailClass}" title="[[user:email_hidden]]"></i> {email}</span>
-                <!-- ENDIF email -->
+or
 
-                <!-- IF fullname -->
-                <span class="account-bio-label">[[user:fullname]]</span>
-                <span class="account-bio-value">{fullname}</span>
-                <!-- ENDIF fullname -->
-
-                <!-- IF websiteName -->
-                <span class="account-bio-label">[[user:website]]</span>
-                <span class="account-bio-value"><a href="{website}">{websiteName}</a></span>
-                <!-- ENDIF websiteName -->
-
-                <!-- IF location -->
-                <span class="account-bio-label">[[user:location]]</span>
-                <span class="account-bio-value">{location}</span>
-                <!-- ENDIF location -->
-
-                <!-- IF age -->
-                <span class="account-bio-label">[[user:age]]</span>
-                <span class="account-bio-value">{age}</span>
-                <!-- ENDIF age -->
-
-
-                <span class="account-bio-label">[[user:followers]]</span>
-                <span class="human-readable-number account-bio-value" title="{followerCount}">{followerCount}</span>
-
-                <span class="account-bio-label">[[user:following]]</span>
-                <span class="human-readable-number account-bio-value"  title="{followingCount}">{followingCount}</span>
-
-                <span class="account-bio-label">[[user:joined]]</span>
-                <span class="timeago account-bio-value" title="{joindate}"></span>
-
-                <span class="account-bio-label">[[user:lastonline]]</span>
-                <span class="timeago account-bio-value" title="{lastonline}"></span>
-
-                <!-- IF !disableSignatures -->
-                <!-- IF signature -->
-                <hr/>
-                <span class="account-bio-label">[[user:signature]]</span>
-                <div class="post-signature">
-                    <span id='signature'>{signature}</span>
-                </div>
-                <!-- ENDIF signature -->
-                <!-- ENDIF !disableSignatures -->
-            </div>
-            <!-- IF customFields.length -->
-            <div class="col-md-6">
-                <!-- BEGIN customFields -->
-                    <span class="account-bio-label">{customFields.name}</span>
-                    <span class="account-bio-value">{customFields.value}</span>
-                <!-- END customFields -->
-            </div>
-            <!-- ENDIF customFields.length -->
-        </div>
-    </div>
-</div>
+```html
+<!-- IMPORT partials/account/custom_fields_two_columns.tpl -->
 ```
 
 Result will look like panel with 2 columns.
@@ -120,6 +62,7 @@ Result will look like panel with 2 columns.
 - Use RequireJS for Admin Panel
 - Use Less in plugin
 - No need for swap of Account Edit View
+- Added Single column template, see - custom_fields_panel.tpl
 
 ## v1.1.1 - 26.04.2015
 

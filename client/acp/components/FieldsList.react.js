@@ -20,7 +20,7 @@ var FieldsList = React.createClass({
         }
 
         return (
-            <div id="fieldsList">
+            <div className="custom-fields-list">
                 <div className="row custom-fields-list-header">
                     <div className="col-lg-1">#</div>
                     <div className="col-lg-5">Key</div>

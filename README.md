@@ -20,7 +20,7 @@ Adds additional fields to the user's profile
 
 # Themes
 
-## Integration
+## Profile View
 
 Plugin provides additional Array under `customFields` field in user data for Account/Profile page.
 Here is a small example of integration to *Vanilla* theme.
@@ -95,14 +95,6 @@ Here is a small example of integration to *Vanilla* theme.
 
 Result will look like panel with 2 columns.
 
-## Supported Themes
-
-Currently there is no theme with support for Custom Fields.
-
-| Theme | Package | Comments |
-| ------------- | ----------- | ----------- |
-| No themes | - | :( |
-
 # TODO
 
 - Edit Custom Field (key, name)
@@ -122,6 +114,10 @@ Currently there is no theme with support for Custom Fields.
 > Pull Requests are welcome ;)
 
 # Changelog
+
+## v1.2.0 - x.x.2015
+
+- Use RequireJS for Admin Panel
 
 ## v1.1.1 - 26.04.2015
 

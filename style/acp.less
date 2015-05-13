@@ -1,0 +1,34 @@
+@import "vars";
+@import "material-color/material-color-prefixed";
+
+.custom-fields-list {
+  .custom-fields-item {
+    height: @cs-line-height;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-fields-list-header {
+    height: @cs-line-heightpx;
+    display: flex;
+    align-items: center;
+    color: @md-clr-grey-500;
+  }
+
+  .custom-fields-item-controls {
+    font-size: 1.7em;
+    cursor: pointer;
+  }
+
+  .custom-fields-color-danger {
+    color: @md-clr-red-500;
+  }
+
+  .field-lower {
+    text-transform: lowercase;
+  }
+
+  .admin .panel.panel-default .panel-heading {
+    font-size: 1.5em;
+  }
+}

@@ -22,9 +22,11 @@
       "method": "hooks.statics.load"
     }
   ],
+  "less": [
+    "style/acp.less"
+  ],
   "staticDirs": {
     "templates": "./public/templates",
-    "css": "./public/css",
     "js": "./public/js"
   },
   "templates": "./public/templates"

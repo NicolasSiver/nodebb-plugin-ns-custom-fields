@@ -37,8 +37,8 @@ var Settings = React.createClass({
                             <input
                                 type="checkbox"
                                 checked={this.state.filterTopics}
-                                onChange={this._filterDidChange.bind(this, 'filterTopics')}/> Populate Topic View with
-                            custom fields
+                                onChange={this._filterDidChange.bind(this, 'filterTopics')}/> Topic View: add custom
+                            fields
                         </label>
                     </div>
                 </div>

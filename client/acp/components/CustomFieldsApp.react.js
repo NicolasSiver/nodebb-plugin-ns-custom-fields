@@ -7,10 +7,10 @@ var CustomFieldsApp = React.createClass({
         //TODO Use New version notifier - http://registry.npmjs.org/nodebb-plugin-ns-custom-fields/latest
         return (
             <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-9">
                     <FieldsEditor />
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-3">
                     <Settings />
 
                     <div className="alert alert-info" role="alert">Plugin is under development. Don't hesitate to <a

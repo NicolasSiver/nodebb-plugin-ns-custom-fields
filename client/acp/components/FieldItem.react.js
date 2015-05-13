@@ -27,7 +27,7 @@ var FieldItem = React.createClass({
                 <div className="col-lg-4">{this.props.field.name}</div>
                 <div className="col-lg-2">
                     <div className="pull-right"><i
-                        className="fa fa-times custom-fields-item-controls custom-fields-color-danger"
+                        className="fa fa-trash-o custom-fields-item-controls custom-fields-color-danger"
                         onClick={this._deleteItem}></i></div>
                 </div>
             </div>

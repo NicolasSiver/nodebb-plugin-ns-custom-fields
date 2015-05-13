@@ -119,6 +119,7 @@ Result will look like panel with 2 columns.
 
 - Use RequireJS for Admin Panel
 - Use Less in plugin
+- No need for swap of Account Edit View
 
 ## v1.1.1 - 26.04.2015
 

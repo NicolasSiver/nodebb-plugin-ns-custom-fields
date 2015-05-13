@@ -2,7 +2,7 @@
 
 /* globals define, ajaxify, socket, app, config, utils, bootbox */
 
-require([], function () {
+$(document).ready(function () {
     var fieldsMeta,
         idPrefix = 'field_',
         api      = {
@@ -10,7 +10,12 @@ require([], function () {
             save: 'plugins.ns-custom-fields.saveFields'
         };
 
-    init();
+    $(window).on('action:ajaxify.contentLoaded', function (ev, data) {
+        //Persona Theme
+        if (data.tpl === 'account/edit') {
+            init();
+        }
+    });
 
     function init() {
         socket.emit(api.get, {uid: ajaxify.variables.get('theirid')}, function (error, payload) {

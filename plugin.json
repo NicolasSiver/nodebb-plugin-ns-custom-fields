@@ -25,6 +25,9 @@
   "less": [
     "style/acp.less"
   ],
+  "scripts": [
+    "public/js/fields-edit.js"
+  ],
   "staticDirs": {
     "templates": "./public/templates",
     "js": "./public/js"

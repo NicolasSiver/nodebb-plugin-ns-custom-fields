@@ -27,35 +27,41 @@ var FieldInput = React.createClass({
             <div className="panel panel-default">
                 <div className="panel-heading"><i className="fa fa-plus-square"/> Create Field</div>
                 <div className="panel-body">
+
                     <div className="row">
-                        <div className="col-lg-6">
-                            <input
-                                type="text"
-                                className="form-control field-lower"
-                                onBlur={this._validateSpecialChars}
-                                valueLink={this.linkState('fieldKey')}
-                                placeholder="Field Key (Ex: gender)"/>
-                        </div>
-                        <div className="col-lg-6">
-                            <div className="input-group">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="labelKey">Key</label>
                                 <input
+                                    id="labelKey"
+                                    type="text"
+                                    className="form-control field-lower"
+                                    onBlur={this._validateSpecialChars}
+                                    valueLink={this.linkState('fieldKey')}
+                                    placeholder="Field Key (Ex: gender)"/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="labelName">Name</label>
+                                <input
+                                    id="labelName"
                                     type="text"
                                     className="form-control"
                                     valueLink={this.linkState('fieldName')}
                                     placeholder="Field Name (Ex: Gender)"
                                     onKeyDown={this._onKeyDown}
                                     value={this.state.value}/>
-                        <span className="input-group-btn">
-                            <button
-                                className="btn btn-success"
-                                disabled={this._isValid() ? '' : 'disabled'}
-                                onClick={this._save}
-                                type="button">Add
-                            </button>
-                        </span>
                             </div>
                         </div>
                     </div>
+
+                    <button
+                        className="btn btn-success"
+                        disabled={this._isValid() ? '' : 'disabled'}
+                        onClick={this._save}
+                        type="button">Create Field
+                    </button>
                 </div>
             </div>
         );

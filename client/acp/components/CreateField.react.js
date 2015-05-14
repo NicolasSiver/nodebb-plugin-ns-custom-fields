@@ -117,7 +117,12 @@ var FieldInput = React.createClass({
     },
 
     _save: function () {
-        Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
+        Actions.createField(
+            this.state.fieldKey.toLowerCase(),
+            this.state.fieldName,
+            this.state.fieldType,
+            this.state.fieldMeta
+        );
         this.replaceState(this.getInitialState());
     },
 

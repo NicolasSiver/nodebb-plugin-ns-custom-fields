@@ -23,11 +23,13 @@ module.exports = {
         });
     },
 
-    createField: function (key, name) {
+    createField: function (key, name, type, meta) {
         AppDispatcher.dispatch({
             actionType: Constants.EVENT_CREATE_FIELD,
             key       : key,
-            name      : name
+            name      : name,
+            type      : type,
+            meta      : meta
         });
     },
 
@@ -178,7 +180,12 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     },
 
     _save: function () {
-        Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
+        Actions.createField(
+            this.state.fieldKey.toLowerCase(),
+            this.state.fieldName,
+            this.state.fieldType,
+            this.state.fieldMeta
+        );
         this.replaceState(this.getInitialState());
     },
 
@@ -20952,6 +20959,7 @@ AppDispatcher.register(function (action) {
                 });
             break;
         case Constants.EVENT_CREATE_FIELD:
+            //FIXME Create field through socket with type and meta
             jQuery
                 .ajax({
                     url   : apiUri + '/fields',

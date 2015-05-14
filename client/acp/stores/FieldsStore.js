@@ -66,6 +66,7 @@ AppDispatcher.register(function (action) {
                 });
             break;
         case Constants.EVENT_CREATE_FIELD:
+            //FIXME Create field through socket with type and meta
             jQuery
                 .ajax({
                     url   : apiUri + '/fields',

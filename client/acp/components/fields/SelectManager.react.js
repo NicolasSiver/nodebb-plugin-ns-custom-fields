@@ -12,13 +12,15 @@ function createPlaceholder() {
 }
 
 var SelectManager = React.createClass({
-    propTypes: {},
+    propTypes: {
+        options : ReactPropTypes.array.isRequired,
+        onUpdate: ReactPropTypes.func.isRequired
+    },
 
     getInitialState: function () {
         return {
             optionId  : this.props.optionId || '',
-            optionText: this.props.optionText || '',
-            options   : []
+            optionText: this.props.optionText || ''
         };
     },
 
@@ -44,7 +46,7 @@ var SelectManager = React.createClass({
                 <ul
                     className="options-list"
                     onDragOver={this._dragDidOver}>
-                    {this.state.options.map(renderOption)}
+                    {this.props.options.map(renderOption)}
                 </ul>
 
                 <div className="row options-controls">
@@ -80,10 +82,12 @@ var SelectManager = React.createClass({
     },
 
     _addOptionItem: function () {
+        var newItem = {id: this.state.optionId, text: this.state.optionText};
         this.setState({
-            options   : this.state.options.concat([{id: this.state.optionId, text: this.state.optionText}]),
             optionId  : '',
             optionText: ''
+        }, function () {
+            this.props.onUpdate(this.props.options.concat([newItem]));
         });
     },
 

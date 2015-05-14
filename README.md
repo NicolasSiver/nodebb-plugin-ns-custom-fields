@@ -62,7 +62,8 @@ Result will look like panel with 2 columns.
 - Use RequireJS for Admin Panel
 - Use Less in plugin
 - No need for swap of Account Edit View
-- Added Single column template, see - custom_fields_panel.tpl
+- Added templates: panel and two columns
+- Field Types support: Input (default) and Select
 
 ## v1.1.1 - 26.04.2015
 

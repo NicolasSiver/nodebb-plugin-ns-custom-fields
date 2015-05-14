@@ -77,23 +77,30 @@ var React                 = require('react'),
 var FieldInput = React.createClass({displayName: "FieldInput",
     mixins: [LinkedStateMixin],
 
+    propTypes: {
+        fieldKey : ReactPropTypes.string,
+        fieldName: ReactPropTypes.string
+    },
+
     getInitialState: function () {
         return {
-            fieldKey : this.props.fieldKey || '',
-            fieldName: this.props.fieldName || '',
-            fieldType: fields[0].type
+            fieldKey  : this.props.fieldKey || '',
+            fieldName : this.props.fieldName || '',
+            fieldType : fields[0].type,
+            fieldMeta : {},
+            fieldValid: false
         };
     },
 
     render: function () {
-        var del;
+        var del, self = this;
 
         function getFieldComponentByType(type) {
             switch (type) {
                 case 'input':
-                    return React.createElement(Input, null);
+                    return React.createElement(Input, {meta: self.state.fieldMeta, onUpdate: self._fieldDidUpdate});
                 case 'select':
-                    return React.createElement(Select, null);
+                    return React.createElement(Select, {meta: self.state.fieldMeta, onUpdate: self._fieldDidUpdate});
             }
         }
 
@@ -155,6 +162,13 @@ var FieldInput = React.createClass({displayName: "FieldInput",
         );
     },
 
+    _fieldDidUpdate: function (meta, valid) {
+        this.setState({
+            fieldValid: valid,
+            fieldMeta : meta
+        });
+    },
+
     _fieldTypeDidChange: function (e) {
         this.setState({
             fieldType: e.currentTarget.value
@@ -162,15 +176,12 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     },
 
     _isValid: function () {
-        return !!this.state.fieldKey && !!this.state.fieldName;
+        return !!this.state.fieldKey && !!this.state.fieldName && this.state.fieldValid;
     },
 
     _save: function () {
         Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
-        this.setState({
-            fieldKey : '',
-            fieldName: ''
-        });
+        this.replaceState(this.getInitialState());
     },
 
     /**
@@ -407,7 +418,15 @@ var React          = require('react'),
     ReactPropTypes = React.PropTypes;
 
 var Input = React.createClass({displayName: "Input",
-    propTypes: {},
+    propTypes: {
+        meta    : ReactPropTypes.object.isRequired,
+        onUpdate: ReactPropTypes.func.isRequired
+    },
+
+    componentDidMount: function () {
+        //Prompt is optional, Input is valid
+        this.props.onUpdate({prompt: this.props.meta.prompt}, true);
+    },
 
     render: function () {
         return (
@@ -417,9 +436,17 @@ var Input = React.createClass({displayName: "Input",
                     id: "labelPrompt", 
                     type: "text", 
                     className: "form-control", 
+                    value: this.props.meta.prompt, 
+                    onChange: this._promptDidChange, 
                     placeholder: "Message"})
             )
         );
+    },
+
+    _promptDidChange: function (e) {
+        this.props.onUpdate({
+            prompt: e.currentTarget.value
+        }, true);
     }
 });
 
@@ -431,7 +458,14 @@ var React          = require('react'),
     SelectManager  = require('./SelectManager.react');
 
 var Select = React.createClass({displayName: "Select",
-    propTypes: {},
+    propTypes: {
+        meta    : ReactPropTypes.object.isRequired,
+        onUpdate: ReactPropTypes.func.isRequired
+    },
+
+    componentDidMount: function () {
+        this._update(this.props.meta.prompt, this.props.meta.options);
+    },
 
     render: function () {
         return (
@@ -442,12 +476,33 @@ var Select = React.createClass({displayName: "Select",
                         id: "labelPrompt", 
                         type: "text", 
                         className: "form-control", 
+                        value: this.props.meta.prompt, 
+                        onChange: this._promptDidChange, 
                         placeholder: "Message"})
                 ), 
 
-                React.createElement(SelectManager, null)
+                React.createElement(SelectManager, {
+                    options: this.props.meta.options || [], 
+                    onUpdate: this._optionsDidChange})
             )
         );
+    },
+
+    _optionsDidChange: function (options) {
+        this._update(this.props.meta.prompt, options);
+    },
+
+    _promptDidChange: function (e) {
+        this._update(e.currentTarget.value, this.prompt.meta.options);
+    },
+
+    _update: function (prompt, options) {
+        this.props.onUpdate({
+                prompt : prompt,
+                options: options
+            },
+            //There is no point in Select with zero or one option
+            options && options.length >= 2);
     }
 });
 
@@ -468,13 +523,15 @@ function createPlaceholder() {
 }
 
 var SelectManager = React.createClass({displayName: "SelectManager",
-    propTypes: {},
+    propTypes: {
+        options : ReactPropTypes.array.isRequired,
+        onUpdate: ReactPropTypes.func.isRequired
+    },
 
     getInitialState: function () {
         return {
             optionId  : this.props.optionId || '',
-            optionText: this.props.optionText || '',
-            options   : []
+            optionText: this.props.optionText || ''
         };
     },
 
@@ -500,7 +557,7 @@ var SelectManager = React.createClass({displayName: "SelectManager",
                 React.createElement("ul", {
                     className: "options-list", 
                     onDragOver: this._dragDidOver}, 
-                    this.state.options.map(renderOption)
+                    this.props.options.map(renderOption)
                 ), 
 
                 React.createElement("div", {className: "row options-controls"}, 
@@ -536,10 +593,12 @@ var SelectManager = React.createClass({displayName: "SelectManager",
     },
 
     _addOptionItem: function () {
+        var newItem = {id: this.state.optionId, text: this.state.optionText};
         this.setState({
-            options   : this.state.options.concat([{id: this.state.optionId, text: this.state.optionText}]),
             optionId  : '',
             optionText: ''
+        }, function () {
+            this.props.onUpdate(this.props.options.concat([newItem]));
         });
     },
 

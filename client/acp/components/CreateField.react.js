@@ -16,23 +16,30 @@ var React                 = require('react'),
 var FieldInput = React.createClass({
     mixins: [LinkedStateMixin],
 
+    propTypes: {
+        fieldKey : ReactPropTypes.string,
+        fieldName: ReactPropTypes.string
+    },
+
     getInitialState: function () {
         return {
-            fieldKey : this.props.fieldKey || '',
-            fieldName: this.props.fieldName || '',
-            fieldType: fields[0].type
+            fieldKey  : this.props.fieldKey || '',
+            fieldName : this.props.fieldName || '',
+            fieldType : fields[0].type,
+            fieldMeta : {},
+            fieldValid: false
         };
     },
 
     render: function () {
-        var del;
+        var del, self = this;
 
         function getFieldComponentByType(type) {
             switch (type) {
                 case 'input':
-                    return <Input />;
+                    return <Input meta={self.state.fieldMeta} onUpdate={self._fieldDidUpdate}/>;
                 case 'select':
-                    return <Select />;
+                    return <Select meta={self.state.fieldMeta} onUpdate={self._fieldDidUpdate}/>;
             }
         }
 
@@ -94,6 +101,13 @@ var FieldInput = React.createClass({
         );
     },
 
+    _fieldDidUpdate: function (meta, valid) {
+        this.setState({
+            fieldValid: valid,
+            fieldMeta : meta
+        });
+    },
+
     _fieldTypeDidChange: function (e) {
         this.setState({
             fieldType: e.currentTarget.value
@@ -101,15 +115,12 @@ var FieldInput = React.createClass({
     },
 
     _isValid: function () {
-        return !!this.state.fieldKey && !!this.state.fieldName;
+        return !!this.state.fieldKey && !!this.state.fieldName && this.state.fieldValid;
     },
 
     _save: function () {
         Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
-        this.setState({
-            fieldKey : '',
-            fieldName: ''
-        });
+        this.replaceState(this.getInitialState());
     },
 
     /**

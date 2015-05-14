@@ -95,7 +95,7 @@ var SelectManager = React.createClass({
         this.dragged.style.display = "block";
         this.dragged.parentNode.removeChild(placeholder);
 
-        var options = this.state.options;
+        var options = this.props.options;
         var from = parseInt(this.dragged.dataset.id, 10);
         var to = parseInt(this.over.dataset.id, 10);
 
@@ -103,9 +103,7 @@ var SelectManager = React.createClass({
             if (from < to) to--;
             if (this.placement == "after") to++;
             options.splice(to, 0, options.splice(from, 1)[0]);
-            this.setState({
-                options: options
-            })
+            this.props.onUpdate(options);
         }
     },
 

@@ -458,34 +458,70 @@ var React          = require('react'),
 var SelectManager = React.createClass({displayName: "SelectManager",
     propTypes: {},
 
+    getInitialState: function () {
+        return {
+            optionId  : this.props.optionId || '',
+            optionText: this.props.optionText || '',
+            options   : []
+        };
+    },
+
     render: function () {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "options-manager"}, 
                 React.createElement("p", null, "Create Select Options"), 
+
+                React.createElement("ul", {className: "options-list"}
+                ), 
 
                 React.createElement("div", {className: "row"}, 
                     React.createElement("div", {className: "col-md-2"}, 
                         React.createElement("input", {
                             type: "text", 
-                            maxlength: "3", 
+                            maxLength: "3", 
                             className: "form-control", 
+                            value: this.state.optionId, 
+                            onChange: this._inputDidChange.bind(null, 'optionId'), 
                             placeholder: "Id"})
                     ), 
                     React.createElement("div", {className: "col-md-8"}, 
                         React.createElement("input", {
                             type: "text", 
                             className: "form-control", 
+                            value: this.state.optionText, 
+                            onChange: this._inputDidChange.bind(null, 'optionText'), 
                             placeholder: "Label"})
                     ), 
                     React.createElement("div", {className: "col-md-2"}, 
                         React.createElement("button", {
                             className: "btn btn-success btn-block", 
-                            type: "button"}, React.createElement("i", {className: "fa fa-plus fa-lg"})
+                            type: "button", 
+                            disabled: this._isValidInput() ? '' : 'disabled', 
+                            onClick: this._addOptionItem}, 
+                            React.createElement("i", {className: "fa fa-plus fa-lg"})
                         )
                     )
                 )
             )
         );
+    },
+
+    _addOptionItem: function () {
+        this.setState({
+            options   : this.state.options.concat([{id: this.state.optionId, text: this.state.optionText}]),
+            optionId  : '',
+            optionText: ''
+        });
+    },
+
+    _inputDidChange: function (key, e) {
+        var update = {};
+        update[key] = e.currentTarget.value;
+        this.setState(update);
+    },
+
+    _isValidInput: function () {
+        return this.state.optionId && this.state.optionText;
     }
 });
 

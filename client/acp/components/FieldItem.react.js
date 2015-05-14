@@ -23,8 +23,9 @@ var FieldItem = React.createClass({
         return (
             <div className="row custom-fields-item">
                 <div className="col-lg-1">{arrowPrevious} {arrowNext}</div>
-                <div className="col-lg-5">{this.props.field.key}</div>
-                <div className="col-lg-4">{this.props.field.name}</div>
+                <div className="col-lg-3">{this.props.field.key}</div>
+                <div className="col-lg-3">{this.props.field.type}</div>
+                <div className="col-lg-3">{this.props.field.name}</div>
                 <div className="col-lg-2">
                     <div className="pull-right"><i
                         className="fa fa-trash-o custom-fields-item-controls custom-fields-color-danger"

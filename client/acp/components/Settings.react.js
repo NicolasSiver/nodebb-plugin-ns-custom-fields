@@ -41,10 +41,6 @@ var Settings = React.createClass({
                             fields
                         </label>
                     </div>
-
-                    <div className="alert alert-info" role="alert">Plugin is under development. Don't hesitate to <a
-                        href="https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields#todo" target="_blank">contribute</a>.
-                    </div>
                 </div>
             </div>
         );

@@ -210,7 +210,11 @@ var CustomFieldsApp = React.createClass({displayName: "CustomFieldsApp",
                     React.createElement(CreateField, null)
                 ), 
                 React.createElement("div", {className: "col-md-3"}, 
-                    React.createElement(Settings, null)
+                    React.createElement(Settings, null), 
+
+                    React.createElement("div", {className: "alert alert-info", role: "alert"}, "Plugin is under development. Don't hesitate to ", React.createElement("a", {
+                        href: "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields#todo", target: "_blank"}, "contribute"), "."
+                    )
                 )
             )
         );
@@ -245,8 +249,9 @@ var FieldItem = React.createClass({displayName: "FieldItem",
         return (
             React.createElement("div", {className: "row custom-fields-item"}, 
                 React.createElement("div", {className: "col-lg-1"}, arrowPrevious, " ", arrowNext), 
-                React.createElement("div", {className: "col-lg-5"}, this.props.field.key), 
-                React.createElement("div", {className: "col-lg-4"}, this.props.field.name), 
+                React.createElement("div", {className: "col-lg-3"}, this.props.field.key), 
+                React.createElement("div", {className: "col-lg-3"}, this.props.field.type), 
+                React.createElement("div", {className: "col-lg-3"}, this.props.field.name), 
                 React.createElement("div", {className: "col-lg-2"}, 
                     React.createElement("div", {className: "pull-right"}, React.createElement("i", {
                         className: "fa fa-trash-o custom-fields-item-controls custom-fields-color-danger", 
@@ -317,8 +322,9 @@ var FieldsList = React.createClass({displayName: "FieldsList",
                     React.createElement("div", {className: "custom-fields-list"}, 
                         React.createElement("div", {className: "row custom-fields-list-header"}, 
                             React.createElement("div", {className: "col-lg-1"}, "#"), 
-                            React.createElement("div", {className: "col-lg-5"}, "Key"), 
-                            React.createElement("div", {className: "col-lg-6"}, "Name")
+                            React.createElement("div", {className: "col-lg-3"}, "Key"), 
+                            React.createElement("div", {className: "col-lg-3"}, "Type"), 
+                            React.createElement("div", {className: "col-lg-5"}, "Name")
                         ), 
                         this.state.fields.map(renderItem)
                     )
@@ -373,10 +379,6 @@ var Settings = React.createClass({displayName: "Settings",
                                 onChange: this._filterDidChange.bind(this, 'filterTopics')}), " Topic View: add custom" + ' ' +
                             "fields"
                         )
-                    ), 
-
-                    React.createElement("div", {className: "alert alert-info", role: "alert"}, "Plugin is under development. Don't hesitate to ", React.createElement("a", {
-                        href: "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields#todo", target: "_blank"}, "contribute"), "."
                     )
                 )
             )
@@ -453,9 +455,9 @@ module.exports = Select;
 
 },{"./SelectManager.react":10,"react":173}],10:[function(require,module,exports){
 var React          = require('react'),
-    ReactPropTypes = React.PropTypes;
+    ReactPropTypes = React.PropTypes,
 
-var placeholder = createPlaceholder();
+    placeholder    = createPlaceholder();
 
 function createPlaceholder() {
     var element = document.createElement("li");

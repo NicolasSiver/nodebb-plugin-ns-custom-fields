@@ -1,7 +1,7 @@
 var React          = require('react'),
-    ReactPropTypes = React.PropTypes;
+    ReactPropTypes = React.PropTypes,
 
-var placeholder = createPlaceholder();
+    placeholder    = createPlaceholder();
 
 function createPlaceholder() {
     var element = document.createElement("li");

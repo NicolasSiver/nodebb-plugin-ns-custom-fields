@@ -49,6 +49,7 @@ Result will look like panel with 2 columns.
 - Just append client script to edit template without swapping whole template file - account/edit.tpl
 - Add utility method: clear unused fields
 - Add prompt message for custom fields in user's profile
+- Drag-n-drop for Custom Fields order
 
 > Pull Requests are welcome ;)
 

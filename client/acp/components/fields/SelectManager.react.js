@@ -113,7 +113,12 @@ var SelectManager = React.createClass({
             this.over = e.target;
 
             var bounds = this.over.getBoundingClientRect();
-            var posY = e.pageY - bounds.top;
+            var body = document.body;
+            var docElem = document.documentElement;
+            var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+            var clientTop = docElem.clientTop || body.clientTop || 0;
+            var top = bounds.top + scrollTop - clientTop;
+            var posY = e.pageY - top;
             var height = bounds.height >> 1;
             var parent = e.target.parentNode;
 

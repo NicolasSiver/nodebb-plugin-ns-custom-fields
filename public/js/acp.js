@@ -455,6 +455,16 @@ module.exports = Select;
 var React          = require('react'),
     ReactPropTypes = React.PropTypes;
 
+var placeholder = createPlaceholder();
+
+function createPlaceholder() {
+    var element = document.createElement("li");
+    var content = document.createTextNode("Drop here");
+    element.className = "options-placeholder";
+    element.appendChild(content);
+    return element;
+}
+
 var SelectManager = React.createClass({displayName: "SelectManager",
     propTypes: {},
 
@@ -467,14 +477,31 @@ var SelectManager = React.createClass({displayName: "SelectManager",
     },
 
     render: function () {
+        var self = this;
+
+        function renderOption(option, index) {
+            return React.createElement("li", {
+                className: "options-list-item", 
+                "data-id": index, 
+                key: index, 
+                draggable: "true", 
+                onDragEnd: self._dragDidEnd, 
+                onDragStart: self._dragDidStart}, 
+                option.id, " - ", option.text
+            )
+        }
+
         return (
             React.createElement("div", {className: "options-manager"}, 
-                React.createElement("p", null, "Create Select Options"), 
+                React.createElement("p", null, "Options:"), 
 
-                React.createElement("ul", {className: "options-list"}
+                React.createElement("ul", {
+                    className: "options-list", 
+                    onDragOver: this._dragDidOver}, 
+                    this.state.options.map(renderOption)
                 ), 
 
-                React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "row options-controls"}, 
                     React.createElement("div", {className: "col-md-2"}, 
                         React.createElement("input", {
                             type: "text", 
@@ -512,6 +539,52 @@ var SelectManager = React.createClass({displayName: "SelectManager",
             optionId  : '',
             optionText: ''
         });
+    },
+
+    _dragDidEnd: function (e) {
+        this.dragged.style.display = "block";
+        this.dragged.parentNode.removeChild(placeholder);
+
+        var options = this.state.options;
+        var from = parseInt(this.dragged.dataset.id, 10);
+        var to = parseInt(this.over.dataset.id, 10);
+
+        if (from != to) {
+            if (from < to) to--;
+            if (this.placement == "after") to++;
+            options.splice(to, 0, options.splice(from, 1)[0]);
+            this.setState({
+                options: options
+            })
+        }
+    },
+
+    _dragDidOver: function (e) {
+        e.preventDefault();
+        this.dragged.style.display = "none";
+
+        if (e.target != placeholder) {
+            this.over = e.target;
+
+            var bounds = this.over.getBoundingClientRect();
+            var posY = e.pageY - bounds.top;
+            var height = bounds.height >> 1;
+            var parent = e.target.parentNode;
+
+            if (posY > height) {
+                this.placement = "after";
+                parent.insertBefore(placeholder, e.target.nextElementSibling);
+            } else {
+                this.placement = "before";
+                parent.insertBefore(placeholder, e.target);
+            }
+        }
+    },
+
+    _dragDidStart: function (e) {
+        this.dragged = e.currentTarget;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData("text/html", e.currentTarget);
     },
 
     _inputDidChange: function (key, e) {

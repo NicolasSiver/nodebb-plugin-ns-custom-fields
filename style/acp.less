@@ -29,6 +29,32 @@
   }
 }
 
-.options-manager{
+.options-manager {
   margin: @cs-margin 0;
+
+  .options-controls{
+    margin-top: @cs-margin;
+  }
 }
+
+.options-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .options-list-item {
+    padding: @cs-padding-small;
+    background: @md-clr-grey-50;
+
+    span {
+      pointer-events: none;
+    }
+  }
+
+  .options-placeholder {
+    background: @md-clr-green-50;
+    padding: @cs-padding-small;
+    color: @md-clr-grey-800;
+  }
+}
+

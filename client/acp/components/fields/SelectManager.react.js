@@ -36,6 +36,9 @@ var SelectManager = React.createClass({
                 onDragEnd={self._dragDidEnd}
                 onDragStart={self._dragDidStart}>
                 <i className="fa fa-sort"></i> {option.id} - {option.text}
+                <div className="pull-right">
+                    <i className="fa fa-times" onClick={self._deleteOptionItem.bind(null, index)}></i>
+                </div>
             </li>
         }
 
@@ -91,6 +94,12 @@ var SelectManager = React.createClass({
         });
     },
 
+    _deleteOptionItem: function (index) {
+        var options = this.props.options;
+        options.splice(index, 1);
+        this.props.onUpdate(options);
+    },
+
     _dragDidEnd: function (e) {
         this.dragged.style.display = "block";
         this.dragged.parentNode.removeChild(placeholder);
@@ -111,7 +120,7 @@ var SelectManager = React.createClass({
         e.preventDefault();
         this.dragged.style.display = "none";
 
-        if (e.target != placeholder) {
+        if (e.target != placeholder && e.target.tagName == 'LI') {
             this.over = e.target;
 
             var bounds = this.over.getBoundingClientRect();

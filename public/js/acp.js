@@ -546,7 +546,10 @@ var SelectManager = React.createClass({displayName: "SelectManager",
                 draggable: "true", 
                 onDragEnd: self._dragDidEnd, 
                 onDragStart: self._dragDidStart}, 
-                React.createElement("i", {className: "fa fa-sort"}), " ", option.id, " - ", option.text
+                React.createElement("i", {className: "fa fa-sort"}), " ", option.id, " - ", option.text, 
+                React.createElement("div", {className: "pull-right"}, 
+                    React.createElement("i", {className: "fa fa-times", onClick: self._deleteOptionItem.bind(null, index)})
+                )
             )
         }
 
@@ -602,6 +605,12 @@ var SelectManager = React.createClass({displayName: "SelectManager",
         });
     },
 
+    _deleteOptionItem: function (index) {
+        var options = this.props.options;
+        options.splice(index, 1);
+        this.props.onUpdate(options);
+    },
+
     _dragDidEnd: function (e) {
         this.dragged.style.display = "block";
         this.dragged.parentNode.removeChild(placeholder);
@@ -622,7 +631,7 @@ var SelectManager = React.createClass({displayName: "SelectManager",
         e.preventDefault();
         this.dragged.style.display = "none";
 
-        if (e.target != placeholder) {
+        if (e.target != placeholder && e.target.tagName == 'LI') {
             this.over = e.target;
 
             var bounds = this.over.getBoundingClientRect();

@@ -33,7 +33,7 @@ var SelectManager = React.createClass({
                 draggable="true"
                 onDragEnd={self._dragDidEnd}
                 onDragStart={self._dragDidStart}>
-                {option.id} - {option.text}
+                <i className="fa fa-sort"></i> {option.id} - {option.text}
             </li>
         }
 

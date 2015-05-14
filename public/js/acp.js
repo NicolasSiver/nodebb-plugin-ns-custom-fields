@@ -487,7 +487,7 @@ var SelectManager = React.createClass({displayName: "SelectManager",
                 draggable: "true", 
                 onDragEnd: self._dragDidEnd, 
                 onDragStart: self._dragDidStart}, 
-                option.id, " - ", option.text
+                React.createElement("i", {className: "fa fa-sort"}), " ", option.id, " - ", option.text
             )
         }
 

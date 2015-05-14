@@ -66,7 +66,6 @@ var React                 = require('react'),
     Select                = require('./fields/Select.react'),
     LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    ENTER_KEY_CODE        = 13,
     noSpecialCharsPattern = /[^\w]/gi,
 
     fields                = [
@@ -135,7 +134,6 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                                     className: "form-control", 
                                     valueLink: this.linkState('fieldName'), 
                                     placeholder: "Field Name (Ex: Gender)", 
-                                    onKeyDown: this._onKeyDown, 
                                     value: this.state.value})
                             )
                         )
@@ -182,15 +180,6 @@ var FieldInput = React.createClass({displayName: "FieldInput",
     _save: function () {
         Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
         this.replaceState(this.getInitialState());
-    },
-
-    /**
-     * @param  {object} event
-     */
-    _onKeyDown: function (event) {
-        if (event.keyCode === ENTER_KEY_CODE && this._isValid()) {
-            this._save();
-        }
     },
 
     _validateSpecialChars: function (event) {
@@ -512,6 +501,7 @@ module.exports = Select;
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
 
+    ENTER_KEY_CODE = 13,
     placeholder    = createPlaceholder();
 
 function createPlaceholder() {
@@ -579,6 +569,7 @@ var SelectManager = React.createClass({displayName: "SelectManager",
                             className: "form-control", 
                             value: this.state.optionText, 
                             onChange: this._inputDidChange.bind(null, 'optionText'), 
+                            onKeyDown: this._onKeyDown, 
                             placeholder: "Label"})
                     ), 
                     React.createElement("div", {className: "col-md-2"}, 
@@ -668,7 +659,16 @@ var SelectManager = React.createClass({displayName: "SelectManager",
 
     _isValidInput: function () {
         return this.state.optionId && this.state.optionText;
-    }
+    },
+
+    /**
+     * @param  {object} event
+     */
+    _onKeyDown: function (event) {
+        if (event.keyCode === ENTER_KEY_CODE && this._isValidInput()) {
+            this._addOptionItem();
+        }
+    },
 });
 
 module.exports = SelectManager;

@@ -1,6 +1,7 @@
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
 
+    ENTER_KEY_CODE = 13,
     placeholder    = createPlaceholder();
 
 function createPlaceholder() {
@@ -68,6 +69,7 @@ var SelectManager = React.createClass({
                             className="form-control"
                             value={this.state.optionText}
                             onChange={this._inputDidChange.bind(null, 'optionText')}
+                            onKeyDown={this._onKeyDown}
                             placeholder="Label"/>
                     </div>
                     <div className="col-md-2">
@@ -157,7 +159,16 @@ var SelectManager = React.createClass({
 
     _isValidInput: function () {
         return this.state.optionId && this.state.optionText;
-    }
+    },
+
+    /**
+     * @param  {object} event
+     */
+    _onKeyDown: function (event) {
+        if (event.keyCode === ENTER_KEY_CODE && this._isValidInput()) {
+            this._addOptionItem();
+        }
+    },
 });
 
 module.exports = SelectManager;

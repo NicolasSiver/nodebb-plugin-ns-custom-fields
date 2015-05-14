@@ -5,7 +5,6 @@ var React                 = require('react'),
     Select                = require('./fields/Select.react'),
     LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    ENTER_KEY_CODE        = 13,
     noSpecialCharsPattern = /[^\w]/gi,
 
     fields                = [
@@ -74,7 +73,6 @@ var FieldInput = React.createClass({
                                     className="form-control"
                                     valueLink={this.linkState('fieldName')}
                                     placeholder="Field Name (Ex: Gender)"
-                                    onKeyDown={this._onKeyDown}
                                     value={this.state.value}/>
                             </div>
                         </div>
@@ -121,15 +119,6 @@ var FieldInput = React.createClass({
     _save: function () {
         Actions.createField(this.state.fieldKey.toLowerCase(), this.state.fieldName);
         this.replaceState(this.getInitialState());
-    },
-
-    /**
-     * @param  {object} event
-     */
-    _onKeyDown: function (event) {
-        if (event.keyCode === ENTER_KEY_CODE && this._isValid()) {
-            this._save();
-        }
     },
 
     _validateSpecialChars: function (event) {

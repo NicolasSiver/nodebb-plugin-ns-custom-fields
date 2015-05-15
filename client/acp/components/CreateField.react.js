@@ -27,13 +27,13 @@ var FieldInput = React.createClass({
     },
 
     render: function () {
-        var del, self = this;
+        var del, self = this, Type = FieldsStore.getTypeEnum();
 
         function getFieldComponentByType(type) {
             switch (type) {
-                case 'input':
+                case Type.input:
                     return <Input meta={self.state.fieldMeta} onUpdate={self._fieldDidUpdate}/>;
-                case 'select':
+                case Type.select:
                     return <Select meta={self.state.fieldMeta} onUpdate={self._fieldDidUpdate}/>;
             }
         }

@@ -1,6 +1,7 @@
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,
-    Actions        = require('../actions/Actions');
+    Actions        = require('../actions/Actions'),
+    FieldsStore    = require('../stores/FieldsStore');
 
 var FieldItem = React.createClass({
     propTypes: {
@@ -10,7 +11,7 @@ var FieldItem = React.createClass({
     },
 
     render: function () {
-        var arrowPrevious, arrowNext;
+        var arrowPrevious, arrowNext, typeContent, Type = FieldsStore.getTypeEnum();
         if (this.props.next) {
             arrowNext = <i className="fa fa-angle-down custom-fields-item-controls"
                            onClick={this._changeOrder.bind(this, 1)}></i>;
@@ -20,11 +21,20 @@ var FieldItem = React.createClass({
                                onClick={this._changeOrder.bind(this, -1)}></i>;
         }
 
+        switch (this.props.field.type) {
+            case Type.input:
+                typeContent = FieldsStore.getTypeName(Type.input);
+                break;
+            case Type.select:
+                typeContent = FieldsStore.getTypeName(Type.select) + ' (' + this.props.field.options.length + ')';
+                break;
+        }
+
         return (
             <div className="row custom-fields-item">
                 <div className="col-lg-1">{arrowPrevious} {arrowNext}</div>
                 <div className="col-lg-3">{this.props.field.key}</div>
-                <div className="col-lg-3">{this.props.field.type}</div>
+                <div className="col-lg-3">{typeContent}</div>
                 <div className="col-lg-3">{this.props.field.name}</div>
                 <div className="col-lg-2">
                     <div className="pull-right"><i

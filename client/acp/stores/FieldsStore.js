@@ -1,7 +1,9 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher'),
     EventEmitter  = require('events').EventEmitter,
     assign        = require('react/lib/Object.assign'),
+    keyMirror     = require('react/lib/keyMirror'),
     Constants     = require('../Constants'),
+
     jQuery        = require('jquery'),
     socket        = require('socket'),
 
@@ -16,6 +18,10 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
         {name: 'Input', type: 'input'},
         {name: 'Select', type: 'select'}
     ],
+    _type         = keyMirror({
+        input : null,
+        select: null
+    }),
     count         = 0;
 
 var FieldsStore = assign({}, EventEmitter.prototype, {
@@ -37,6 +43,20 @@ var FieldsStore = assign({}, EventEmitter.prototype, {
 
     getTypes: function () {
         return _types;
+    },
+
+    getTypeEnum: function () {
+        return _type;
+    },
+
+    getTypeName: function (type) {
+        var i = 0, len = _types.length, typeEntity;
+        for (i; i < len; ++i) {
+            typeEntity = _types[i];
+            if (typeEntity.type === type) {
+                return typeEntity.name;
+            }
+        }
     },
 
     removeChangeListener: function (listener) {

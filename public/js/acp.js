@@ -64,16 +64,12 @@ module.exports = {
 var React                 = require('react'),
     ReactPropTypes        = React.PropTypes,
     Actions               = require('../actions/Actions'),
+    FieldsStore           = require('../stores/FieldsStore'),
     Input                 = require('./fields/Input.react'),
     Select                = require('./fields/Select.react'),
     LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    noSpecialCharsPattern = /[^\w]/gi,
-
-    fields                = [
-        {name: 'Input', type: 'input'},
-        {name: 'Select', type: 'select'}
-    ];
+    noSpecialCharsPattern = /[^\w]/gi;
 
 var FieldInput = React.createClass({displayName: "FieldInput",
     mixins: [LinkedStateMixin],
@@ -87,7 +83,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
         return {
             fieldKey  : this.props.fieldKey || '',
             fieldName : this.props.fieldName || '',
-            fieldType : fields[0].type,
+            fieldType : FieldsStore.getDefaultFieldType(),
             fieldMeta : {},
             fieldValid: false
         };
@@ -105,7 +101,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
             }
         }
 
-        function renderFieldTypes(option, index) {
+        function renderFieldType(option, index) {
             return React.createElement("option", {value: option.type, key: index, label: option.name}, option.name);
         }
 
@@ -145,7 +141,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                         React.createElement("label", {htmlFor: "labelType"}, "Field Type"), 
                         React.createElement("select", {className: "form-control", value: this.state.fieldType, id: "labelType", 
                                 onChange: this._fieldTypeDidChange}, 
-                            fields.map(renderFieldTypes)
+                            FieldsStore.getTypes().map(renderFieldType)
                         )
                     ), 
 
@@ -199,7 +195,7 @@ var FieldInput = React.createClass({displayName: "FieldInput",
 
 module.exports = FieldInput;
 
-},{"../actions/Actions":2,"./fields/Input.react":8,"./fields/Select.react":9,"react":174,"react/lib/LinkedStateMixin":39}],4:[function(require,module,exports){
+},{"../actions/Actions":2,"../stores/FieldsStore":175,"./fields/Input.react":8,"./fields/Select.react":9,"react":174,"react/lib/LinkedStateMixin":39}],4:[function(require,module,exports){
 var React       = require('react'),
     FieldsList  = require('./FieldsList.react'),
     CreateField = require('./CreateField.react'),
@@ -21259,18 +21255,33 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',
     _fields       = [],
+    _types        = [
+        {name: 'Input', type: 'input'},
+        {name: 'Select', type: 'select'}
+    ],
     count         = 0;
 
 var FieldsStore = assign({}, EventEmitter.prototype, {
-    addChangeListener   : function (listener) {
+    addChangeListener: function (listener) {
         this.on(CHANGE_EVENT, listener);
     },
-    emitChange          : function () {
+
+    emitChange: function () {
         this.emit(CHANGE_EVENT);
     },
-    getAll              : function () {
+
+    getAll: function () {
         return _fields;
     },
+
+    getDefaultFieldType: function () {
+        return _types[0].type;
+    },
+
+    getTypes: function () {
+        return _types;
+    },
+
     removeChangeListener: function (listener) {
         this.removeListener(CHANGE_EVENT, listener);
     }

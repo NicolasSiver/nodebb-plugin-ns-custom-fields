@@ -12,18 +12,33 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',
     _fields       = [],
+    _types        = [
+        {name: 'Input', type: 'input'},
+        {name: 'Select', type: 'select'}
+    ],
     count         = 0;
 
 var FieldsStore = assign({}, EventEmitter.prototype, {
-    addChangeListener   : function (listener) {
+    addChangeListener: function (listener) {
         this.on(CHANGE_EVENT, listener);
     },
-    emitChange          : function () {
+
+    emitChange: function () {
         this.emit(CHANGE_EVENT);
     },
-    getAll              : function () {
+
+    getAll: function () {
         return _fields;
     },
+
+    getDefaultFieldType: function () {
+        return _types[0].type;
+    },
+
+    getTypes: function () {
+        return _types;
+    },
+
     removeChangeListener: function (listener) {
         this.removeListener(CHANGE_EVENT, listener);
     }

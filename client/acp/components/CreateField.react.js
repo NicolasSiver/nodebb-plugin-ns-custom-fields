@@ -1,16 +1,12 @@
 var React                 = require('react'),
     ReactPropTypes        = React.PropTypes,
     Actions               = require('../actions/Actions'),
+    FieldsStore           = require('../stores/FieldsStore'),
     Input                 = require('./fields/Input.react'),
     Select                = require('./fields/Select.react'),
     LinkedStateMixin      = require('react/lib/LinkedStateMixin'),
 
-    noSpecialCharsPattern = /[^\w]/gi,
-
-    fields                = [
-        {name: 'Input', type: 'input'},
-        {name: 'Select', type: 'select'}
-    ];
+    noSpecialCharsPattern = /[^\w]/gi;
 
 var FieldInput = React.createClass({
     mixins: [LinkedStateMixin],
@@ -24,7 +20,7 @@ var FieldInput = React.createClass({
         return {
             fieldKey  : this.props.fieldKey || '',
             fieldName : this.props.fieldName || '',
-            fieldType : fields[0].type,
+            fieldType : FieldsStore.getDefaultFieldType(),
             fieldMeta : {},
             fieldValid: false
         };
@@ -42,7 +38,7 @@ var FieldInput = React.createClass({
             }
         }
 
-        function renderFieldTypes(option, index) {
+        function renderFieldType(option, index) {
             return <option value={option.type} key={index} label={option.name}>{option.name}</option>;
         }
 
@@ -82,7 +78,7 @@ var FieldInput = React.createClass({
                         <label htmlFor="labelType">Field Type</label>
                         <select className="form-control" value={this.state.fieldType} id="labelType"
                                 onChange={this._fieldTypeDidChange}>
-                            {fields.map(renderFieldTypes)}
+                            {FieldsStore.getTypes().map(renderFieldType)}
                         </select>
                     </div>
 

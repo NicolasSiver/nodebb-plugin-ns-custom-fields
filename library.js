@@ -4,7 +4,6 @@
     var async     = require('async'),
         _         = require('underscore'),
         path      = require('path'),
-        winston   = require('winston'),
 
         nconf     = require('./app/nodebb').nconf,
         routes    = require('./app/routes'),
@@ -12,22 +11,7 @@
         constants = require('./app/constants'),
         filters   = require('./app/filters'),
         settings  = require('./app/settings'),
-
-        logger    = null;
-
-    winston.loggers.add(constants.LOGGER, {
-        console: {
-            colorize : true,
-            timestamp: function () {
-                var date = new Date();
-                return date.getDate() + '/' + (date.getMonth() + 1) + ' ' + date.toTimeString().substr(0, 5) + ' [' + global.process.pid + ']';
-            },
-            level    : global.env === 'production' ? 'info' : 'verbose',
-            label    : 'plugins/custom-fields'
-        }
-    });
-
-    logger = winston.loggers.get(constants.LOGGER);
+        logger    = require('./app/logger');
 
     function changeTemplates() {
         var fs       = require('fs-extra'),

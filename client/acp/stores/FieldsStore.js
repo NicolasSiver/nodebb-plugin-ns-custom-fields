@@ -3,6 +3,11 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     assign        = require('react/lib/Object.assign'),
     Constants     = require('../Constants'),
     jQuery        = require('jquery'),
+    socket        = require('socket'),
+
+    API           = {
+        CREATE_FIELD: 'plugins.ns-custom-fields.createField'
+    },
 
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',
@@ -66,20 +71,15 @@ AppDispatcher.register(function (action) {
                 });
             break;
         case Constants.EVENT_CREATE_FIELD:
-            //FIXME Create field through socket with type and meta
-            jQuery
-                .ajax({
-                    url   : apiUri + '/fields',
-                    method: 'POST',
-                    data  : {
-                        fieldKey : action.key,
-                        fieldName: action.name
-                    }
-                })
-                .done(function (response) {
-                    _fields.push(response);
-                    FieldsStore.emitChange();
-                });
+            socket.emit(API.CREATE_FIELD, {
+                fieldKey : action.key,
+                fieldName: action.name,
+                fieldType: action.type,
+                fieldMeta: action.meta
+            }, function (error, field) {
+                _fields.push(response);
+                FieldsStore.emitChange();
+            });
             break;
         case Constants.EVENT_REMOVE_FIELD:
             jQuery

@@ -1,25 +1,31 @@
 (function (Module) {
     'use strict';
 
-    var async     = require('async'),
+    var async      = require('async'),
 
-        sockets   = require('./nodebb').pluginSockets,
-        settings  = require('./settings'),
-        database  = require('./database'),
-        constants = require('./constants'),
-        logger    = require('winston').loggers.get(constants.LOGGER),
+        controller = require('./controller'),
+        sockets    = require('./nodebb').pluginSockets,
+        settings   = require('./settings'),
+        database   = require('./database'),
+        constants  = require('./constants'),
+        logger     = require('winston').loggers.get(constants.LOGGER),
 
-        namespace = 'ns-custom-fields';
+        namespace  = constants.SOCKETS;
 
     Module.setup = function (callback) {
         sockets[namespace] = {};
         //Acknowledgements
+        sockets[namespace].createField = Module.createField;
         sockets[namespace].getFields = Module.getFields;
         sockets[namespace].getSettings = Module.getSettings;
         sockets[namespace].saveFields = Module.saveFields;
         sockets[namespace].setSettings = Module.setSettings;
 
         callback();
+    };
+
+    Module.createField = function (socket, payload, callback) {
+        controller.createField(payload.fieldKey, payload.fieldName, payload.fieldType, payload.fieldMeta || {}, callback);
     };
 
     Module.getFields = function (socket, payload, callback) {

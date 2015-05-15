@@ -14,7 +14,6 @@
         router.get(apiUri, Module.renderAdmin);
 
         router.get(apiUri + '/fields', Module.getFields);
-        router.post(apiUri + '/fields', Module.createField);
         router.put(apiUri + '/fields', Module.updateField);
         router.put(apiUri + '/fields/:fieldId/swap', Module.swapFields);
         router.delete(apiUri + '/fields/:fieldId', Module.deleteField);
@@ -33,15 +32,6 @@
     };
 
     //Public API
-    Module.createField = function (req, res, next) {
-        database.createField(req.body.fieldKey, req.body.fieldName, function (error, field) {
-            if (error) {
-                return handleCriticalError(req, res, error);
-            }
-            res.json(field);
-        });
-    };
-
     Module.deleteField = function (req, res, next) {
         database.deleteField(req.params.fieldId, function (error) {
             if (error) {

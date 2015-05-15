@@ -38,7 +38,7 @@ var Select = React.createClass({
     },
 
     _promptDidChange: function (e) {
-        this._update(e.currentTarget.value, this.prompt.meta.options);
+        this._update(e.currentTarget.value, this.props.meta.options);
     },
 
     _update: function (prompt, options) {

@@ -8,6 +8,7 @@
         settings  = require('./settings'),
         database  = require('./database'),
         constants = require('./constants'),
+        logger    = require('./logger'),
 
         Types     = keyMirror({
             input : null,
@@ -18,6 +19,8 @@
         if (!Types[type]) {
             return done(new Error(util.format('%s is not supported', type)));
         }
+
+        logger.log('verbose', 'Create field', key, name, type, meta);
 
         database.createField(key, name, type, filterMeta(meta, type, name), done);
     };

@@ -80,7 +80,7 @@
         async.waterfall([
             function (next) {
                 //key, start, stop, callback
-                db.getSortedSetRange(namespace, 0, 1000, next);
+                db.getSortedSetRange(namespace, 0, -1, next);
             },
             function (ids, next) {
                 if (!ids.length) {
@@ -90,12 +90,7 @@
                     return namespace + ':' + id;
                 }), next);
             }
-        ], function (error, fields) {
-            if (error) {
-                return done(error);
-            }
-            done(null, fields);
-        });
+        ], done);
     };
 
     Database.saveClientFields = function (uid, fields, done) {

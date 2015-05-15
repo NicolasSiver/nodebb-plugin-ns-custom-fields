@@ -7,10 +7,10 @@ Adds additional fields to the user's profile
  
 
 - [Themes](#themes)
-  - [Integration](#integration)
-  - [Supported Themes](#supported-themes)
+  - [Profile View](#profile-view)
 - [TODO](#todo)
 - [Changelog](#changelog)
+  - [v1.2.0 - 16.05.2015](#v120---16052015)
   - [v1.1.1 - 26.04.2015](#v111---26042015)
   - [v1.1.0 - 25.04.2015](#v110---25042015)
   - [v1.0.1 - 24.04.2015](#v101---24042015)
@@ -55,7 +55,7 @@ Result will look like panel with 2 columns.
 
 # Changelog
 
-## v1.2.0 - x.x.2015
+## v1.2.0 - 16.05.2015
 
 - Use RequireJS for Admin Panel
 - Use Less in plugin

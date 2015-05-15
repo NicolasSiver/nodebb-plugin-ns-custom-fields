@@ -8,7 +8,7 @@
         settings   = require('./settings'),
         database   = require('./database'),
         constants  = require('./constants'),
-        logger     = require('winston').loggers.get(constants.LOGGER),
+        logger     = require('./logger'),
 
         namespace  = constants.SOCKETS;
 

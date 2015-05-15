@@ -5,8 +5,7 @@
         controller = require('./controller'),
         database   = require('./database'),
         settings   = require('./settings'),
-        constants  = require('./constants'),
-        logger     = require('winston').loggers.get(constants.LOGGER);
+        constants  = require('./constants');
 
     //FIXME Move to controller
     var getCustomFields = function (uid, callback) {

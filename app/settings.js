@@ -5,7 +5,7 @@
 
         meta          = require('./nodebb').meta,
         constants     = require('./constants'),
-        logger        = require('winston').loggers.get(constants.LOGGER),
+        logger        = require('./logger'),
 
         //Memory cache
         settingsCache = null,

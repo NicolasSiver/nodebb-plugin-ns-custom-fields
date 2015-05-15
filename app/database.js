@@ -7,7 +7,7 @@
         db           = require('./nodebb').db,
         constants    = require('./constants'),
         namespace    = constants.NAMESPACE,
-        logger       = require('winston').loggers.get(constants.LOGGER);
+        logger       = require('./logger');
 
     var createField = function (id, key, name, type) {
         return {

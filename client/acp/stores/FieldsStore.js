@@ -77,7 +77,7 @@ AppDispatcher.register(function (action) {
                 fieldType: action.type,
                 fieldMeta: action.meta
             }, function (error, field) {
-                _fields.push(response);
+                _fields.push(field);
                 FieldsStore.emitChange();
             });
             break;

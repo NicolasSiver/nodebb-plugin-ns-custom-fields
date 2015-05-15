@@ -30,7 +30,7 @@ var FieldsList = React.createClass({
 
     render: function () {
         if (this.state.fields.length < 1) {
-            return null;
+            return <div className="alert alert-warning" role="alert">No Custom Fields</div>;
         }
         function renderItem(field, index, list) {
             return <FieldItem

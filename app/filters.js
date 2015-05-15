@@ -1,11 +1,12 @@
 (function (Filter) {
     'use strict';
 
-    var async     = require('async'),
-        database  = require('./database'),
-        settings  = require('./settings'),
-        constants = require('./constants'),
-        logger    = require('winston').loggers.get(constants.LOGGER);
+    var async      = require('async'),
+        controller = require('./controller'),
+        database   = require('./database'),
+        settings   = require('./settings'),
+        constants  = require('./constants'),
+        logger     = require('winston').loggers.get(constants.LOGGER);
 
     var getCustomFields = function (uid, callback) {
         async.parallel({
@@ -44,11 +45,11 @@
      * @param callback {function}
      */
     Filter.account = function (params, callback) {
-        getCustomFields(params.userData.uid, function (error, customFields) {
+        controller.getUserFields(params.userData.uid, function(error, fields){
             if (error) {
                 return callback(error);
             }
-            params.userData.customFields = customFields;
+            params.userData.customFields = fields;
             callback(null, params);
         });
     };

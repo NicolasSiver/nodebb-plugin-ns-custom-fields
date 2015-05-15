@@ -8,6 +8,7 @@
         constants  = require('./constants'),
         logger     = require('winston').loggers.get(constants.LOGGER);
 
+    //FIXME Move to controller
     var getCustomFields = function (uid, callback) {
         async.parallel({
             fields: async.apply(database.getFields),

@@ -49,23 +49,59 @@ $(document).ready(function () {
     function appendFields(form, fields, data) {
         var i = 0, len = fields.length, fieldKey, fieldEntity, content = data || {};
 
+        var renderer = {
+            input: function (key, entity) {
+                return $('<input>')
+                    .addClass('form-control')
+                    .attr('id', key)
+                    .attr('name', key)
+                    .attr('placeholder', entity.prompt)
+                    .val(content[entity.key]);
+            },
+
+            select: function (key, entity) {
+                var selectedId = content[entity.key];
+                var selected = false;
+                var select = $('<select></select>').addClass('form-control').attr('name', key);
+
+                //Prompt option
+                var promptOption = $('<option></option>')
+                    .attr('value', 'default')
+                    .attr('disabled', 'disabled')
+                    .text(entity.prompt)
+                    .appendTo(select);
+
+                entity.options.forEach(function (item, index) {
+                    var option = $('<option></option>')
+                        .attr('value', item.id)
+                        .text(item.text);
+                    if (selectedId == item.id) {
+                        selected = true;
+                        option.prop('selected', true);
+                    }
+                    option.appendTo(select);
+                });
+
+                if (!selected) {
+                    promptOption.prop('selected', true);
+                }
+
+                return select;
+            }
+        };
+
         for (i; i < len; ++i) {
             fieldEntity = fields[i];
             //Namespace fields to prevent collisions
             fieldKey = idPrefix + fieldEntity.key;
             var group = $('<div></div>').addClass('control-group');
             var label = $('<label></label>').addClass('control-label').text(fieldEntity.name).attr('for', fieldKey);
-            var inputWrapper = $('<div></div>').addClass('controls');
-            var input = $('<input>')
-                .addClass('form-control')
-                .attr('id', fieldKey)
-                .attr('placeholder', fieldEntity.name)
-                .attr('name', fieldKey)
-                .val(content[fieldEntity.key]);
+            var wrapper = $('<div></div>').addClass('controls');
+            var control = renderer[fieldEntity.type](fieldKey, fieldEntity);
 
             group.append(label);
-            group.append(inputWrapper);
-            inputWrapper.append(input);
+            group.append(wrapper);
+            wrapper.append(control);
 
             form.append(group);
         }

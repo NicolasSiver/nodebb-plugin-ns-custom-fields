@@ -1,17 +1,20 @@
 (function (Database) {
     'use strict';
 
-    var async     = require('async'),
-        db        = require('./nodebb').db,
-        constants = require('./constants'),
-        namespace = constants.NAMESPACE,
-        logger    = require('winston').loggers.get(constants.LOGGER);
+    var async        = require('async'),
+        objectAssign = require('object-assign'),
 
-    var createField = function (id, key, name) {
+        db           = require('./nodebb').db,
+        constants    = require('./constants'),
+        namespace    = constants.NAMESPACE,
+        logger       = require('winston').loggers.get(constants.LOGGER);
+
+    var createField = function (id, key, name, type) {
         return {
             fid : id,
             key : key,
-            name: name
+            name: name,
+            type: type
         };
     };
 
@@ -19,7 +22,7 @@
         return 'user:' + uid + ':' + namespace;
     };
 
-    Database.createField = function (key, name, done) {
+    Database.createField = function (key, name, type, meta, done) {
         //Secure key
         var notSecureFields = ['_key', '_id'];
         var index = notSecureFields.indexOf(key);
@@ -41,7 +44,7 @@
                     next(null, id);
                 });
             }, function (id, next) {
-                var fieldModel = createField(id, key, name);
+                var fieldModel = objectAssign(createField(id, key, name, type), meta);
                 db.setObject(namespace + ':' + id, fieldModel, function (error) {
                     if (error) {
                         return next(error);
@@ -50,12 +53,7 @@
                     next(null, fieldModel);
                 });
             }
-        ], function (error, field) {
-            if (error) {
-                return done(error);
-            }
-            done(null, field);
-        });
+        ], done);
     };
 
     Database.deleteField = function (id, done) {

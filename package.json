@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ns-custom-fields",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Adds custom fields to the profile",
   "main": "library.js",
   "scripts": {
@@ -33,6 +33,6 @@
     "winston": "^1.0.0"
   },
   "nbbpm": {
-    "compatibility": "^0.6.0"
+    "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0"
   }
 }

@@ -1,5 +1,5 @@
 <!-- IF customFields.length -->
-<div class="panel panel-default">
+<div class="panel panel-default ns-custom-fields-panel">
     <div class="panel-body text-center">
         <div class="row">
             <div class="col-md-12">

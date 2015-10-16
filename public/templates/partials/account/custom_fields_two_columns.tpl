@@ -56,7 +56,7 @@
 
                 <!-- IF customFields.length -->
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 ns-custom-fields">
                 <!-- BEGIN customFields -->
                 <span class="account-bio-label">{customFields.name}</span>
                 <span class="account-bio-value">{customFields.value}</span>

@@ -37,6 +37,8 @@ or
 
 Result will look like panel with 2 columns.
 
+(For example, see: https://community.nodebb.org/topic/4337/nodebb-plugin-ns-custom-fields-ns-custom-fields/41)
+
 # TODO
 
 - Edit Custom Field (key, name)

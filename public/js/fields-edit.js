@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     function init() {
-        socket.emit(api.get, {uid: ajaxify.variables.get('theirid')}, function (error, payload) {
+        socket.emit(api.get, {uid: ajaxify.data.theirid}, function (error, payload) {
             if (error) {
                 return app.alertError(error.message);
             }
@@ -130,7 +130,7 @@ $(document).ready(function () {
                 value: item.value
             }
         });
-        socket.emit(api.save, {uid: ajaxify.variables.get('theirid'), data: data}, function (error) {
+        socket.emit(api.save, {uid: ajaxify.data.theirid, data: data}, function (error) {
             if (error) {
                 return app.alertError(error.message);
             }

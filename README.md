@@ -51,8 +51,6 @@ Result will look like panel with 2 columns.
 - Add utility method: clear unused fields
 - Drag-n-drop for Custom Fields order
 
-> Pull Requests are welcome ;)
-
 ## Changelog
 
 **v1.2.0 - 05/16/2015**

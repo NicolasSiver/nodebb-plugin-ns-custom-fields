@@ -74,7 +74,7 @@ var SelectManager = React.createClass({
                     </div>
                     <div className="col-md-3">
                         <button
-                            className="btn btn-success btn-block"
+                            className="btn btn-primary btn-block"
                             type="button"
                             disabled={this._isValidInput() ? '' : 'disabled'}
                             onClick={this._addOptionItem}>

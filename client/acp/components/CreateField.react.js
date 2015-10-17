@@ -85,7 +85,7 @@ var FieldInput = React.createClass({
                     {getFieldComponentByType(this.state.fieldType)}
 
                     <button
-                        className="btn btn-success"
+                        className="btn btn-primary"
                         disabled={this._isValid() ? '' : 'disabled'}
                         onClick={this._save}
                         type="button">Create Field

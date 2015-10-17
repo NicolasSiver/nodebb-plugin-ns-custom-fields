@@ -260,7 +260,7 @@ var FieldItem = React.createClass({displayName: "FieldItem",
                 React.createElement("div", {className: "col-lg-1"}, arrowPrevious, arrowNext), 
                 React.createElement("div", {className: "col-lg-3"}, this.props.field.key), 
                 React.createElement("div", {className: "col-lg-3"}, typeContent), 
-                React.createElement("div", {className: "col-lg-3"}, this.props.field.name), 
+                React.createElement("div", {className: "col-lg-3 cf-field-name"}, this.props.field.name), 
                 React.createElement("div", {className: "col-lg-2"}, 
                     React.createElement("div", {className: "pull-right"}, React.createElement("i", {
                         className: "fa fa-trash-o custom-fields-item-controls custom-fields-color-danger", 

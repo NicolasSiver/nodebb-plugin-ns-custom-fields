@@ -63,7 +63,7 @@ var SelectManager = React.createClass({
                             onChange={this._inputDidChange.bind(null, 'optionId')}
                             placeholder="Id"/>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-7">
                         <input
                             type="text"
                             className="form-control"
@@ -72,7 +72,7 @@ var SelectManager = React.createClass({
                             onKeyDown={this._onKeyDown}
                             placeholder="Label"/>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-3">
                         <button
                             className="btn btn-success btn-block"
                             type="button"

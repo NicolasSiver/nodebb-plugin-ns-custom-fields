@@ -53,6 +53,11 @@ Result will look like panel with 2 columns.
 
 ## Changelog
 
+**v2.0.0 - 10/17/2015**
+
+- Compatibility with NodeBB v0.8
+- ACP: refreshed look
+
 **v1.2.0 - 05/16/2015**
 
 - Use RequireJS for Admin Panel

@@ -2,6 +2,11 @@
 
 Adds additional fields to the user's profile
 
+![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-custom-fields.svg)
+![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-custom-fields.svg)
+![bitHound Score](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-custom-fields/badges/score.svg)
+![Code Climate](https://img.shields.io/codeclimate/github/NicolasSiver/nodebb-plugin-ns-custom-fields.svg)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
  
@@ -10,17 +15,12 @@ Adds additional fields to the user's profile
   - [Profile View](#profile-view)
 - [TODO](#todo)
 - [Changelog](#changelog)
-  - [v1.2.0 - 16.05.2015](#v120---16052015)
-  - [v1.1.1 - 26.04.2015](#v111---26042015)
-  - [v1.1.0 - 25.04.2015](#v110---25042015)
-  - [v1.0.1 - 24.04.2015](#v101---24042015)
-  - [v1.0.0 - 24.04.2015](#v100---24042015)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Themes
+## Themes
 
-## Profile View
+### Profile View
 
 Plugin provides additional Array under `customFields` field in user data for Account/Profile page.
 Use import of template, here is a small example:
@@ -39,7 +39,7 @@ Result will look like panel with 2 columns.
 
 (For example, see: https://community.nodebb.org/topic/4337/nodebb-plugin-ns-custom-fields-ns-custom-fields/41)
 
-# TODO
+## TODO
 
 - Edit Custom Field (key, name)
 - Use Custom Fields in extended Tooltip for @mentions
@@ -53,9 +53,9 @@ Result will look like panel with 2 columns.
 
 > Pull Requests are welcome ;)
 
-# Changelog
+## Changelog
 
-## v1.2.0 - 16.05.2015
+**v1.2.0 - 05/16/2015**
 
 - Use RequireJS for Admin Panel
 - Use Less in plugin
@@ -63,20 +63,20 @@ Result will look like panel with 2 columns.
 - Added templates: panel and two columns
 - Field Types support: Input (default) and Select
 
-## v1.1.1 - 26.04.2015
+**v1.1.1 - 04/26/2015**
 
 - Fix user profile reference 
 - Fix initialisation of the plugin
 
-## v1.1.0 - 25.04.2015
+**v1.1.0 - 04/25/2015**
 
 - New Feature: Settings
 - New Feature: custom fields in topic view
 
-## v1.0.1 - 24.04.2015
+**v1.0.1 - 04/24/2015**
 
 - Fix for empty user objects
 
-## v1.0.0 - 24.04.2015
+**v1.0.0 - 04/24/2015**
 
 - Very first release

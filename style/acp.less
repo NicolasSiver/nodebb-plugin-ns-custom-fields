@@ -6,6 +6,11 @@
     height: @cs-line-height;
     display: flex;
     align-items: center;
+    padding: @cs-padding-small 0;
+  }
+
+  .custom-fields-item + .custom-fields-item {
+    border-top: 1px dashed @md-clr-blue-grey-100;
   }
 
   .custom-fields-list-header {
@@ -16,8 +21,9 @@
   }
 
   .custom-fields-item-controls {
-    font-size: 1.7em;
+    font-size: 1.2em;
     cursor: pointer;
+    display: inline;
   }
 
   .custom-fields-color-danger {

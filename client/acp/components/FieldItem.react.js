@@ -32,7 +32,7 @@ var FieldItem = React.createClass({
 
         return (
             <div className="row custom-fields-item">
-                <div className="col-lg-1">{arrowPrevious} {arrowNext}</div>
+                <div className="col-lg-1">{arrowPrevious}{arrowNext}</div>
                 <div className="col-lg-3">{this.props.field.key}</div>
                 <div className="col-lg-3">{typeContent}</div>
                 <div className="col-lg-3">{this.props.field.name}</div>

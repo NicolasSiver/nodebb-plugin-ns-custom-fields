@@ -257,7 +257,7 @@ var FieldItem = React.createClass({displayName: "FieldItem",
 
         return (
             React.createElement("div", {className: "row custom-fields-item"}, 
-                React.createElement("div", {className: "col-lg-1"}, arrowPrevious, " ", arrowNext), 
+                React.createElement("div", {className: "col-lg-1"}, arrowPrevious, arrowNext), 
                 React.createElement("div", {className: "col-lg-3"}, this.props.field.key), 
                 React.createElement("div", {className: "col-lg-3"}, typeContent), 
                 React.createElement("div", {className: "col-lg-3"}, this.props.field.name), 

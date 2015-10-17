@@ -20,8 +20,10 @@
     ]
   },
   "browserify-shim": {
+    "app": "global:app",
     "jquery": "global:$",
-    "socket": "global:socket"
+    "socket": "global:socket",
+    "StripeCheckout": "global:StripeCheckout"
   },
   "author": "Nicolas Siver",
   "license": "MIT",

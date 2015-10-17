@@ -1,4 +1,5 @@
-var React       = require('react'),
+var Donate      = require('./Donate.react'),
+    React       = require('react'),
     FieldsList  = require('./FieldsList.react'),
     CreateField = require('./CreateField.react'),
     Settings    = require('./Settings.react');
@@ -16,6 +17,7 @@ var CustomFieldsApp = React.createClass({
                 </div>
                 <div className="col-md-3">
                     <Settings />
+                    <Donate />
                 </div>
             </div>
         );

@@ -3,7 +3,7 @@
   "name": "NodeBB Custom Fields",
   "description": "Adds custom fields to the user's profile",
   "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
-  "library": "./library.js",
+  "library": "./plugin/index.js",
   "hooks": [
     {
       "hook": "filter:admin.header.build",

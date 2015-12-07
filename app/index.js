@@ -5,13 +5,13 @@
         _         = require('underscore'),
         path      = require('path'),
 
-        nconf     = require('./app/nodebb').nconf,
-        routes    = require('./app/routes'),
-        sockets   = require('./app/sockets'),
-        constants = require('./app/constants'),
-        filters   = require('./app/filters'),
-        settings  = require('./app/settings'),
-        logger    = require('./app/logger');
+        nconf     = require('./nodebb').nconf,
+        routes    = require('./routes'),
+        sockets   = require('./sockets'),
+        constants = require('./constants'),
+        filters   = require('./filters'),
+        settings  = require('./settings'),
+        logger    = require('./logger');
 
     function changeTemplates() {
         var fs       = require('fs-extra'),

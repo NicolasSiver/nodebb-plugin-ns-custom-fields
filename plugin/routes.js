@@ -51,6 +51,7 @@
                     }
 
                     return callback(null, {
+                        title       : '[[pages:account/edit, ' + userData.username + ']]',
                         userData    : userData,
                         customFields: result
                     });

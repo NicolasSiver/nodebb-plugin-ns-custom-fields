@@ -2,6 +2,7 @@
     'use strict';
 
     Module.exports = {
+        accountHelpers: NodeBB.require('./src/controllers/accounts/helpers'),
         adminSockets : NodeBB.require('./src/socket.io/admin').plugins,
         cache        : NodeBB.require('./src/posts/cache'),
         db           : NodeBB.require('./src/database'),

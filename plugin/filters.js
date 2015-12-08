@@ -7,6 +7,8 @@
         settings   = require('./settings'),
         constants  = require('./constants');
 
+    var faIcon = 'fa-plus-square';
+
     //FIXME Move to controller
     var getCustomFields = function (uid, callback) {
         async.parallel({
@@ -45,7 +47,7 @@
      * @param callback {function}
      */
     Filter.account = function (params, callback) {
-        controller.getUserFields(params.userData.uid, function(error, fields){
+        controller.getUserFields(params.userData.uid, function (error, fields) {
             if (error) {
                 return callback(error);
             }
@@ -57,7 +59,7 @@
     Filter.menu = function (custom_header, callback) {
         custom_header.plugins.push({
             route: '/plugins/custom-fields',
-            icon : 'fa-plus-square',
+            icon : faIcon,
             name : 'Custom Fields'
         });
         callback(null, custom_header);
@@ -89,6 +91,18 @@
             topicData.posts = results;
             callback(null, topicData);
         });
+    };
+
+    Filter.userProfileLinks = function (links, callback) {
+        links.push({
+            id    : constants.ID,
+            route : './custom-fields/edit',
+            icon  : faIcon,
+            name  : 'Custom Fields',
+            public: false
+        });
+
+        callback(null, links);
     };
 
 })(module.exports);

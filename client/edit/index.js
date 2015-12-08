@@ -26,7 +26,7 @@ define('forum/client/plugins/custom-fields-edit', [], function () {
             }
         });
 
-        socket.emit(api.save, {uid: ajaxify.data.theirid, data: data}, function (error) {
+        socket.emit(api.save, {uid: ajaxify.data.userData.theirid, data: data}, function (error) {
             if (error) {
                 return app.alertError(error.message);
             }

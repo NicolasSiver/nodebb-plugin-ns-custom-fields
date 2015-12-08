@@ -32,7 +32,7 @@
         }, done);
     };
 
-    Controller.getUserFields = function (uid, done) {
+    Controller.getFilledFields = function (uid, done) {
         Controller.getCustomFields(uid, function (e, result) {
             if (e) {
                 return done(e);

@@ -47,7 +47,7 @@
      * @param callback {function}
      */
     Filter.account = function (params, callback) {
-        controller.getUserFields(params.userData.uid, function (error, fields) {
+        controller.getFilledFields(params.userData.uid, function (error, fields) {
             if (error) {
                 return callback(error);
             }

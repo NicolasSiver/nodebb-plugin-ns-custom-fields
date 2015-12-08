@@ -45,7 +45,7 @@
         async.waterfall([
             async.apply(accountHelpers.getUserDataByUserSlug, req.params.user, req.uid),
             function (userData, callback) {
-                controller.getUserFields(userData.uid, function (e, fields) {
+                controller.getFilledFields(userData.uid, function (e, fields) {
                     if (e != null) {
                         return callback(e);
                     }

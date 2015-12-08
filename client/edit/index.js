@@ -122,7 +122,7 @@ define('forum/client/plugins/custom-fields-edit', [], function () {
 
     // Create 3 column layout
     function renderFields($parent) {
-        var $form = $('<form></form>').addClass('form-horizontal container');
+        var $form = $('<form></form>').addClass('form-horizontal');
         var $row = $('<div></div>').addClass('row');
         var columns = [
             $('<div></div>').addClass('col-md-4'),

@@ -1,9 +1,7 @@
 (function (Module) {
     'use strict';
 
-    var async      = require('async'),
-
-        controller = require('./controller'),
+    var controller = require('./controller'),
         sockets    = require('./nodebb').pluginSockets,
         settings   = require('./settings'),
         database   = require('./database'),
@@ -29,16 +27,7 @@
     };
 
     Module.getFields = function (socket, payload, callback) {
-        async.parallel({
-            fields: async.apply(database.getFields),
-            data  : async.apply(database.getClientFields, payload.uid)
-        }, function (error, result) {
-            if (error) {
-                callback(error);
-            } else {
-                callback(null, result);
-            }
-        });
+        controller.getCustomFields(payload.uid, callback);
     };
 
     Module.getSettings = function (socket, callback) {

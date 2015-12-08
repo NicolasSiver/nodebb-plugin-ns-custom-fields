@@ -25,19 +25,23 @@
         database.createField(key, name, type, filterMeta(meta, type, name), done);
     };
 
-    Controller.getUserFields = function (uid, done) {
+    Controller.getCustomFields = function (uid, done) {
         async.parallel({
             fields: async.apply(database.getFields),
             data  : async.apply(database.getClientFields, uid)
-        }, function (error, result) {
-            if (error) {
-                return done(error);
+        }, done);
+    };
+
+    Controller.getUserFields = function (uid, done) {
+        Controller.getCustomFields(uid, function (e, result) {
+            if (e) {
+                return done(e);
             }
 
             var customFields = [];
 
             if (result.data) {
-                //Reduce to only populated fields
+                // Reduce to only populated fields
                 var i = 0, len = result.fields.length, field;
                 for (i; i < len; ++i) {
                     field = result.fields[i];

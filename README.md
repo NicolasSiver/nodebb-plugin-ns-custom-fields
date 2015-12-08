@@ -22,7 +22,16 @@ Adds additional fields to the user's profile
 ### Profile View
 
 Plugin provides additional Array under `customFields` field in user data for Account/Profile page.
-Use import of template, here is a small example:
+
+You can use predefined templates via `IMPORT` directive.
+
+**NodeBB 0.9.1**, Persona, Flex Version (insert link on template in user's profile template wherever you like):
+
+```html
+<!-- IMPORT partials/account/custom_fields_flex.tpl -->
+```
+
+For old versions of NodeBB/Persona you could use legacy templates:
 
 ```html
 <!-- IMPORT partials/account/custom_fields_panel.tpl -->
@@ -33,10 +42,6 @@ or
 ```html
 <!-- IMPORT partials/account/custom_fields_two_columns.tpl -->
 ```
-
-Result will look like panel with 2 columns.
-
-(For example, see: https://community.nodebb.org/topic/4337/nodebb-plugin-ns-custom-fields-ns-custom-fields/41)
 
 ## TODO
 

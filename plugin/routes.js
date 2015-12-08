@@ -45,14 +45,14 @@
         async.waterfall([
             async.apply(accountHelpers.getUserDataByUserSlug, req.params.user, req.uid),
             function (userData, callback) {
-                controller.getFilledFields(userData.uid, function (e, fields) {
+                controller.getCustomFields(userData.uid, function (e, result) {
                     if (e != null) {
                         return callback(e);
                     }
 
                     return callback(null, {
                         userData    : userData,
-                        customFields: fields
+                        customFields: result
                     });
                 });
             }

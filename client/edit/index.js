@@ -7,58 +7,53 @@ define('forum/client/plugins/custom-fields-edit', [], function () {
 
     // TODO User ajaxify.data.theirid ?
 
-    var fieldsMeta,
-        idPrefix = 'field_',
+    var idPrefix = 'field_',
         api      = {
             get : 'plugins.ns-custom-fields.getFields',
             save: 'plugins.ns-custom-fields.saveFields'
         };
 
     Edit.init = function () {
-        if (ajaxify.data.customFields.length > 0) {
-            renderFields();
-        } else {
-
-        }
+        renderFields($('.custom-fields'));
     };
 
-    return Edit;
-});
+    Edit.save = function () {
+        var $form = $('.form-horizontal');
+        var data = $form.serializeArray().map(function (item) {
+            return {
+                name : item.name.replace(idPrefix, ''),
+                value: item.value
+            }
+        });
 
-
-$(document).ready(function () {
-
-    function init() {
-        socket.emit(api.get, {uid: ajaxify.data.theirid}, function (error, payload) {
+        socket.emit(api.save, {uid: ajaxify.data.theirid, data: data}, function (error) {
             if (error) {
                 return app.alertError(error.message);
             }
 
-            fieldsMeta = payload;
-
-            if (fieldsMeta.fields.length > 0) {
-                renderFields();
-            }
+            app.alertSuccess('Custom Fields are saved');
         });
-    }
+    };
 
-    function appendControl(form) {
-        var actions = $('<div></div>').addClass('form-actions');
-        var button = $('<a></a>')
-            .addClass('btn btn-primary')
+    function appendControl($container) {
+        var $row = $('<div></div>').addClass('row');
+        var $column = $('<div></div>').addClass('col-md-4 col-md-offset-4 form-actions');
+        var $button = $('<a></a>')
+            .addClass('btn btn-primary btn-block')
             .attr('href', '#')
-            .text('Save Fields')
+            .text('Save')
             .on('click', function () {
-                saveFields(form);
+                Edit.save();
             });
 
-        actions.append(button);
-        form.append($('<br/>'));
-        form.append(actions);
+        $container.append($row);
+        $row.append($column);
+        $column.append($button);
     }
 
-    function appendFields(form, fields, data) {
+    function appendFields(columns, fields, data) {
         var i = 0, len = fields.length, fieldKey, fieldEntity, content = data || {};
+        var j = 0, columnsLen = columns.length, $column;
 
         var renderer = {
             input: function (key, entity) {
@@ -102,50 +97,48 @@ $(document).ready(function () {
         };
 
         for (i; i < len; ++i) {
+            $column = columns[j];
             fieldEntity = fields[i];
             //Namespace fields to prevent collisions
             fieldKey = idPrefix + fieldEntity.key;
-            var group = $('<div></div>').addClass('control-group');
-            var label = $('<label></label>').addClass('control-label').text(fieldEntity.name).attr('for', fieldKey);
-            var wrapper = $('<div></div>').addClass('controls');
-            var control = renderer[fieldEntity.type](fieldKey, fieldEntity);
+            var $group = $('<div></div>').addClass('control-group');
+            var $label = $('<label></label>').addClass('control-label').text(fieldEntity.name).attr('for', fieldKey);
+            var $wrapper = $('<div></div>').addClass('controls');
+            var $control = renderer[fieldEntity.type](fieldKey, fieldEntity);
 
-            group.append(label);
-            group.append(wrapper);
-            wrapper.append(control);
+            $group.append($label);
+            $group.append($wrapper);
+            $wrapper.append($control);
 
-            form.append(group);
+            $column.append($group);
+
+            if ((j + 1) % columnsLen == 0) {
+                j = 0;
+            } else {
+                ++j;
+            }
         }
     }
 
-    function renderFields() {
-        var row = $('.account :first-child');
-        //Profile consists of 3 columns - Avatar, Profile, Password
-        //Shrink columns
-        var profile = $(row.children()[1]).attr('class', 'col-md-4');
-        var password = $(row.children()[2]).attr('class', 'col-md-3');
-        var customFields = $('<div></div>').addClass('col-md-3');
-        var form = $('<form></form>').addClass('form-horizontal');
+    // Create 3 column layout
+    function renderFields($parent) {
+        var $form = $('<form></form>').addClass('form-horizontal container');
+        var $row = $('<div></div>').addClass('row');
+        var columns = [
+            $('<div></div>').addClass('col-md-4'),
+            $('<div></div>').addClass('col-md-4'),
+            $('<div></div>').addClass('col-md-4')
+        ];
 
-        profile.after(customFields);
-        customFields.append(form);
+        $parent.append($form);
+        $form.append($row);
+        columns.forEach(function ($column) {
+            $row.append($column);
+        });
 
-        appendFields(form, fieldsMeta.fields, fieldsMeta.data);
-        appendControl(form);
+        appendFields(columns, ajaxify.data.customFields.fields, ajaxify.data.customFields.data);
+        appendControl($form);
     }
 
-    function saveFields(form) {
-        var data = form.serializeArray().map(function (item) {
-            return {
-                name : item.name.replace(idPrefix, ''),
-                value: item.value
-            }
-        });
-        socket.emit(api.save, {uid: ajaxify.data.theirid, data: data}, function (error) {
-            if (error) {
-                return app.alertError(error.message);
-            }
-            app.alertSuccess('Custom Fields are saved');
-        });
-    }
+    return Edit;
 });

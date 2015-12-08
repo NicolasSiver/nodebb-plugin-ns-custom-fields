@@ -49,3 +49,5 @@ Result will look like panel with 2 columns.
 - Add Tests (Mocha/Tape)
 - Add utility method: clear unused fields
 - Drag-n-drop for Custom Fields order
+- Layout designer for Edit page
+- Group custom fields, i.e. IM, Networks, etc.

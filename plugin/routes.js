@@ -45,6 +45,10 @@
         async.waterfall([
             async.apply(accountHelpers.getUserDataByUserSlug, req.params.user, req.uid),
             function (userData, callback) {
+                if (!userData) {
+                    return callback(new Error('User ' + req.params.user + ' is not found'));
+                }
+
                 controller.getCustomFields(userData.uid, function (e, result) {
                     if (e != null) {
                         return callback(e);

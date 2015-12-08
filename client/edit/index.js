@@ -1,8 +1,12 @@
-'use strict';
-
 /* globals define, ajaxify, socket, app, config, utils, bootbox */
 
-$(document).ready(function () {
+define('forum/client/plugins/custom-fields-edit', [], function () {
+    'use strict';
+
+    var Edit = {};
+
+    // TODO User ajaxify.data.theirid ?
+
     var fieldsMeta,
         idPrefix = 'field_',
         api      = {
@@ -10,12 +14,19 @@ $(document).ready(function () {
             save: 'plugins.ns-custom-fields.saveFields'
         };
 
-    $(window).on('action:ajaxify.contentLoaded', function (ev, data) {
-        //Persona Theme
-        if (data.tpl === 'account/edit') {
-            init();
+    Edit.init = function () {
+        if (ajaxify.data.customFields.length > 0) {
+            renderFields();
+        } else {
+
         }
-    });
+    };
+
+    return Edit;
+});
+
+
+$(document).ready(function () {
 
     function init() {
         socket.emit(api.get, {uid: ajaxify.data.theirid}, function (error, payload) {

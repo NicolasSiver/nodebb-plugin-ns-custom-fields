@@ -30,7 +30,7 @@
     "style/acp.less"
   ],
   "scripts": [
-    "public/js/fields-edit.js"
+    "client/edit/index.js"
   ],
   "staticDirs": {
     "templates": "./public/templates",

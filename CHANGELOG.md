@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.0 - 12/7/2015
+
+- Compatibility with NodeBB v0.9
+- Introduced dedicated page for custom fields. Removed dependency on Account's Edit Page.
+- Profile page: added new Flex template that could be used with Persona Theme
+
 ## v2.0.0 - 10/17/2015
 
 - Compatibility with NodeBB v0.8

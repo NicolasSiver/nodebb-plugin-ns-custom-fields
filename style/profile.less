@@ -1,0 +1,29 @@
+@import "vars";
+@import "material-color/material-color-prefixed";
+
+.profile {
+  .custom-fields {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 75%;
+    margin: @cs-margin-small auto;
+  }
+
+  .custom-field-item {
+    flex: 0 1 auto;
+    align-self: center;
+    padding: @cs-padding-small;
+
+    .field-label {
+      color: @md-clr-grey-500;
+      &::after{
+        content: ':';
+      }
+    }
+
+    .field-value {
+      padding-left: @cs-padding-xs;
+    }
+  }
+}

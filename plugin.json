@@ -28,7 +28,8 @@
   ],
   "less": [
     "style/acp.less",
-    "style/edit.less"
+    "style/edit.less",
+    "style/profile.less"
   ],
   "scripts": [
     "client/edit/index.js"

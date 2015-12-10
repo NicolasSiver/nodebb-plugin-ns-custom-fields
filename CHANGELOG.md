@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1 - 12/9/2015
+
+- Fix issue with predefined middleware in NodeBB for access rights
+
 ## v3.0.0 - 12/7/2015
 
 - Compatibility with NodeBB v0.9

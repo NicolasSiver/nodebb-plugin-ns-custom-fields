@@ -28,7 +28,7 @@
 
         // Client edit page
         routeHelpers.setupPageRoute(
-            router, '/user/:user/custom-fields/edit',
+            router, '/user/:userslug/custom-fields/edit',
             middleware, [middleware.requireUser, middleware.exposeUid, middleware.checkGlobalPrivacySettings, middleware.checkAccountPermissions],
             Module.renderClient);
 
@@ -43,10 +43,10 @@
 
     Module.renderClient = function (req, res, next) {
         async.waterfall([
-            async.apply(accountHelpers.getUserDataByUserSlug, req.params.user, req.uid),
+            async.apply(accountHelpers.getUserDataByUserSlug, req.params.userslug, req.uid),
             function (userData, callback) {
                 if (!userData) {
-                    return callback(new Error('User ' + req.params.user + ' is not found'));
+                    return callback(new Error('User ' + req.params.userslug + ' is not found'));
                 }
 
                 controller.getCustomFields(userData.uid, function (e, result) {

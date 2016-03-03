@@ -28,7 +28,7 @@
 
         // Client edit page
         routeHelpers.setupPageRoute(
-            router, '/user/:userslug/custom-fields/edit',
+            router, '/user/:userslug/edit/custom-fields',
             middleware, [middleware.requireUser, middleware.exposeUid, middleware.checkGlobalPrivacySettings, middleware.checkAccountPermissions],
             Module.renderClient);
 

@@ -14,10 +14,6 @@
       "method": "hooks.filters.account"
     },
     {
-      "hook": "filter:user.profileLinks",
-      "method": "hooks.filters.userProfileLinks"
-    },
-    {
       "hook": "filter:controllers.topic.get",
       "method": "hooks.filters.topic"
     },
@@ -28,6 +24,10 @@
     {
       "hook": "filter:admin.scripts.get",
       "method": "hooks.filters.adminScripts"
+    },
+    {
+      "hook": "filter:user.account.edit",
+      "method": "hooks.filters.userAccountEdit"
     }
   ],
   "less": [

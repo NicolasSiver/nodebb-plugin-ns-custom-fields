@@ -40,7 +40,7 @@
         });
     };
 
-    Filter.adminScripts = function(list, callback) {
+    Filter.adminScripts = function (list, callback) {
         list.push('https://checkout.stripe.com/checkout.js');
         callback(null, list);
     };
@@ -98,16 +98,13 @@
         });
     };
 
-    Filter.userProfileLinks = function (links, callback) {
-        links.push({
-            id    : constants.ID,
-            route : './custom-fields/edit',
-            icon  : faIcon,
-            name  : 'Custom Fields',
-            public: false
+    Filter.userAccountEdit = function (data, callback) {
+        data.editButtons.push({
+            link: "/custom-fields",
+            text: "Change Extra"
         });
 
-        callback(null, links);
+        callback(null, data);
     };
 
 })(module.exports);

@@ -24,6 +24,10 @@
     {
       "hook": "static:app.load",
       "method": "hooks.statics.load"
+    },
+    {
+      "hook": "filter:admin.scripts.get",
+      "method": "hooks.filters.adminScripts"
     }
   ],
   "less": [

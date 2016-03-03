@@ -21569,12 +21569,19 @@ module.exports = SettingsStore;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../Constants":1,"../dispatcher/AppDispatcher":12,"events":13,"react/lib/Object.assign":44}],178:[function(require,module,exports){
-var React           = require('react'),
-    CustomFieldsApp = require('./components/CustomFieldsApp.react');
+define('admin/plugins/custom-fields', [], function () {
+    return {
+        init: function () {
+            var React           = require('react'),
+                CustomFieldsApp = require('./components/CustomFieldsApp.react');
 
-React.render(
-    React.createElement(CustomFieldsApp, null),
-    document.getElementById('manageFieldsApp')
-);
+            React.render(
+                React.createElement(CustomFieldsApp, null),
+                document.getElementById('manageFieldsApp')
+            );
+        }
+    };
+});
+
 
 },{"./components/CustomFieldsApp.react":4,"react":175}]},{},[178]);

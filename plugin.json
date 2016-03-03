@@ -35,12 +35,11 @@
     "style/edit.less",
     "style/profile.less"
   ],
+  "acpScripts": [
+    "public/js/acp.js"
+  ],
   "scripts": [
     "client/edit/index.js"
   ],
-  "staticDirs": {
-    "templates": "./public/templates",
-    "js": "./public/js"
-  },
   "templates": "./public/templates"
 }

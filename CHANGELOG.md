@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.0 - TBD
+
+- Use ACP Scripts capabilities of NodeBB
+
 ## v3.0.1 - 12/9/2015
 
 - Fix issue with predefined middleware in NodeBB for access rights

@@ -25,14 +25,14 @@
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields",
   "readmeFilename": "README.md",
   "dependencies": {
-    "async": "^1.5.0",
-    "fs-extra": "^0.26.2",
+    "async": "^1.5.2",
+    "fs-extra": "^0.26.5",
     "keymirror": "^0.1.1",
     "object-assign": "^4.0.1",
     "underscore": "^1.8.3",
-    "winston": "^1.1.0"
+    "winston": "^2.2.0"
   },
   "nbbpm": {
-    "compatibility": "^0.9.1"
+    "compatibility": "^1.x"
   }
 }

@@ -7,6 +7,7 @@
         nodebb     = require('./nodebb');
 
     var accountHelpers = nodebb.accountHelpers,
+        helpers        = nodebb.helpers,
         routeHelpers   = nodebb.routesHelpers;
 
     Module.setup = function (params, callback) {
@@ -29,7 +30,7 @@
         // Client edit page
         routeHelpers.setupPageRoute(
             router, '/user/:userslug/edit/custom-fields',
-            middleware, [middleware.requireUser, middleware.exposeUid, middleware.checkGlobalPrivacySettings, middleware.checkAccountPermissions],
+            middleware, [middleware.checkGlobalPrivacySettings, middleware.checkAccountPermissions],
             Module.renderClient);
 
         callback();
@@ -56,6 +57,11 @@
 
                     return callback(null, {
                         title       : '[[pages:account/edit, ' + userData.username + ']]',
+                        breadcrumbs : helpers.buildBreadcrumbs([
+                            {text: userData.username, url: '/user/' + userData.userslug},
+                            {text: '[[user:edit]]', url: '/user/' + userData.userslug + '/edit'},
+                            {text: 'Custom Fields'}
+                        ]),
                         userData    : userData,
                         customFields: result
                     });

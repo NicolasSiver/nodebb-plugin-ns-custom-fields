@@ -100,7 +100,7 @@
 
     Filter.userAccountEdit = function (data, callback) {
         data.editButtons.push({
-            link: "/custom-fields",
+            link: "./edit/custom-fields",
             text: "Change Extra"
         });
 

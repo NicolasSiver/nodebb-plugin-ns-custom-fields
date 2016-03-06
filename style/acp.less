@@ -1,26 +1,38 @@
 @import "vars";
 @import "material-color/material-color-prefixed";
 
-.custom-fields-list {
-  .custom-fields-item {
+.cf-list {
+  .cf-item {
     height: @cs-line-height;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     padding: @cs-padding-small 0;
 
+    .cf-field-actions {
+      flex: 1 0 auto;
+    }
+
     .cf-field-name {
+      flex: 0 0 30%;
       font-weight: bold;
     }
+
+    .cf-field-key {
+      flex: 0 0 30%;
+    }
+
+    .cf-field-type {
+      flex: 0 0 25%;
+    }
+
   }
 
-  .custom-fields-item + .custom-fields-item {
+  .cf-item + .cf-item {
     border-top: 1px dashed @md-clr-blue-grey-100;
   }
 
-  .custom-fields-list-header {
-    height: @cs-line-height;
-    display: flex;
-    align-items: center;
+  .cf-header {
     color: @md-clr-grey-500;
   }
 

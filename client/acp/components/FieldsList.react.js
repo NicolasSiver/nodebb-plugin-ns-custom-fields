@@ -44,12 +44,11 @@ var FieldsList = React.createClass({
             <div className="panel panel-default">
                 <div className="panel-heading">Custom Fields</div>
                 <div className="panel-body">
-                    <div className="custom-fields-list">
-                        <div className="row custom-fields-list-header">
-                            <div className="col-lg-1">#</div>
-                            <div className="col-lg-3">Key</div>
-                            <div className="col-lg-3">Type</div>
-                            <div className="col-lg-5">Name</div>
+                    <div className="cf-list">
+                        <div className="cf-item cf-header">
+                            <div className="cf-field-key">Key</div>
+                            <div className="cf-field-type">Type</div>
+                            <div className="cf-field-name">Name</div>
                         </div>
                         {this.state.fields.map(renderItem)}
                     </div>

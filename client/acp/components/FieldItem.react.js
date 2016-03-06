@@ -31,12 +31,11 @@ var FieldItem = React.createClass({
         }
 
         return (
-            <div className="row custom-fields-item">
-                <div className="col-lg-1">{arrowPrevious}{arrowNext}</div>
-                <div className="col-lg-3">{this.props.field.key}</div>
-                <div className="col-lg-3">{typeContent}</div>
-                <div className="col-lg-3 cf-field-name">{this.props.field.name}</div>
-                <div className="col-lg-2">
+            <div className="cf-item">
+                <div className="cf-field-key">{this.props.field.key}</div>
+                <div className="cf-field-type">{typeContent}</div>
+                <div className="cf-field-name">{this.props.field.name}</div>
+                <div className="cf-field-actions">
                     <div className="pull-right"><i
                         className="fa fa-trash-o custom-fields-item-controls custom-fields-color-danger"
                         onClick={this._deleteItem}></i></div>

@@ -30,11 +30,12 @@
   "dependencies": {
     "browser-request": "^0.3.3",
     "flux": "^2.0.1",
-    "react": "^0.13.1"
+    "keymirror": "^0.1.1",
+    "react": "^0.14.7"
   },
   "devDependencies": {
-    "browserify": "^9.0.8",
-    "browserify-shim": "^3.8.5",
+    "browserify": "^13.0.0",
+    "browserify-shim": "^3.8.12",
     "envify": "^3.4.0",
     "reactify": "^1.1.0"
   }

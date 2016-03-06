@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher'),
     EventEmitter  = require('events').EventEmitter,
     assign        = require('react/lib/Object.assign'),
-    keyMirror     = require('react/lib/keyMirror'),
+    keyMirror     = require('keyMirror'),
     Constants     = require('../Constants'),
 
     jQuery        = require('jquery'),

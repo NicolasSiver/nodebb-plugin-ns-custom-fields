@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+var keyMirror = require('keyMirror');
 
 module.exports = keyMirror({
     EVENT_CHANGE_FIELD_ORDER: null,

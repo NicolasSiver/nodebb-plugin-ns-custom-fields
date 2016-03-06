@@ -110,31 +110,26 @@ var FieldInput = React.createClass({displayName: "FieldInput",
                 React.createElement("div", {className: "panel-heading"}, React.createElement("i", {className: "fa fa-plus-square"}), " Create Field"), 
                 React.createElement("div", {className: "panel-body"}, 
 
-                    React.createElement("div", {className: "row"}, 
-                        React.createElement("div", {className: "col-md-6"}, 
-                            React.createElement("div", {className: "form-group"}, 
-                                React.createElement("label", {htmlFor: "labelKey"}, "Key"), 
-                                React.createElement("input", {
-                                    id: "labelKey", 
-                                    type: "text", 
-                                    className: "form-control field-lower", 
-                                    onBlur: this._validateSpecialChars, 
-                                    valueLink: this.linkState('fieldKey'), 
-                                    placeholder: "Field Key (Ex: gender)"})
-                            )
-                        ), 
-                        React.createElement("div", {className: "col-md-6"}, 
-                            React.createElement("div", {className: "form-group"}, 
-                                React.createElement("label", {htmlFor: "labelName"}, "Name"), 
-                                React.createElement("input", {
-                                    id: "labelName", 
-                                    type: "text", 
-                                    className: "form-control", 
-                                    valueLink: this.linkState('fieldName'), 
-                                    placeholder: "Field Name (Ex: Gender)", 
-                                    value: this.state.value})
-                            )
-                        )
+                    React.createElement("div", {className: "form-group"}, 
+                        React.createElement("label", {htmlFor: "labelKey"}, "Key"), 
+                        React.createElement("input", {
+                            id: "labelKey", 
+                            type: "text", 
+                            className: "form-control field-lower", 
+                            onBlur: this._validateSpecialChars, 
+                            valueLink: this.linkState('fieldKey'), 
+                            placeholder: "Field Key (Ex: gender)"})
+                    ), 
+                    
+                    React.createElement("div", {className: "form-group"}, 
+                        React.createElement("label", {htmlFor: "labelName"}, "Name"), 
+                        React.createElement("input", {
+                            id: "labelName", 
+                            type: "text", 
+                            className: "form-control", 
+                            valueLink: this.linkState('fieldName'), 
+                            placeholder: "Field Name (Ex: Gender)", 
+                            value: this.state.value})
                     ), 
 
                     React.createElement("div", {className: "form-group"}, 

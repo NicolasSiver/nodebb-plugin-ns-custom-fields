@@ -1,4 +1,5 @@
 var Actions        = require('../actions/Actions'),
+    Bootbox        = require('bootbox'),
     ReactDnd       = require('react-dnd'),
     FieldsStore    = require('../stores/FieldsStore'),
     React          = require('react'),
@@ -55,7 +56,22 @@ var FieldItem = React.createClass({
     },
 
     deleteItem: function () {
-        Actions.deleteField(this.props.field.fid);
+        const fieldId = this.props.field.fid;
+        Bootbox.confirm({
+            size    : 'small',
+            title   : 'Attention: Field Deletion',
+            message : 'You are going to delete Custom Field. Are you sure?',
+            buttons : {
+                confirm: {
+                    label: "Delete"
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    Actions.deleteField(fieldId);
+                }
+            }
+        });
     },
 
     render: function () {

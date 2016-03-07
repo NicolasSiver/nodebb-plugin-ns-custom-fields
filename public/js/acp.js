@@ -292,7 +292,9 @@ module.exports = Donate;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"react":371,"react/lib/LinkedStateMixin":233}],6:[function(require,module,exports){
+(function (global){
 var Actions        = require('../actions/Actions'),
+    Bootbox        = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null),
     ReactDnd       = require('react-dnd'),
     FieldsStore    = require('../stores/FieldsStore'),
     React          = require('react'),
@@ -349,7 +351,22 @@ var FieldItem = React.createClass({displayName: "FieldItem",
     },
 
     deleteItem: function () {
-        Actions.deleteField(this.props.field.fid);
+        const fieldId = this.props.field.fid;
+        Bootbox.confirm({
+            size    : 'small',
+            title   : 'Attention: Field Deletion',
+            message : 'You are going to delete Custom Field. Are you sure?',
+            buttons : {
+                confirm: {
+                    label: "Delete"
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    Actions.deleteField(fieldId);
+                }
+            }
+        });
     },
 
     render: function () {
@@ -397,6 +414,7 @@ module.exports = ReactDnd.DragSource('field-item', sourceSpec, function (connect
     };
 })(FieldItem));
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":2,"../stores/FieldsStore":372,"react":371,"react-dnd":115,"react-dom":212}],7:[function(require,module,exports){
 var React          = require('react'),
     ReactPropTypes = React.PropTypes,

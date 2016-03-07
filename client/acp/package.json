@@ -23,7 +23,21 @@
     "app": "global:app",
     "jquery": "global:$",
     "socket": "global:socket",
-    "StripeCheckout": "global:StripeCheckout"
+    "StripeCheckout": "global:StripeCheckout",
+    "define": "global:define",
+    "bootstrap": {
+      "exports": "global:bootstrap",
+      "depends": [
+        "jquery"
+      ]
+    },
+    "bootbox": {
+      "exports": "global:bootbox",
+      "depends": [
+        "jquery",
+        "bootstrap"
+      ]
+    }
   },
   "author": "Nicolas Siver",
   "license": "MIT",

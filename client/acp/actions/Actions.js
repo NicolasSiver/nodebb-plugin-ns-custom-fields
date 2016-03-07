@@ -2,16 +2,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     Constants     = require('../Constants');
 
 module.exports = {
-    changeFieldOrder: function (id, offset) {
+    changeOrder: function (from, to) {
         AppDispatcher.dispatch({
-            actionType: Constants.EVENT_CHANGE_FIELD_ORDER,
-            id        : id,
-            offset    : offset
+            actionType  : Constants.EVENT_CHANGE_FIELD_ORDER,
+            currentIndex: from,
+            newIndex    : to
         });
-    },
-
-    changeOrder: function(from, to) {
-
     },
 
     createField: function (key, name, type, meta) {

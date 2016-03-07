@@ -45,7 +45,6 @@ or
 
 ## TODO
 
-- Edit Custom Field (key, name)
 - Use Custom Fields in extended Tooltip for @mentions
 - Use Sockets in ACP
 - Add Sections to group custom fields
@@ -53,6 +52,5 @@ or
 - Add Parser handler to create additional formatting (Ex: by having Steam Id, create full url to the profile)
 - Add Tests (Mocha/Tape)
 - Add utility method: clear unused fields
-- Drag-n-drop for Custom Fields order
 - Layout designer for Edit page
 - Group custom fields, i.e. IM, Networks, etc.

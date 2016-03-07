@@ -78,26 +78,21 @@ AppDispatcher.register(function (action) {
 
             break;
         case Constants.EVENT_CHANGE_FIELD_ORDER:
-            var len = _fields.length, fromIndex, toIndex, i = 0, fromId = action.id, tmpField;
-            for (i; i < len; ++i) {
-                if (_fields[i].fid === fromId) {
-                    fromIndex = i;
-                    toIndex = i + action.offset;
-                    break;
-                }
-            }
+            const fromId = _fields[action.currentIndex].fid,
+                  toId   = _fields[action.newIndex].fid;
             jQuery
                 .ajax({
                     url       : apiUri + '/fields/' + fromId + '/swap',
                     method    : 'PUT',
                     data      : {
-                        id: _fields[toIndex].fid
+                        id: toId
                     },
                     beforeSend: function () {
                         //Optimistic swap
-                        tmpField = _fields[fromIndex];
-                        _fields[fromIndex] = _fields[toIndex];
-                        _fields[toIndex] = tmpField;
+                        _fields = _fields.slice();
+                        var tmpField = _fields[action.currentIndex];
+                        _fields[action.currentIndex] = _fields[action.newIndex];
+                        _fields[action.newIndex] = tmpField;
                         FieldsStore.emitChange();
                     }
                 })

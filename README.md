@@ -1,6 +1,6 @@
 # NodeBB: Custom Fields
 
-Adds additional fields to the user's profile
+Adds additional fields to the user's profile. Would you like to provide gender option for user profiles, or zodiac, or twitter handler, or facebook page, this plugin will help you.
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-custom-fields.svg)
 ![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-custom-fields.svg)

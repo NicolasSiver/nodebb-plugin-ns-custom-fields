@@ -1,8 +1,8 @@
 var Actions        = require('../actions/Actions'),
     Bootbox        = require('bootbox'),
-    ReactDnd       = require('react-dnd'),
     FieldsStore    = require('../stores/FieldsStore'),
     React          = require('react'),
+    ReactDnd       = require('react-dnd'),
     ReactDom       = require('react-dom'),
     ReactPropTypes = React.PropTypes;
 
@@ -41,7 +41,10 @@ const targetSpec = {
             return;
         }
 
-        console.log('swap', dragIndex, hoverIndex);
+        Actions.changeOrder(dragIndex, hoverIndex);
+
+        // Optimistic change, mutation
+        monitor.getItem().index = hoverIndex;
     }
 };
 
@@ -100,12 +103,7 @@ var FieldItem = React.createClass({
                 </div>
             </div>
         ));
-    },
-
-    _changeOrder: function (offset) {
-        Actions.changeFieldOrder(this.props.field.fid, offset);
     }
-
 });
 
 module.exports = ReactDnd.DragSource('field-item', sourceSpec, function (connect, monitor) {

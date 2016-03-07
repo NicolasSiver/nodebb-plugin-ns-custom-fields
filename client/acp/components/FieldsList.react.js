@@ -31,8 +31,23 @@ var FieldsList = React.createClass({
     },
 
     render: function () {
-        if (this.state.fields.length < 1) {
+        const len = this.state.fields.length, bodyElements = [];
+        var i = 0, field;
+
+        if (len < 1) {
             return <div className="alert alert-warning" role="alert">No Custom Fields</div>;
+        }
+
+        for (i; i < len; ++i) {
+            field = this.state.fields[i];
+            bodyElements.push(<FieldItem
+                key={field.fid}
+                field={field}
+                index={i}
+                id={field.fid}/>);
+            bodyElements.push(<div
+                key={'sep' + i}
+                className="cf-separator"></div>);
         }
 
         return (
@@ -45,13 +60,8 @@ var FieldsList = React.createClass({
                             <div className="cf-field-type">Type</div>
                             <div className="cf-field-name">Name</div>
                         </div>
-                        {this.state.fields.map(function (field, index) {
-                            return <FieldItem
-                                key={field.fid}
-                                field={field}
-                                index={index}
-                                id={field.fid}/>;
-                        })}
+
+                        {bodyElements}
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 ## v4.0.0 - TBD
 
 - Use ACP Scripts capabilities of NodeBB
-- Improved UX of ACP panel
+- Improved UX of ACP panel: confirmation windows, sort, edit
 
 ## v3.0.1 - 12/9/2015
 

@@ -23,6 +23,10 @@ module.exports = {
         });
     },
 
+    changeOrder: function(from, to) {
+
+    },
+
     createField: function (key, name, type, meta) {
         AppDispatcher.dispatch({
             actionType: Constants.EVENT_CREATE_FIELD,
@@ -295,9 +299,9 @@ module.exports = Donate;
 (function (global){
 var Actions        = require('../actions/Actions'),
     Bootbox        = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null),
-    ReactDnd       = require('react-dnd'),
     FieldsStore    = require('../stores/FieldsStore'),
     React          = require('react'),
+    ReactDnd       = require('react-dnd'),
     ReactDom       = require('react-dom'),
     ReactPropTypes = React.PropTypes;
 
@@ -336,7 +340,10 @@ const targetSpec = {
             return;
         }
 
-        console.log('swap', dragIndex, hoverIndex);
+        Actions.changeOrder(dragIndex, hoverIndex);
+
+        // Optimistic change, mutation
+        monitor.getItem().index = hoverIndex;
     }
 };
 
@@ -395,12 +402,7 @@ var FieldItem = React.createClass({displayName: "FieldItem",
                 )
             )
         ));
-    },
-
-    _changeOrder: function (offset) {
-        Actions.changeFieldOrder(this.props.field.fid, offset);
     }
-
 });
 
 module.exports = ReactDnd.DragSource('field-item', sourceSpec, function (connect, monitor) {
@@ -449,8 +451,23 @@ var FieldsList = React.createClass({displayName: "FieldsList",
     },
 
     render: function () {
-        if (this.state.fields.length < 1) {
+        const len = this.state.fields.length, bodyElements = [];
+        var i = 0, field;
+
+        if (len < 1) {
             return React.createElement("div", {className: "alert alert-warning", role: "alert"}, "No Custom Fields");
+        }
+
+        for (i; i < len; ++i) {
+            field = this.state.fields[i];
+            bodyElements.push(React.createElement(FieldItem, {
+                key: field.fid, 
+                field: field, 
+                index: i, 
+                id: field.fid}));
+            bodyElements.push(React.createElement("div", {
+                key: 'sep' + i, 
+                className: "cf-separator"}));
         }
 
         return (
@@ -463,13 +480,8 @@ var FieldsList = React.createClass({displayName: "FieldsList",
                             React.createElement("div", {className: "cf-field-type"}, "Type"), 
                             React.createElement("div", {className: "cf-field-name"}, "Name")
                         ), 
-                        this.state.fields.map(function (field, index) {
-                            return React.createElement(FieldItem, {
-                                key: field.fid, 
-                                field: field, 
-                                index: index, 
-                                id: field.fid});
-                        })
+
+                        bodyElements
                     )
                 )
             )

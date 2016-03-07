@@ -4,6 +4,7 @@ var keyMirror = require('keyMirror');
 module.exports = keyMirror({
     EVENT_CHANGE_FIELD_ORDER: null,
     EVENT_CREATE_FIELD      : null,
+    EVENT_EDIT_FIELD        : null,
     EVENT_GET_ALL_FIELDS    : null,
     EVENT_GET_SETTINGS      : null,
     EVENT_REMOVE_FIELD      : null,
@@ -36,6 +37,13 @@ module.exports = {
     deleteField: function (id) {
         AppDispatcher.dispatch({
             actionType: Constants.EVENT_REMOVE_FIELD,
+            id        : id
+        });
+    },
+
+    editField: function (id) {
+        AppDispatcher.dispatch({
+            actionType: Constants.EVENT_EDIT_FIELD,
             id        : id
         });
     },
@@ -356,7 +364,6 @@ var FieldItem = React.createClass({displayName: "FieldItem",
     deleteItem: function () {
         const fieldId = this.props.field.fid;
         Bootbox.confirm({
-            size    : 'small',
             title   : 'Attention: Field Deletion',
             message : 'You are going to delete Custom Field. Are you sure?',
             buttons : {
@@ -370,6 +377,10 @@ var FieldItem = React.createClass({displayName: "FieldItem",
                 }
             }
         });
+    },
+
+    editItem: function () {
+        Actions.editField(this.props.field.fid);
     },
 
     render: function () {
@@ -391,7 +402,8 @@ var FieldItem = React.createClass({displayName: "FieldItem",
                 React.createElement("div", {className: "cf-field-name"}, this.props.field.name), 
                 React.createElement("div", {className: "cf-field-actions"}, 
                     React.createElement("div", {className: "pull-right"}, 
-                        React.createElement("i", {className: "fa fa-pencil custom-fields-item-controls"}), 
+                        React.createElement("i", {className: "fa fa-pencil custom-fields-item-controls", 
+                           onClick: this.editItem}), 
                         React.createElement("i", {className: "fa fa-trash-o custom-fields-item-controls custom-fields-color-danger", 
                            onClick: this.deleteItem})
                     )
@@ -27486,6 +27498,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',
     _fields       = [],
+    _edits        = {},
     _types        = [
         {name: 'Input', type: 'input'},
         {name: 'Select', type: 'select'}

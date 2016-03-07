@@ -61,7 +61,6 @@ var FieldItem = React.createClass({
     deleteItem: function () {
         const fieldId = this.props.field.fid;
         Bootbox.confirm({
-            size    : 'small',
             title   : 'Attention: Field Deletion',
             message : 'You are going to delete Custom Field. Are you sure?',
             buttons : {
@@ -75,6 +74,10 @@ var FieldItem = React.createClass({
                 }
             }
         });
+    },
+
+    editItem: function () {
+        Actions.editField(this.props.field.fid);
     },
 
     render: function () {
@@ -96,7 +99,8 @@ var FieldItem = React.createClass({
                 <div className="cf-field-name">{this.props.field.name}</div>
                 <div className="cf-field-actions">
                     <div className="pull-right">
-                        <i className="fa fa-pencil custom-fields-item-controls"></i>
+                        <i className="fa fa-pencil custom-fields-item-controls"
+                           onClick={this.editItem}></i>
                         <i className="fa fa-trash-o custom-fields-item-controls custom-fields-color-danger"
                            onClick={this.deleteItem}></i>
                     </div>

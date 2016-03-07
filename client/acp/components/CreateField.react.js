@@ -57,7 +57,7 @@ var FieldInput = React.createClass({
                             valueLink={this.linkState('fieldKey')}
                             placeholder="Field Key (Ex: gender)"/>
                     </div>
-                    
+
                     <div className="form-group">
                         <label htmlFor="labelName">Name</label>
                         <input

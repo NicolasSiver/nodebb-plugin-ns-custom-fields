@@ -2,9 +2,10 @@ define('admin/plugins/custom-fields', [], function () {
     return {
         init: function () {
             var React           = require('react'),
+                ReactDom        = require('react-dom'),
                 CustomFieldsApp = require('./components/CustomFieldsApp.react');
 
-            React.render(
+            ReactDom.render(
                 <CustomFieldsApp />,
                 document.getElementById('manageFieldsApp')
             );

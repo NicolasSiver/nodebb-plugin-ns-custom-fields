@@ -2,7 +2,9 @@ var React          = require('react'),
     ReactPropTypes = React.PropTypes,
     FieldsStore    = require('../stores/FieldsStore'),
     FieldItem      = require('./FieldItem.react'),
-    Actions        = require('../actions/Actions');
+    Actions        = require('../actions/Actions'),
+    HTML5Backend   = require('react-dnd-html5-backend'),
+    ReactDnd       = require('react-dnd');
 
 function getFieldsState() {
     return {
@@ -32,13 +34,6 @@ var FieldsList = React.createClass({
         if (this.state.fields.length < 1) {
             return <div className="alert alert-warning" role="alert">No Custom Fields</div>;
         }
-        function renderItem(field, index, list) {
-            return <FieldItem
-                key={field.fid}
-                field={field}
-                previous={index > 0}
-                next={index < (list.length - 1)}/>
-        }
 
         return (
             <div className="panel panel-default">
@@ -50,7 +45,13 @@ var FieldsList = React.createClass({
                             <div className="cf-field-type">Type</div>
                             <div className="cf-field-name">Name</div>
                         </div>
-                        {this.state.fields.map(renderItem)}
+                        {this.state.fields.map(function (field, index) {
+                            return <FieldItem
+                                key={field.fid}
+                                field={field}
+                                index={index}
+                                id={field.fid}/>;
+                        })}
                     </div>
                 </div>
             </div>
@@ -58,4 +59,4 @@ var FieldsList = React.createClass({
     }
 });
 
-module.exports = FieldsList;
+module.exports = ReactDnd.DragDropContext(HTML5Backend)(FieldsList);

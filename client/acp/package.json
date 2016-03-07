@@ -31,7 +31,10 @@
     "browser-request": "^0.3.3",
     "flux": "^2.0.1",
     "keymirror": "^0.1.1",
-    "react": "^0.14.7"
+    "react": "^0.14.7",
+    "react-dnd": "^2.1.2",
+    "react-dnd-html5-backend": "^2.1.2",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "browserify": "^13.0.0",

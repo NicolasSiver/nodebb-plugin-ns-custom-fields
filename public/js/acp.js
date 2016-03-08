@@ -27567,7 +27567,8 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     socket        = (typeof window !== "undefined" ? window['socket'] : typeof global !== "undefined" ? global['socket'] : null),
 
     API           = {
-        CREATE_FIELD: 'plugins.ns-custom-fields.createField'
+        CREATE_FIELD: 'plugins.ns-custom-fields.createField',
+        UPDATE_FIELD: 'plugins.ns-custom-fields.updateField'
     },
 
     apiUri        = '../../api/admin/plugins/custom-fields',
@@ -27637,15 +27638,7 @@ AppDispatcher.register(function (action) {
             FieldsStore.emitChange();
             break;
         case Constants.EVENT_GET_ALL_FIELDS:
-            jQuery
-                .ajax({
-                    url: apiUri + '/fields'
-                })
-                .done(function (response) {
-                    _fields = response;
-                    FieldsStore.emitChange();
-                });
-
+            getFields();
             break;
         case Constants.EVENT_EDIT_FIELD:
             var edit = _edits[action.id], field;
@@ -27656,9 +27649,16 @@ AppDispatcher.register(function (action) {
                     return;
                 }
 
-                // Optimistic update
-                delete _edits[action.id];
-                FieldsStore.emitChange();
+                socket.emit(API.UPDATE_FIELD, {
+                    id    : action.id,
+                    update: {
+                        name: edit.name
+                    }
+                }, function (error) {
+                    // Optimistic update
+                    delete _edits[action.id];
+                    getFields();
+                });
                 return;
             }
 
@@ -27742,6 +27742,17 @@ function findFieldById(id, list) {
 
     // To omit null value handling
     return {name: ''};
+}
+
+function getFields() {
+    jQuery
+        .ajax({
+            url: apiUri + '/fields'
+        })
+        .done(function (response) {
+            _fields = response;
+            FieldsStore.emitChange();
+        });
 }
 
 module.exports = FieldsStore;

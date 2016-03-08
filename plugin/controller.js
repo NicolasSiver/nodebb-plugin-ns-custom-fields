@@ -66,6 +66,10 @@
         });
     };
 
+    Controller.updateField = function (id, update, done) {
+        database.updateFieldWithBody(id, update, done);
+    };
+
     function filterMeta(meta, type, name) {
         var promptMessage = meta.prompt || name;
         var result = {

@@ -194,4 +194,10 @@
         });
     };
 
+    Database.updateFieldWithBody = function (id, update, done) {
+        async.waterfall([
+            async.apply(db.setObject, namespace + ':' + id, update)
+        ], done);
+    };
+
 })(module.exports);

@@ -1,4 +1,4 @@
-(function (Module) {
+(function (Socket) {
     'use strict';
 
     var controller = require('./controller'),
@@ -10,37 +10,42 @@
 
         namespace  = constants.SOCKETS;
 
-    Module.setup = function (callback) {
+    Socket.setup = function (callback) {
         sockets[namespace] = {};
         //Acknowledgements
-        sockets[namespace].createField = Module.createField;
-        sockets[namespace].getFields = Module.getFields;
-        sockets[namespace].getSettings = Module.getSettings;
-        sockets[namespace].saveFields = Module.saveFields;
-        sockets[namespace].setSettings = Module.setSettings;
+        sockets[namespace].createField = Socket.createField;
+        sockets[namespace].getFields = Socket.getFields;
+        sockets[namespace].getSettings = Socket.getSettings;
+        sockets[namespace].saveFields = Socket.saveFields;
+        sockets[namespace].setSettings = Socket.setSettings;
+        sockets[namespace].updateField = Socket.updateField;
 
         callback();
     };
 
-    Module.createField = function (socket, payload, callback) {
+    Socket.createField = function (socket, payload, callback) {
         controller.createField(payload.fieldKey, payload.fieldName, payload.fieldType, payload.fieldMeta || {}, callback);
     };
 
-    Module.getFields = function (socket, payload, callback) {
+    Socket.getFields = function (socket, payload, callback) {
         controller.getCustomFields(payload.uid, callback);
     };
 
-    Module.getSettings = function (socket, callback) {
+    Socket.getSettings = function (socket, callback) {
         callback(null, settings.get());
     };
 
-    Module.saveFields = function (socket, payload, callback) {
+    Socket.saveFields = function (socket, payload, callback) {
         logger.log('verbose', 'Storing fields for user: %d', payload.uid);
         database.saveClientFields(payload.uid, payload.data, callback);
     };
 
-    Module.setSettings = function (socket, values, callback) {
+    Socket.setSettings = function (socket, values, callback) {
         settings.save(values, callback);
+    };
+
+    Socket.updateField = function (socket, payload, callback) {
+        controller.updateField(payload.id, payload.update, callback);
     };
 
 })(module.exports);

@@ -1,5 +1,6 @@
 var Actions        = require('../actions/Actions'),
     Bootbox        = require('bootbox'),
+    classNames     = require('classnames'),
     FieldsStore    = require('../stores/FieldsStore'),
     React          = require('react'),
     ReactDnd       = require('react-dnd'),
@@ -80,8 +81,23 @@ var FieldItem = React.createClass({
         Actions.editField(this.props.field.fid);
     },
 
+    nameDidChange: function (e) {
+        Actions.fieldNameWillEdit(this.props.field.fid, e.target.value);
+    },
+
     render: function () {
         var typeContent, Type = FieldsStore.getTypeEnum();
+        const isEdit = !!this.props.field.edit;
+        const editClass = classNames(
+            'fa', 'custom-fields-item-controls',
+            {'fa-pencil': !isEdit, 'fa-check': isEdit, 'cf-color-success': isEdit && this.props.field.edit.valid}
+        );
+        const editContent = isEdit ? <input
+            type="text"
+            className="form-control"
+            placeholder="Enter name"
+            value={this.props.field.edit.name}
+            onChange={this.nameDidChange}/> : this.props.field.name;
 
         switch (this.props.field.type) {
             case Type.input:
@@ -96,10 +112,10 @@ var FieldItem = React.createClass({
             <div className="cf-item" style={{opacity: this.props.isDragging ? 0.2 : 1}}>
                 <div className="cf-field-key">{this.props.field.key}</div>
                 <div className="cf-field-type">{typeContent}</div>
-                <div className="cf-field-name">{this.props.field.name}</div>
+                <div className="cf-field-name">{editContent}</div>
                 <div className="cf-field-actions">
                     <div className="pull-right">
-                        <i className="fa fa-pencil custom-fields-item-controls"
+                        <i className={editClass}
                            onClick={this.editItem}></i>
                         <i className="fa fa-trash-o custom-fields-item-controls custom-fields-color-danger"
                            onClick={this.deleteItem}></i>

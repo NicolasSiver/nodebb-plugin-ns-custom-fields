@@ -14,6 +14,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     apiUri        = '../../api/admin/plugins/custom-fields',
     CHANGE_EVENT  = 'change',
     _fields       = [],
+    _edits        = {},
     _types        = [
         {name: 'Input', type: 'input'},
         {name: 'Select', type: 'select'}
@@ -34,7 +35,10 @@ var FieldsStore = assign({}, EventEmitter.prototype, {
     },
 
     getAll: function () {
-        return _fields;
+        return _fields.map(function (field, index) {
+            field.edit = _edits[field.fid];
+            return field;
+        });
     },
 
     getDefaultFieldType: function () {
@@ -66,6 +70,13 @@ var FieldsStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
+        case Constants.EVENT_EDIT_FIELD_NAME:
+            _edits[action.id] = {
+                name : action.value,
+                valid: action.value.length > 0
+            };
+            FieldsStore.emitChange();
+            break;
         case Constants.EVENT_GET_ALL_FIELDS:
             jQuery
                 .ajax({
@@ -76,6 +87,28 @@ AppDispatcher.register(function (action) {
                     FieldsStore.emitChange();
                 });
 
+            break;
+        case Constants.EVENT_EDIT_FIELD:
+            var edit = _edits[action.id], field;
+
+            if (!!edit) {
+                if (!edit.valid) {
+                    // As option, exit edit mode
+                    return;
+                }
+
+                // Optimistic update
+                delete _edits[action.id];
+                FieldsStore.emitChange();
+                return;
+            }
+
+            field = findFieldById(action.id, _fields);
+            _edits[action.id] = {
+                name : field.name,
+                valid: true
+            };
+            FieldsStore.emitChange();
             break;
         case Constants.EVENT_CHANGE_FIELD_ORDER:
             const fromId = _fields[action.currentIndex].fid,
@@ -138,5 +171,18 @@ AppDispatcher.register(function (action) {
 
     return true;
 });
+
+function findFieldById(id, list) {
+    var i = 0, len = list.length, field;
+    for (i; i < len; ++i) {
+        field = list[i];
+        if (field.fid === id) {
+            return field;
+        }
+    }
+
+    // To omit null value handling
+    return {name: ''};
+}
 
 module.exports = FieldsStore;

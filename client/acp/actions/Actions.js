@@ -27,6 +27,21 @@ module.exports = {
         });
     },
 
+    editField: function (id) {
+        AppDispatcher.dispatch({
+            actionType: Constants.EVENT_EDIT_FIELD,
+            id        : id
+        });
+    },
+
+    fieldNameWillEdit: function (id, value) {
+        AppDispatcher.dispatch({
+            actionType: Constants.EVENT_EDIT_FIELD_NAME,
+            id        : id,
+            value     : value
+        });
+    },
+
     getFields: function () {
         AppDispatcher.dispatch({
             actionType: Constants.EVENT_GET_ALL_FIELDS

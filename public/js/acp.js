@@ -393,6 +393,12 @@ var FieldItem = React.createClass({displayName: "FieldItem",
         Actions.editField(this.props.field.fid);
     },
 
+    keyDidPress: function (e) {
+        if (e.key === 'Enter') {
+            this.editItem();
+        }
+    },
+
     nameDidChange: function (e) {
         Actions.fieldNameWillEdit(this.props.field.fid, e.target.value);
     },
@@ -409,7 +415,8 @@ var FieldItem = React.createClass({displayName: "FieldItem",
             className: "form-control", 
             placeholder: "Enter name", 
             value: this.props.field.edit.name, 
-            onChange: this.nameDidChange}) : this.props.field.name;
+            onChange: this.nameDidChange, 
+            onKeyDown: this.keyDidPress}) : this.props.field.name;
 
         switch (this.props.field.type) {
             case Type.input:

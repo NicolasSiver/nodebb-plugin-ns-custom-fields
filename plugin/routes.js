@@ -50,21 +50,20 @@
                     return callback(new Error('User ' + req.params.userslug + ' is not found'));
                 }
 
-                controller.getCustomFields(userData.uid, function (e, result) {
+                controller.getCustomFields(userData.uid, function (e, fields) {
                     if (e != null) {
                         return callback(e);
                     }
 
-                    return callback(null, {
-                        title       : '[[pages:account/edit, ' + userData.username + ']]',
-                        breadcrumbs : helpers.buildBreadcrumbs([
-                            {text: userData.username, url: '/user/' + userData.userslug},
-                            {text: '[[user:edit]]', url: '/user/' + userData.userslug + '/edit'},
-                            {text: 'Custom Fields'}
-                        ]),
-                        userData    : userData,
-                        customFields: result
-                    });
+                    userData.title = '[[pages:account/edit, ' + userData.username + ']]';
+                    userData.breadcrumbs = helpers.buildBreadcrumbs([
+                        {text: userData.username, url: '/user/' + userData.userslug},
+                        {text: '[[user:edit]]', url: '/user/' + userData.userslug + '/edit'},
+                        {text: 'Custom Fields'}
+                    ]);
+                    userData.customFields = fields;
+
+                    callback(null, userData);
                 });
             }
         ], function (e, result) {

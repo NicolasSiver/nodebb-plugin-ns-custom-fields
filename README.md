@@ -11,11 +11,24 @@ Adds additional fields to the user's profile. Would you like to provide gender o
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
  
 
+- [Screenshots](#screenshots)
+  - [Field Management](#field-management)
+  - [Field Creation](#field-creation)
 - [Themes](#themes)
   - [Profile View](#profile-view)
 - [TODO](#todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Screenshots
+
+### Field Management
+
+![Custom Fields List](screenshot.png)
+
+### Field Creation
+
+![Field Creation](screenshot2.png)
 
 ## Themes
 

@@ -1,9 +1,10 @@
 # Changelog
 
-## v4.0.0 - TBD
+## v4.0.0 - 03/09/2016
 
 - Use ACP Scripts capabilities of NodeBB
-- Improved UX of ACP panel: confirmation windows, sort, edit
+- Improved UX of ACP panel: confirmation windows, sort via drag-n-drop, edit
+- Seamless field editing for users: sub-page for editing
 
 ## v3.0.1 - 12/9/2015
 

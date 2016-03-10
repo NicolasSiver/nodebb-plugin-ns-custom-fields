@@ -5,8 +5,6 @@ define('forum/client/plugins/custom-fields-edit', [], function () {
 
     var Edit = {};
 
-    // TODO User ajaxify.data.theirid ?
-
     var idPrefix = 'field_',
         api      = {
             get : 'plugins.ns-custom-fields.getFields',
@@ -26,12 +24,12 @@ define('forum/client/plugins/custom-fields-edit', [], function () {
             }
         });
 
-        socket.emit(api.save, {uid: ajaxify.data.userData.theirid, data: data}, function (error) {
+        socket.emit(api.save, {uid: ajaxify.data.theirid, data: data}, function (error) {
             if (error) {
                 return app.alertError(error.message);
             }
 
-            app.alertSuccess('Custom Fields are saved');
+            app.alertSuccess('Custom fields are saved.');
         });
     };
 

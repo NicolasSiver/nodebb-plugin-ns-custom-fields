@@ -4,7 +4,7 @@
   "description": "Client code for admin panel controls",
   "main": "index.js",
   "scripts": {
-    "build": "browserify . -o ../../public/js/acp.js",
+    "build": "NODE_ENV=production browserify -t envify -g uglifyify index.js -o ../../public/js/acp.js",
     "watch": "watchify index.js -o ../../public/js/acp.js --verbose",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -55,6 +55,7 @@
     "browserify": "^13.0.0",
     "browserify-shim": "^3.8.12",
     "envify": "^3.4.0",
-    "reactify": "^1.1.0"
+    "reactify": "^1.1.0",
+    "uglifyify": "^3.0.1"
   }
 }

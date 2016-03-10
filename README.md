@@ -34,11 +34,11 @@ Adds additional fields to the user's profile. Would you like to provide gender o
 
 ### Profile View
 
-Plugin provides additional Array under `customFields` field in user data for Account/Profile page.
+Plugin provides additional collection under `customFields` field in user data for Account/Profile page.
 
 You can use predefined templates via `IMPORT` directive.
 
-**NodeBB 0.9.1**, Persona, Flex Version (insert link on template in user's profile template wherever you like):
+**NodeBB 1.x.x**, Persona, Flex Version (insert link on template in user's profile template wherever you like):
 
 ```html
 <!-- IMPORT partials/account/custom_fields_flex.tpl -->

@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ns-custom-fields",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Adds custom fields to the profile",
   "main": "./plugin/index.js",
   "scripts": {

@@ -33,6 +33,6 @@
     "winston": "^2.2.0"
   },
   "nbbpm": {
-    "compatibility": "^1.x"
+    "compatibility": "^1.5.0"
   }
 }

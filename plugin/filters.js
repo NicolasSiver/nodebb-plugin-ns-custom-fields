@@ -40,11 +40,6 @@
         });
     };
 
-    Filter.adminScripts = function (list, callback) {
-        list.push('https://checkout.stripe.com/checkout.js');
-        callback(null, list);
-    };
-
     /**
      * Hook to render user profile.
      * 'userData' will be used as payload in hook handler.

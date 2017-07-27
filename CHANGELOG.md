@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.1 - 07/27/2017
+
+- Fix relative path in user's profile.
+
 ## v5.0.0 - 06/19/2017
 
 - Compatibility with NodeBB v1.5.0

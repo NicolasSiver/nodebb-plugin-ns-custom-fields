@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.1.0 - 06/17/2018
+
+- Changed dependency for `async` and `fs-extra`
+- Removed code climate integration
+- Security update to handle custom HTML in the user fields
+
 ## v5.0.1 - 07/27/2017
 
 - Fix relative path in user's profile.

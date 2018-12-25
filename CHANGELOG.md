@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.0.0 - 12/25/2018
+
+- Changed compatibility with NodeBB v1.11.x
+
 ## v5.1.0 - 06/17/2018
 
 - Changed dependency for `async` and `fs-extra`

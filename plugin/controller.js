@@ -2,18 +2,16 @@
     'use strict';
 
     var async     = require('async'),
-        util      = require('util'),
         keyMirror = require('keymirror'),
+        util      = require('util');
 
-        settings  = require('./settings'),
-        database  = require('./database'),
-        constants = require('./constants'),
-        logger    = require('./logger'),
+    var database = require('./database'),
+        logger   = require('./logger');
 
-        Types     = keyMirror({
-            input : null,
-            select: null
-        });
+    var Types = keyMirror({
+        input : null,
+        select: null
+    });
 
     Controller.createField = function (key, name, type, meta, done) {
         if (!Types[type]) {
@@ -47,7 +45,7 @@
                     field = result.fields[i];
                     var value = result.data[field.key];
                     if (value) {
-                        if (field.type == Types.select) {
+                        if (field.type === Types.select) {
                             customFields.push({
                                 name : field.name,
                                 value: getTextById(value, field.options)
@@ -90,7 +88,7 @@
         var i = 0, len = list.length, item;
         for (i; i < len; ++i) {
             item = list[i];
-            if (item.id == id) {
+            if (item.id === id) {
                 return item.text;
             }
         }

@@ -2,21 +2,21 @@
     'use strict';
 
     var async        = require('async'),
-        objectAssign = require('object-assign'),
+        objectAssign = require('object-assign');
 
-        db           = require('./nodebb').db,
-        constants    = require('./constants'),
-        namespace    = constants.NAMESPACE,
-        logger       = require('./logger');
+    var db        = require('./nodebb').db,
+        constants = require('./constants'),
+        logger    = require('./logger');
 
     var createField = function (id, key, name, type) {
-        return {
-            fid : id,
-            key : key,
-            name: name,
-            type: type
-        };
-    };
+            return {
+                fid : id,
+                key : key,
+                name: name,
+                type: type
+            };
+        },
+        namespace   = constants.NAMESPACE;
 
     var createObjectKey = function (uid) {
         return 'user:' + uid + ':' + namespace;
@@ -26,7 +26,7 @@
         //Secure key
         var notSecureFields = ['_key', '_id'];
         var index = notSecureFields.indexOf(key);
-        if (index != -1) {
+        if (index !== -1) {
             logger.log('warn', '%s field is not allowed, please use another', key);
             return done(new Error(key + ' field is not allowed'));
         }
@@ -118,16 +118,16 @@
                 var fromScore = -1, toScore = -1, i = 0, len = sortedFields.length, field;
                 for (i; i < len; ++i) {
                     field = sortedFields[i];
-                    if (fromId == field.value) {
+                    if (fromId === field.value) {
                         fromScore = field.score;
-                    } else if (toId == field.value) {
+                    } else if (toId === field.value) {
                         toScore = field.score;
                     } else if (fromScore >= 0 && toScore >= 0) {
                         break;
                     }
                 }
 
-                if (fromScore == -1 || toScore == -1) {
+                if (fromScore === -1 || toScore === -1) {
                     return next(new Error('Something went wrong, provided field Ids can not be found'));
                 }
 

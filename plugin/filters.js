@@ -4,8 +4,7 @@
     var async      = require('async'),
         controller = require('./controller'),
         database   = require('./database'),
-        settings   = require('./settings'),
-        constants  = require('./constants');
+        settings   = require('./settings');
 
     var faIcon = 'fa-plus-square';
 

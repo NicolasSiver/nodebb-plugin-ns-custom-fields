@@ -1,24 +1,13 @@
 (function (Plugin) {
     'use strict';
 
-    var async     = require('async'),
-        _         = require('underscore'),
-        path      = require('path'),
+    var async = require('async');
 
-        nconf     = require('./nodebb').nconf,
-        routes    = require('./routes'),
-        sockets   = require('./sockets'),
-        constants = require('./constants'),
-        filters   = require('./filters'),
-        settings  = require('./settings'),
-        logger    = require('./logger');
-
-    function changeTemplates() {
-        var fs       = require('fs-extra'),
-            editPath = path.join(nconf.get('base_dir'), 'public/templates/account/edit.tpl');
-
-        fs.copySync(path.join(__dirname, './public/templates/account/edit.tpl'), editPath);
-    }
+    var routes   = require('./routes'),
+        sockets  = require('./sockets'),
+        filters  = require('./filters'),
+        settings = require('./settings'),
+        logger   = require('./logger');
 
     //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
     Plugin.hooks = {
@@ -36,7 +25,6 @@
                     logger.log('verbose', 'Plugin is initiated successfully');
                     callback(null);
                 });
-                //emitter.on('templates:compiled', changeTemplates);
             }
         }
     };

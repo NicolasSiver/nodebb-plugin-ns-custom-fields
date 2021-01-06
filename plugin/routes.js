@@ -30,7 +30,7 @@
         // Client edit page
         routeHelpers.setupPageRoute(
             router, '/user/:userslug/edit/custom-fields',
-            middleware, [middleware.checkGlobalPrivacySettings, middleware.checkAccountPermissions],
+            middleware, [middleware.canViewUsers, middleware.checkAccountPermissions],
             Module.renderClient);
 
         callback();
